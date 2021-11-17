@@ -1,0 +1,50 @@
+﻿@model QLNHATHAU.Models.CheckInforRegistration
+@using (Html.BeginForm("CheckInformation", "Registration", FormMethod.Post, new { enctype = "multipart/form-data" }))
+
+{
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="ModalTitle"></h5>
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+            </div>
+
+            <div class="modal-body">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.HoSoID)
+                <fieldset id="SubmitForm">
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped" cellspacing="0">
+                            <tr>
+                                <td>Kiểm duyệt PBQL</td>
+                                <td>
+                                    @Html.DropDownListFor(model => model.IDTrPBPQL, ViewBag.TrPBPQLList as SelectList, new { @id = "IDTrPBPQL", @class = "form-control" })
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Kiểm duyệt P.HCDN</td>
+                                <td>
+                                    @Html.DropDownListFor(model => model.IDTrPPCHN, ViewBag.TrPPCHNList as SelectList, new { @id = "IDTrPPCHN", @class = "form-control" })
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> Phê duyệt BGĐ</td>
+                                <td>
+                                    @Html.DropDownListFor(model => model.IDBGD, ViewBag.BGDList as SelectList, new { @id = "IDBGD", @class = "form-control" })
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <input type="submit" value="Xác nhận" class="btn btn-primary pull-right" />
+                </fieldset>
+
+            </div>
+        </div>
+    </div>
+}
+
+
+
+
+

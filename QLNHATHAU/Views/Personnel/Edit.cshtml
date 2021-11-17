@@ -1,0 +1,101 @@
+﻿@model QLNHATHAU.Models.PersonnelValidation
+<script src="~/Content/assets/Chonse/chosen.jquery.js"></script>
+<link href="~/Content/assets/Chonse/chosen.css" rel="stylesheet" />
+@using (Html.BeginForm("Edit", "Personnel", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="modal-dialog" id="form">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="ModalTitle"></h5>
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+            </div>
+            @Html.HiddenFor(model => model.IDNV)
+            <div class="modal-body">
+
+                <fieldset id="SubmitForm">
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="small mb-1">Họ Và Tên </label>
+                                @Html.EditorFor(model => model.HoTen, new { htmlAttributes = new { @class = "form-control", placeholder = "Họ Và Tên", @id = "HoTen" } })
+                                @Html.ValidationMessageFor(model => model.HoTen, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="small mb-1">Mã Nhân Viên</label>
+                                @Html.EditorFor(model => model.MaNV, new { htmlAttributes = new { @class = "form-control", placeholder = "Mã Nhân Viên", @id = "MaNV" } })
+                                @Html.ValidationMessageFor(model => model.MaNV, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="small mb-1">Ngày Nhận Việc</label>
+                                @Html.EditorFor(model => model.NgayNV, new { htmlAttributes = new { @class = "form-control", placeholder = "Chọn ngày", @id = "NgayNV", @type = "NgayNV" } })
+                                @Html.ValidationMessageFor(model => model.NgayNV, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="small mb-1">Vị Trí Làm Việc</label>
+                                @Html.DropDownListFor(model => model.VTLVID, ViewBag.VTList as SelectList, "--Vị Trí Làm Việc--", new { @id = "VTLVID", @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="small mb-1">Tổ Phân Xưởng</label>
+                                @Html.EditorFor(model => model.ToPX, new { htmlAttributes = new { @class = "form-control", placeholder = "Tổ Phân Xưởng", @id = "ToPX" } })
+                                @Html.ValidationMessageFor(model => model.ToPX, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="small mb-1">Phong Ban</label>
+                            @Html.DropDownListFor(model => model.PhongBanID, ViewBag.PBList as SelectList, "--Phong Ban--", new { @id = "PhongBanID", @class = "form-control" })
+                        </div>
+                        <div class="col-md-6">
+                            <label class="small mb-1">Tình Trạng</label>
+                            @Html.DropDownListFor(model => model.TTLVID, ViewBag.TTList as SelectList, "--Tình Trạng--", new { @id = "TTLVID", @class = "form-control" })
+                        </div>
+                    </div>
+                    &nbsp;
+                    <div class="btn-margin-top text-center">
+                        <input type="submit" value="Xác nhận" class="btn btn-success button_submit" />
+                        <input type="reset" value="Hủy" class="btn btn-danger button_cancel" data-dismiss="modal" />
+                    </div>
+                </fieldset>
+
+            </div>
+
+
+        </div>
+    </div>
+}
+<style>
+    .button_submit {
+        float: right;
+        margin-bottom: 15px;
+    }
+
+    .button_cancel {
+        float: right;
+        margin-right: 15px
+    }
+
+    .margin-checkbox {
+        margin-right: 30px;
+    }
+</style>
+<script type="text/javascript">
+    $("#PhongBanID").chosen({
+        width: "100%"
+    });
+    $("#NhaThauID").chosen({
+        width: "100%"
+    });
+</script>
+
+
+
+

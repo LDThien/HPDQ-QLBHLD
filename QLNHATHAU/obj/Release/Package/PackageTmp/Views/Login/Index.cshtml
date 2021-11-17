@@ -1,0 +1,64 @@
+﻿@model QLNHATHAU.Models.UserLogin
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Quản lý nhà thầu</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta charset="utf-8" />
+    <meta name="description" content="overview &amp; stats" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <link rel="stylesheet" href="~/Content/assets/css/font-awesome.min.css">
+    <!-- Favicons -->
+    <link rel="icon" href="/favicon.ico" type="image/png" />
+
+    <link href="~/Content/assets/css/style_login.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+</head>
+<body>
+    <div class="bg-text">
+        <div class="container" id="container">
+            <div class="form-container log-in-container">
+                @using (Html.BeginForm("Index", "Login", new { id = "myForm" }))
+                {
+                    <h1>Login</h1>
+                    @*<div class="input-group">
+                        <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                        <input type="text" id="input1-group1" name="input1-group1" placeholder="Username" class="form-control">
+                    </div>*@
+                    @Html.TextBoxFor(m => m.Username)
+                    @Html.ValidationMessageFor(m => m.Username, "", new { @class = "text-danger" })
+                    @Html.PasswordFor(m => m.Password)
+                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                    @Html.CheckBoxFor(m => m.RememberMe)
+                    @*<input type="checkbox" id="remember" name="remember" value="password" />
+            <span for="remember">Save your password</span><br>*@
+                    <a href="#">Forgot your password?</a>
+                    <button>Log In</button>
+                }
+            </div>
+            <div class="overlay-container">
+                <div class="overlay">
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <img src="/images/logoH50.png">
+                    <h3>Quản Lý Nhà Thầu</h3>
+                    <p><a href="mailto:bancntt@hoaphat.com.vn"><i class="fa fa-envelope-o" aria-hidden="true"></i> bancntt@hoaphat.com.vn</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <div class="">
+                <p>Copyright © Công ty CP Thép Hòa Phát Dung Quất 2017 - @DateTime.Now.Year</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

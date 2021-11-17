@@ -1,0 +1,189 @@
+﻿
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using QLNHATHAU.Models
+@model PeriodicalperiodValidation
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" crossorigin="anonymous"></script>
+<div class="card mb-3">
+    <div class="card-body">
+
+        <div class="card mb-3" style="border-style: inset;">
+            <div class="card-header" style="border-style: groove;">
+                <h3 class="text-center">Danh Sách Bảo Hộ Lao Động</h3>
+            </div>
+            <div class="card-body" style="padding-bottom: 0px;">
+                <div class="table-responsive" style="margin-top: 10px; padding-top: 20px; padding-left: 20px; padding-right: 20px; border-style: groove;border-top-width: 1px;
+                     border-left-width: 1px;
+                     border-bottom-width: 1px;
+                     border-right-width: 1px;">
+                    <table class="table table-bordered table-striped table-hover" cellspacing="0" style="border-style: groove;">
+                        <tr>
+                            <td width="300px">
+                                <b>Tên loại bảo hộ lao động</b>
+                            </td>
+                            <td>
+                                <b>Thời hạn định biên</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="250px">
+                                Giày Thấp Cổ :
+                            </td>
+                            <td>
+                                @*<script>
+                                    var startdate = '@Model.NgayNV'
+                                    var newDate = moment(startdate, "DD-MM-YYYY").add('days', '12').format('DD/MM/YYYY');
+                                    document.write(newDate);
+                                   
+                                </script>*@
+
+                                <script>
+                                    var d = new Date('@Model.NgayNV');
+                                    d.setMonth(d.getMonth() + 4);
+                                    current_date_new = d.getDate() + '-' + (d.getMonth() + 4)  + '-' + d.getFullYear();
+                                 
+                                    document.write(current_date_new);
+
+                                    DateTime startDate = new DateTime(2011, 9, 1);
+                                    DateTime endDate = startDate.AddMonths(1);
+                                    Response.Write(endDate);
+                                </script>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td>
+                                Áo Quần KTV/BGĐ :
+                            </td>
+                            <td>
+                                <script>
+                                    var d = new Date('@Model.NgayNV');
+                                var numberOfDaysToAdd = 60;
+                                d.setDate(d.getDate() + numberOfDaysToAdd);
+
+                                var date = d.getUTCDate();
+                                var month = d.getUTCMonth() + 1;
+                                var year = d.getUTCFullYear();
+
+                                var dateStr = month + "-" + year;
+                                document.write(dateStr);
+                                </script>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Áo Quần BP/NM :
+                            </td>
+                            <td>
+                                <script>
+                                    var d = new Date('@Model.NgayNV');
+                                var numberOfDaysToAdd = 90;
+                                d.setDate(d.getDate() + numberOfDaysToAdd);
+
+                                var date = d.getUTCDate();
+                                var month = d.getUTCMonth() + 1;
+                                var year = d.getUTCFullYear();
+
+                                var dateStr = month + "-" + year;
+                                document.write(dateStr);
+                                </script>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td>
+                                Mũ BHLĐ Trắng :
+                            </td>
+                            <td>
+                                <script>
+                                    var d = new Date('@Model.NgayNV');
+                                var numberOfDaysToAdd = 90;
+                                d.setDate(d.getDate() + numberOfDaysToAdd);
+
+                                var date = d.getUTCDate();
+                                var month = d.getUTCMonth() + 1;
+                                var year = d.getUTCFullYear();
+
+                                var dateStr = month + "-" + year;
+                                document.write(dateStr);
+                                </script>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td>
+                                Mũ BHLĐ Xanh :
+                            </td>
+                            <td>
+                                <script>
+                                    var d = new Date('@Model.NgayNV');
+                                var numberOfDaysToAdd = 150;
+                                d.setDate(d.getDate() + numberOfDaysToAdd);
+
+                                var date = d.getUTCDate();
+                                var month = d.getUTCMonth() + 1;
+                                var year = d.getUTCFullYear();
+
+                                var dateStr = month + "-" + year;
+                                document.write(dateStr);
+                                </script>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td>
+                                Ủng cao Su :
+                            </td>
+                            <td>
+                                <script>
+                                    var d = new Date('@Model.NgayNV');
+                                var numberOfDaysToAdd = 180;
+                                d.setDate(d.getDate() + numberOfDaysToAdd);
+
+                                var date = d.getUTCDate();
+                                var month = d.getUTCMonth() + 1;
+                                var year = d.getUTCFullYear();
+
+                                var dateStr = month + "-" + year;
+                                document.write(dateStr);
+                                </script>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Áo Quần Mưa :
+                            </td>
+                            <td>
+                                <script>
+                                    var d = new Date('@Model.NgayNV');
+                                var numberOfDaysToAdd = 210;
+                                d.setDate(d.getDate() + numberOfDaysToAdd);
+
+                                var date = d.getUTCDate();
+                                var month = d.getUTCMonth() + 1;
+                                var year = d.getUTCFullYear();
+
+                                var dateStr = month + "-" + year;
+                                document.write(dateStr);
+                                </script>
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+        <div class="form-group">
+            <div class="  col-md-offset-5 col-sm-offset-4 col-sm-5" style="color: #007bff;">
+                @Html.ActionLink("Quay lại", "")
+            </div>
+        </div>
+
+    </div>
+</div>
+

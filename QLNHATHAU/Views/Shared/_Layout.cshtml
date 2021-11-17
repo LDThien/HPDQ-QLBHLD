@@ -1,0 +1,269 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Quản lý bảo hộ lao động - Công Ty Cổ Phần Thép Hòa Phát Dung Quất</title>
+    <meta name="description" content="Quản lý bảo hộ lao động - Công Ty Cổ Phần Thep Hòa Phát Dung Quất">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" href="/favicon.ico">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="~/Content/assets/css/font-awesome.min.css">
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/assets/css/style.css">
+    <script src="~/Content/assets/js/chartjs.min.js"></script>
+    <script src="~/Scripts/jquery-3.0.0.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+</head>
+<body>
+    @if (!User.Identity.IsAuthenticated)
+    {
+        Response.Redirect("~/Login");
+    }
+    @using QLNHATHAU.Models
+    <aside id="left-panel" class="left-panel">
+        <nav class="navbar navbar-expand-sm navbar-default">
+            <div id="main-menu" class="main-menu collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active">
+                        <a href="@Url.Action("Index","Home")"><i class="menu-icon fa fa-laptop"></i><span>Tổng quan</span> </a>
+                    </li>
+                    @if (Session["TK"] != null)
+                    {
+                        QLNHATHAU.Models.NguoiDung user = ((QLNHATHAU.Models.NguoiDung)Session["TK"]);
+                        if (user.IDQuyen == 1)
+                        {
+                            <li class="menu-item-has-children dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cog"></i><span>Quản trị</span></a>
+                                <ul class="sub-menu children dropdown-menu">
+                                    <li><i class="fa fa-angle-right"></i><a href="@Url.Action("Index", "Account")"><span> Tài khoản </span></a></li>
+                                    <li><i class="fa fa-angle-right"></i><a href="@Url.Action("Index", "Quyen")"><span> Quyền đăng nhập </span></a></li>
+                                    <li><i class="fa fa-angle-right"></i><a href="@Url.Action("Index", "Quitjob")"><span> Cập nhật nghỉ việc </span></a></li>
+                                    <li><i class="fa fa-angle-right"></i><a href="@Url.Action("Index", "Protectiontype")"><span> Loại BHLĐ </span></a></li>
+                                </ul>
+                            </li>
+                        }
+                    }
+                    @if (Session["TK"] != null)
+                    {
+                        QLNHATHAU.Models.NguoiDung user = ((QLNHATHAU.Models.NguoiDung)Session["TK"]);
+                        if (user.IDQuyen == 1 || user.IDQuyen == 2 || user.IDQuyen == 3)
+                        {
+
+                            <li class="menu-item-has-children dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-recycle"></i><span>Định biên cấp phát</span></a>
+                                <ul class="sub-menu children dropdown-menu">
+                                    <li><i class="fa fa-angle-right"></i><a href="@Url.Action("Index", "Protectionmargin")"><span> Định Biên Định Kỳ </span></a></li>
+                                    <li><i class="fa fa-angle-right"></i><a href="@Url.Action("Index", "Consumedregularly")"><span> Định Biên Tiêu Hao </span></a></li>
+                                </ul>
+                            </li>
+                        }
+                    }
+
+                    @if (Session["TK"] != null)
+                    {
+                        QLNHATHAU.Models.NguoiDung user = ((QLNHATHAU.Models.NguoiDung)Session["TK"]);
+                        if (user.IDQuyen == 1 || user.IDQuyen == 2 || user.IDQuyen == 3)
+                        {
+                            <li class="menu-item-has-children dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-calendar-times-o"></i><span>Thời hạn định biên</span></a>
+                                <ul class="sub-menu children dropdown-menu">
+                                    <li><i class="fa fa-angle-right"></i><a href="@Url.Action("Index","Periodicalperiod")"><span> Thời hạn Định kỳ </span></a></li>
+                                    <li><i class="fa fa-angle-right"></i><a href="@Url.Action("Index","Consumptionperiod")"><span> Thời hạn Tiêu hao </span></a></li>
+                                </ul>
+                            </li>
+                        }
+                    }
+
+                    @if (Session["TK"] != null)
+                    {
+                        QLNHATHAU.Models.NguoiDung user = ((QLNHATHAU.Models.NguoiDung)Session["TK"]);
+                        if (user.IDQuyen == 1 || user.IDQuyen == 2 || user.IDQuyen == 3)
+                        {
+                            <li class="menu-item-has-children dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-address-book"></i><span>Nhân viên mới</span></a>
+                                <ul class="sub-menu children dropdown-menu">
+                                    <li><i class="fa fa-angle-right"></i><a href="@Url.Action("Index","Staffing")"><span>Nhân viên mới</span></a></li>
+                                </ul>
+                            </li>
+                        }
+                    }
+
+                    @if (Session["TK"] != null)
+                    {
+                        QLNHATHAU.Models.NguoiDung user = ((QLNHATHAU.Models.NguoiDung)Session["TK"]);
+                        if (user.IDQuyen == 1 || user.IDQuyen == 2 || user.IDQuyen == 3)
+                        {
+                            <li class="menu-item-has-children dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-address-book-o"></i><span>Quản lý danh sách</span></a>
+                                <ul class="sub-menu children dropdown-menu">
+                                    <li><i class="fa fa-angle-right"></i><a href="@Url.Action("Index","Demarcation")"><span>Định Kỳ</span></a></li>
+                                    <li><i class="fa fa-angle-right"></i><a href="@Url.Action("Index","Consumption")"><span>Tiêu Hao</span></a></li>
+                                </ul>
+                            </li>
+                        }
+                    }
+                    @if (Session["TK"] != null)
+                    {
+                        QLNHATHAU.Models.NguoiDung user = ((QLNHATHAU.Models.NguoiDung)Session["TK"]);
+                        if (user.IDQuyen == 1 || user.IDQuyen == 2 || user.IDQuyen == 4)
+                        {
+                            <li class="menu-item-has-children dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-indent"></i><span>Quản lý xuất</span></a>
+                                <ul class="sub-menu children dropdown-menu">
+                                    <li><i class="fa fa-angle-right"></i><a href="@Url.Action("Index","NewstaffWarehouse")"><span> Nhân viên mới </span></a></li>
+                                    <li><i class="fa fa-angle-right"></i><a href="@Url.Action("Index","Periodicwarehouse")"><span>Định Kỳ</span></a></li>
+                                    <li><i class="fa fa-angle-right"></i><a href="@Url.Action("Index","Consumablewarehouse")"><span>Tiêu Hao</span></a></li>
+                                </ul>
+                            </li>
+                        }
+                    }
+                    @if (Session["TK"] != null)
+                    {
+                        QLNHATHAU.Models.NguoiDung user = ((QLNHATHAU.Models.NguoiDung)Session["TK"]);
+                        if (user.IDQuyen == 1 || user.IDQuyen == 2 || user.IDQuyen == 4)
+                        {
+                            <li class="menu-item-has-children dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-outdent"></i><span>Quản lý thu hồi</span></a>
+                                <ul class="sub-menu children dropdown-menu">
+                                    <li><i class="fa fa-angle-right"></i><a href="@Url.Action("Index","Recall")"><span> Thu hồi BHLĐ </span></a></li>
+                                </ul>
+                            </li>
+                        }
+                    }
+                    @if (Session["TK"] != null)
+                    {
+                        QLNHATHAU.Models.NguoiDung user = ((QLNHATHAU.Models.NguoiDung)Session["TK"]);
+                        if (user.IDQuyen == 1 || user.IDQuyen == 2)
+                        {
+                            <li class="menu-item-has-children dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-pencil-square"></i><span>Chờ phê duyệt</span></a>
+                                <ul class="sub-menu children dropdown-menu">
+                                    <li><i class="fa fa-angle-right"></i><a href="@Url.Action("NotApproved","ApproveDK")"><span>Định kỳ</span></a></li>
+                                    <li><i class="fa fa-angle-right"></i><a href="@Url.Action("Index","ApproveTH")"><span>Tiêu hao</span></a></li>
+                                </ul>
+                            </li>
+                        }
+                    }
+                    @if (Session["TK"] != null)
+                    {
+                        QLNHATHAU.Models.NguoiDung user = ((QLNHATHAU.Models.NguoiDung)Session["TK"]);
+                        if (user.IDQuyen == 1 || user.IDQuyen == 2)
+                        {
+                            <li class="menu-item-has-children dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-check-square-o"></i><span>Đã phê duyệt</span></a>
+                                <ul class="sub-menu children dropdown-menu">
+                                    <li><i class="fa fa-angle-right"></i><a href="@Url.Action("Index","CompleteapprovalDK")"><span>Định kỳ</span></a></li>
+                                    <li><i class="fa fa-angle-right"></i><a href="@Url.Action("Index","CompleteapprovalTH")"><span>Tiêu hao</span></a></li>
+
+                                </ul>
+                            </li>
+                        }
+                    }
+                    @if (Session["TK"] != null)
+                    {
+                        QLNHATHAU.Models.NguoiDung user = ((QLNHATHAU.Models.NguoiDung)Session["TK"]);
+                        if (user.IDQuyen == 1 || user.IDQuyen == 2 || user.IDQuyen == 3 || user.IDQuyen == 4)
+                        {
+                            <li class="menu-item-has-children dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th-large"></i><span>Thống kê</span></a>
+                                <ul class="sub-menu children dropdown-menu">
+                                    <li><i class="fa fa-angle-right"></i><a href="@Url.Action("Index","Statistical")"><span>Bảo hộ lao động</span></a></li>
+                                </ul>
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+        </nav>
+    </aside>
+
+
+    <div id="right-panel" class="right-panel">
+
+
+        <header>
+            <nav class="rad-navigation">
+                <div class="rad-logo-container">
+                    <a class="rad-logo" href="@Url.Action("Index","Home")"><img src="/images/logoH50.png" alt="logo"></a>
+                    <a href="#" class="rad-toggle-btn pull-right" onclick=collapseAside()><i class="fa fa-bars"></i></a>
+                </div>
+                <a href="#" class="rad-logo-title" style="color:#05428c;">Phần Mềm Quản Lý Bảo Hộ Lao Động</a>
+
+                <div class="rad-top-nav-container">
+                    <div class="widget-content-wrapper" style="width: auto; margin-top: 5%; margin-right: 25px;">
+                        <a href="#">
+                            <label><a style="margin-right:15px; width: 100%;">@Session["HoTen"]</a></label>
+
+                            <img width="42" class="rounded-circle" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" src="~/content/adminlayout/images/avatars/profile-pic.jpg" />
+                        </a>
+
+                        <div class="collapse" id="collapseExample" style="margin-top: 10px; margin-right: 10px;">
+                            <div class="card card-body" style="border-radius: 10px;">
+
+                                <a class="dropdown-item" href="#" style="padding: 0px;">
+                                    <i class="fa fa-cogs fa-sm fa-fw mr-2 text-gray-400" style="width: 100%; ">
+                                        <label> Đổi mật khẩu</label>
+                                    </i>   
+                                </a>
+                                <a class="dropdown-item" href="@Url.Action("Logout","Login")" style="padding: 0px;">
+                                    <i class="fa fa-sign-out fa-sm fa-fw mr-2 text-gray-400" onclick="return confirm('Bạn muốn đăng xuất tài khoản @Session["HoTen"]')" style="width: 100%;">
+                                        <label> Đăng xuất</label>
+                                    </i>
+
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <div class="content pb-0">
+            @RenderBody()
+
+
+        </div>
+        <div class="clearfix"></div>
+        <footer class="site-footer">
+            <div class="footer-inner" style=" margin-top: 10px;">
+                <div class="row">
+                    <div class="col-sm-6">
+                        Copyright © @DateTime.Now.Year Ban Công nghệ thông tin
+                    </div>
+                    <div class="col-sm-6 text-right">
+                        Công ty cổ phần Thép Hòa Phát Dung Quất
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    @RenderSection("scripts", required: false)
+
+</body>
+
+</html>
+<script>
+
+
+    function collapseAside() {
+
+
+        var l = document.getElementById("left-panel");
+        l.classList.toggle("colapse");
+
+        var r = document.getElementById("right-panel");
+        r.classList.toggle("colapse");
+
+        var sp = document.getElementById("main-menu");
+        sp.classList.toggle("colapse");
+
+    }
+
+    $(document).on('click', 'ul li', function () {
+        $(this).addClass('active').siblings().removeClass('active')
+    })
+
+</script>

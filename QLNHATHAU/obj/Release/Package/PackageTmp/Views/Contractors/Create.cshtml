@@ -1,0 +1,74 @@
+﻿@model QLNHATHAU.Models.NhaThauValidation
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="ModalTitle">Thêm nhà thầu</h5>
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+            </div>
+            <div class="modal-body">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <fieldset id="SubmitForm">
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="small mb-1" for="inputFirstName">Mã NT</label>
+                                @Html.EditorFor(model => model.MaNT, new { htmlAttributes = new { @class = "form-control", placeholder = "Nhập Mã NT", @id = "MaNT" } })
+                                @Html.ValidationMessageFor(model => model.MaNT, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="small mb-1" for="inputFirstName">MST</label>
+                                @Html.EditorFor(model => model.MST, new { htmlAttributes = new { @class = "form-control", placeholder = "Nhập MST" } })
+                                @Html.ValidationMessageFor(model => model.MST, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="small mb-1" for="inputLastName">Tên nhà thầu</label>
+                        @Html.EditorFor(model => model.Ten, new { htmlAttributes = new { @class = "form-control", placeholder = "Nhập tên nhà thầu", @id = "Ten" } })
+                        @Html.ValidationMessageFor(model => model.Ten, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="small mb-1" for="inputFirstName">Điện thoại</label>
+                                @Html.EditorFor(model => model.DienThoai, new { htmlAttributes = new { @class = "form-control", placeholder = "Nhập điện thoại" } })
+                                @Html.ValidationMessageFor(model => model.DienThoai, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="small mb-1" for="inputFirstName">Email</label>
+                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "Nhập Email" } })
+                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="small mb-1" for="inputLastName">Địa chỉ</label>
+                        @Html.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @class = "form-control", placeholder = "Nhập địa chỉ", @id = "Diachi" } })
+                        @Html.ValidationMessageFor(model => model.DiaChi, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Thêm mới" class="btn btn-primary pull-right" id="btncreate" />
+                    </div>
+                </fieldset>
+
+            </div>
+        </div>
+    </div>
+    <script>
+        $('#btncreate').click(function () {
+            
+        });
+    </script>
+}

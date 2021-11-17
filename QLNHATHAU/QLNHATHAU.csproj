@@ -1,0 +1,1638 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6C0D340A-6F3C-4B1E-A599-14A06BB55CDE}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>QLNHATHAU</RootNamespace>
+    <AssemblyName>QLNHATHAU</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44364</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ClosedXML, Version=0.95.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ClosedXML.0.95.4\lib\net46\ClosedXML.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.7.2.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.7.2\lib\net46\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="ExcelDataReader, Version=3.6.0.0, Culture=neutral, PublicKeyToken=93517dbe6a4012fa, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelDataReader.3.6.0\lib\net45\ExcelDataReader.dll</HintPath>
+    </Reference>
+    <Reference Include="ExcelDataReader.DataSet, Version=3.6.0.0, Culture=neutral, PublicKeyToken=93517dbe6a4012fa, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelDataReader.DataSet.3.6.0\lib\net35\ExcelDataReader.DataSet.dll</HintPath>
+    </Reference>
+    <Reference Include="ExcelNumberFormat, Version=1.0.10.0, Culture=neutral, PublicKeyToken=23c6f5d73be07eca, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelNumberFormat.1.0.10\lib\net20\ExcelNumberFormat.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.FileSystem.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.FileSystem.Primitives.4.0.1\lib\net46\System.IO.FileSystem.Primitives.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.Packaging, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Packaging.4.0.0\lib\net46\System.IO.Packaging.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\packages\xunit.abstractions.2.0.3\lib\net35\xunit.abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.core, Version=2.4.1.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\packages\xunit.extensibility.core.2.4.1\lib\net452\xunit.core.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.execution.desktop, Version=2.4.1.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\packages\xunit.extensibility.execution.2.4.1\lib\net452\xunit.execution.desktop.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Common\ConfigStatic.cs" />
+    <Compile Include="Common\Encryptor.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ApproveDKController.cs" />
+    <Compile Include="Controllers\ApproveTHController.cs" />
+    <Compile Include="Controllers\CompleteapprovalDKController.cs" />
+    <Compile Include="Controllers\CompleteapprovalTHController.cs" />
+    <Compile Include="Controllers\ConsumabledetailsController.cs" />
+    <Compile Include="Controllers\ConsumablewarehouseController.cs" />
+    <Compile Include="Controllers\ConsumedregularlyController.cs" />
+    <Compile Include="Controllers\ConsumedregularlyDetaiController.cs" />
+    <Compile Include="Controllers\ConsumptionController.cs" />
+    <Compile Include="Controllers\ConsumptionperiodController.cs" />
+    <Compile Include="Controllers\ConsumptionperiodDetaiController.cs" />
+    <Compile Include="Controllers\DemarcationController.cs" />
+    <Compile Include="Controllers\ExcelPackage.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\NewstaffController.cs" />
+    <Compile Include="Controllers\NewstaffWarehouseController.cs" />
+    <Compile Include="Controllers\PeriodicalperiodController.cs" />
+    <Compile Include="Controllers\PeriodicalperiodDetaiController.cs" />
+    <Compile Include="Controllers\PeriodicdetailsController.cs" />
+    <Compile Include="Controllers\PeriodicwarehouseController.cs" />
+    <Compile Include="Controllers\PermissionController.cs" />
+    <Compile Include="Controllers\PhanQuyenController.cs" />
+    <Compile Include="Controllers\ProtectionmarginController.cs" />
+    <Compile Include="Controllers\ProtectionmargindetailController.cs" />
+    <Compile Include="Controllers\ProtectiontypeController.cs" />
+    <Compile Include="Controllers\QuitjobController.cs" />
+    <Compile Include="Controllers\QuyenController.cs" />
+    <Compile Include="Controllers\RecallController.cs" />
+    <Compile Include="Controllers\RecalldetailsController.cs" />
+    <Compile Include="Controllers\RoomValidatiob.cs" />
+    <Compile Include="Controllers\StaffingController.cs" />
+    <Compile Include="Controllers\StatisticalController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AccountValidation.cs" />
+    <Compile Include="Models\ApproveTHValidation.cs" />
+    <Compile Include="Models\ApproveValidation.cs" />
+    <Compile Include="Models\BHLDDK.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BHLDDK_searchByID_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BHLDTH.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BHLDTH_searchByID_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BHLĐXuat.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BHLĐXuat_searchByID_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Card.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CardNhanVien.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CardNhanVien_searchByID_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CardNhanVien_select_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Card_SearchByID_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Card_select_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CauHinhPheDuyet.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CheckInforConsumption.cs" />
+    <Compile Include="Models\CheckInforProtection.cs" />
+    <Compile Include="Models\CheckInforRegistration.cs" />
+    <Compile Include="Models\CheckInforUser.cs" />
+    <Compile Include="Models\Cong.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Cong_SearchByID_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Cong_Select_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ConsumabledetailsValidation.cs" />
+    <Compile Include="Models\ConsumedregularlyDetaiValidation.cs" />
+    <Compile Include="Models\ConsumedregularlyValidation.cs" />
+    <Compile Include="Models\ConsumptionperiodDetaiValidation.cs" />
+    <Compile Include="Models\ConsumptionperiodValidation.cs" />
+    <Compile Include="Models\ConsumptionValidation.cs" />
+    <Compile Include="Models\DangKyHAT.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DangKyHAT_Select_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DanhSachHAT.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DemarcationValidation.cs" />
+    <Compile Include="Models\DinhBienBHLD.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DinhBienBHLDTH.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DinhBienBHLDTHCT.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DinhBienBHLDTHCT_searchByID_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DinhBienBHLDTH_searchByID_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DinhBienBHLD_searchByID_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DinhBienChiTiet.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DinhBienChiTiet_searchByID_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DinhBienDK.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DinhBienDK_searchByID_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DinhBienDK_select_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DinhBienNV.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DinhBienNV_searchByID_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DinhBienTH.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DinhBienTH_searchByID_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DKKhach.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DKKhachCT.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DKKhachCT_searchByID_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DKKhach_SearchByID_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DSKhach.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ExportprotectionValidation.cs" />
+    <Compile Include="Models\GiaHanHD.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GiaHanHopDong_SearchByID_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GiaHanHopDong_select_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HopDong.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HopDong_SearchByID_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HopDong_select_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\IDKetQuaHoc_ByMaNV_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\KeQuaHoc.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\KetQuaHoc_SearchByID_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\KetQuaHoc_select_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LoaiBHLD.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LoaiBHLD_SearchByID_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LoaiH.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LoaiKhach.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LoaiKhach_SearchByID_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LoaiKhach_Select_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ManageCardValidation.cs" />
+    <Compile Include="Models\CheckInforContract.cs" />
+    <Compile Include="Models\CheckInforDK.cs" />
+    <Compile Include="Models\CheckInformation.cs" />
+    <Compile Include="Models\ModelT.cs" />
+    <Compile Include="Models\MyAuthentication.cs" />
+    <Compile Include="Models\NghiViec.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NghiViec_SearchByID_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NguoiDung.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NguoiDungValidation.cs" />
+    <Compile Include="Models\NguoiDung_get_IDPhanQuyen_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NguoiDung_Get_PhanQuyen_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NguoiDung_SearchByID_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NhanVien.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NhanVienNT.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NhanVienNT_SearchByID_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NhanVienNT_select_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NhanVienValidation.cs" />
+    <Compile Include="Models\NhanVien_searchByIDTK_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NhanVien_search_DK_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NhanVien_search_nghiviec_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NhanVien_search_NVM_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NhanVien_search_THDK_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NhanVien_search_THTH_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NhanVien_search_thuhoi_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NhanVien_search_TH_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NhaThau.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NhaThau_list_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Nhathau_SearchByID_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NhaThau_select_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PCHN.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PCHN_HopDong.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PCHN_HopDong_SearchByID_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PCHN_HopDong_select_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PeriodicalperiodDetaiValidation.cs" />
+    <Compile Include="Models\PeriodicalperiodValidation.cs" />
+    <Compile Include="Models\PeriodicdetailsValidation.cs" />
+    <Compile Include="Models\PermissionValidation.cs" />
+    <Compile Include="Models\PhanQuyen.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PhanQuyen_NDSelectAll_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PhanQuyen_selectAll_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PhanQuyen_select_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PheDuyet.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PheDuyetBHLD.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PheDuyetBHLD_searchByID_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PheDuyetBHLD_select_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PheDuyetTH.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PheDuyetTH_searchByID_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PheDuyetTH_select_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PheDuyet_SearchByID_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PheDuyet_SelectAllAT_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PheDuyet_SelectAllGH_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PheDuyet_SelectAll_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PheDuyet_selectAT_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PheDuyet_selectGH_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PheDuyet_selectTH_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PheDuyet_select_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PhongBan.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PHONGBANCHN_VIEW.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PhongBanValidation.cs" />
+    <Compile Include="Models\ProtectionmargindetailValidation.cs" />
+    <Compile Include="Models\ProtectionmarginValidation.cs" />
+    <Compile Include="Models\ProtectiontypeValidation.cs" />
+    <Compile Include="Models\QLNT.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QLNT.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\QLNT.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\QLNT.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QLNT.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\QuitjobValidation.cs" />
+    <Compile Include="Models\Quyen.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\QuyenValidation.cs" />
+    <Compile Include="Models\Quyen_SearchByID_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Quyen_select_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RecalldetailsValidation.cs" />
+    <Compile Include="Models\RecallValidation.cs" />
+    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagrams_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StaffingAfterChange.cs" />
+    <Compile Include="Models\StaffingValidation.cs" />
+    <Compile Include="Models\StatisticalValidation.cs" />
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TenNT_HopDong_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ThoiHanBHLDDK.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ThoiHanBHLDDKCT.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ThoiHanBHLDDKCT_searchByID_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ThoiHanBHLDDK_searchByID_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ThoiHanBHLDTH.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ThoiHanBHLDTHCT.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ThoiHanBHLDTHCT_searchByID_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ThoiHanBHLDTH_searchByID_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ThuHoiBHLD.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ThuHoiBHLDCT.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ThuHoiBHLDCT_searchByID_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ThuHoiBHLD_searchByID_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TinhTrangLV.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TinhTrangNBHLD.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TinhTrangTH.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TinhTrangTrinhKy.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TongQuan.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TongQuan_Select_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TTLV.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TTTK.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UseraccountValidation.cs" />
+    <Compile Include="Models\UserLogin.cs" />
+    <Compile Include="Models\VanBan.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ViPham.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ViPham_searchByID_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ViPham_select_Result.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Vitri.cs">
+      <DependentUpon>QLNT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ViTriValidation.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\AdminLayout\css\ace-ie.css" />
+    <Content Include="Content\AdminLayout\css\ace-part2.css" />
+    <Content Include="Content\AdminLayout\css\ace-rtl.css" />
+    <Content Include="Content\AdminLayout\css\ace-skins.css" />
+    <Content Include="Content\AdminLayout\css\ace.css" />
+    <Content Include="Content\AdminLayout\css\bootstrap-colorpicker.css" />
+    <Content Include="Content\AdminLayout\css\bootstrap-datepicker3.css" />
+    <Content Include="Content\AdminLayout\css\bootstrap-datetimepicker.css" />
+    <Content Include="Content\AdminLayout\css\bootstrap-duallistbox.css" />
+    <Content Include="Content\AdminLayout\css\bootstrap-editable.css" />
+    <Content Include="Content\AdminLayout\css\bootstrap-multiselect.css" />
+    <Content Include="Content\AdminLayout\css\bootstrap-timepicker.css" />
+    <Content Include="Content\AdminLayout\css\bootstrap.css" />
+    <Content Include="Content\AdminLayout\css\chosen.css" />
+    <Content Include="Content\AdminLayout\css\colorbox.css" />
+    <Content Include="Content\AdminLayout\css\daterangepicker.css" />
+    <Content Include="Content\AdminLayout\css\dropzone.css" />
+    <Content Include="Content\AdminLayout\css\font-awesome.css" />
+    <Content Include="Content\AdminLayout\css\fonts.googleapis.com.css" />
+    <Content Include="Content\AdminLayout\css\fullcalendar.css" />
+    <Content Include="Content\AdminLayout\css\images\chosen-sprite.png" />
+    <Content Include="Content\AdminLayout\css\images\loading.gif" />
+    <Content Include="Content\AdminLayout\css\images\meteorshower.jpg" />
+    <Content Include="Content\AdminLayout\css\images\meteorshower2.jpg" />
+    <Content Include="Content\AdminLayout\css\images\pattern.jpg" />
+    <Content Include="Content\AdminLayout\css\images\pattern.png" />
+    <Content Include="Content\AdminLayout\css\jquery-ui.css" />
+    <Content Include="Content\AdminLayout\css\jquery-ui.custom.css" />
+    <Content Include="Content\AdminLayout\css\jquery-ui\jquery-ui.css" />
+    <Content Include="Content\AdminLayout\css\jquery-ui\jquery-ui.min.css" />
+    <Content Include="Content\AdminLayout\css\jquery.gritter.css" />
+    <Content Include="Content\AdminLayout\css\prettify.css" />
+    <Content Include="Content\AdminLayout\css\select2.css" />
+    <Content Include="Content\AdminLayout\css\ui.jqgrid.css" />
+    <Content Include="Content\AdminLayout\font-awesome\4.5.0\css\font-awesome.css" />
+    <Content Include="Content\AdminLayout\font-awesome\4.5.0\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\AdminLayout\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\AdminLayout\images\avatars\avatar.png" />
+    <Content Include="Content\AdminLayout\images\avatars\avatar1.png" />
+    <Content Include="Content\AdminLayout\images\avatars\avatar2.png" />
+    <Content Include="Content\AdminLayout\images\avatars\avatar3.png" />
+    <Content Include="Content\AdminLayout\images\avatars\avatar4.png" />
+    <Content Include="Content\AdminLayout\images\avatars\avatar5.png" />
+    <Content Include="Content\AdminLayout\images\avatars\profile-pic.jpg" />
+    <Content Include="Content\AdminLayout\images\avatars\user.jpg" />
+    <Content Include="Content\AdminLayout\images\bootstrap-colorpicker\alpha-horizontal.png" />
+    <Content Include="Content\AdminLayout\images\bootstrap-colorpicker\alpha.png" />
+    <Content Include="Content\AdminLayout\images\bootstrap-colorpicker\hue-horizontal.png" />
+    <Content Include="Content\AdminLayout\images\bootstrap-colorpicker\hue.png" />
+    <Content Include="Content\AdminLayout\images\bootstrap-colorpicker\saturation.png" />
+    <Content Include="Content\AdminLayout\images\email\email1.png" />
+    <Content Include="Content\AdminLayout\images\email\email2.png" />
+    <Content Include="Content\AdminLayout\images\email\email3.png" />
+    <Content Include="Content\AdminLayout\images\email\email4.png" />
+    <Content Include="Content\AdminLayout\images\gallery\image-1.jpg" />
+    <Content Include="Content\AdminLayout\images\gallery\image-2.jpg" />
+    <Content Include="Content\AdminLayout\images\gallery\image-3.jpg" />
+    <Content Include="Content\AdminLayout\images\gallery\image-4.jpg" />
+    <Content Include="Content\AdminLayout\images\gallery\image-5.jpg" />
+    <Content Include="Content\AdminLayout\images\gallery\image-6.jpg" />
+    <Content Include="Content\AdminLayout\images\gallery\thumb-1.jpg" />
+    <Content Include="Content\AdminLayout\images\gallery\thumb-2.jpg" />
+    <Content Include="Content\AdminLayout\images\gallery\thumb-3.jpg" />
+    <Content Include="Content\AdminLayout\images\gallery\thumb-4.jpg" />
+    <Content Include="Content\AdminLayout\images\gallery\thumb-5.jpg" />
+    <Content Include="Content\AdminLayout\images\gallery\thumb-6.jpg" />
+    <Content Include="Content\AdminLayout\images\placeholder\165x90.png" />
+    <Content Include="Content\AdminLayout\images\placeholder\255x150.png" />
+    <Content Include="Content\AdminLayout\images\placeholder\530x270.png" />
+    <Content Include="Content\AdminLayout\images\placeholder\550x280.png" />
+    <Content Include="Content\AdminLayout\js\ace-editable.js" />
+    <Content Include="Content\AdminLayout\js\ace-elements.js" />
+    <Content Include="Content\AdminLayout\js\ace-extra.js" />
+    <Content Include="Content\AdminLayout\js\ace.js" />
+    <Content Include="Content\AdminLayout\js\autosize.js" />
+    <Content Include="Content\AdminLayout\js\bootbox.js" />
+    <Content Include="Content\AdminLayout\js\bootstrap-colorpicker.js" />
+    <Content Include="Content\AdminLayout\js\bootstrap-datepicker.js" />
+    <Content Include="Content\AdminLayout\js\bootstrap-datetimepicker.js" />
+    <Content Include="Content\AdminLayout\js\bootstrap-editable.js" />
+    <Content Include="Content\AdminLayout\js\bootstrap-markdown.js" />
+    <Content Include="Content\AdminLayout\js\bootstrap-multiselect.js" />
+    <Content Include="Content\AdminLayout\js\bootstrap-tag.js" />
+    <Content Include="Content\AdminLayout\js\bootstrap-timepicker.js" />
+    <Content Include="Content\AdminLayout\js\bootstrap-wysiwyg.js" />
+    <Content Include="Content\AdminLayout\js\bootstrap.js" />
+    <Content Include="Content\AdminLayout\js\buttons.colVis.js" />
+    <Content Include="Content\AdminLayout\js\buttons.flash.js" />
+    <Content Include="Content\AdminLayout\js\buttons.html5.js" />
+    <Content Include="Content\AdminLayout\js\buttons.print.js" />
+    <Content Include="Content\AdminLayout\js\chosen.jquery.js" />
+    <Content Include="Content\AdminLayout\js\dataTables.buttons.js" />
+    <Content Include="Content\AdminLayout\js\dataTables.select.js" />
+    <Content Include="Content\AdminLayout\js\daterangepicker.js" />
+    <Content Include="Content\AdminLayout\js\dropzone.js" />
+    <Content Include="Content\AdminLayout\js\elements.aside.js" />
+    <Content Include="Content\AdminLayout\js\elements.colorpicker.js" />
+    <Content Include="Content\AdminLayout\js\elements.fileinput.js" />
+    <Content Include="Content\AdminLayout\js\elements.onpage-help.js" />
+    <Content Include="Content\AdminLayout\js\elements.scroller.js" />
+    <Content Include="Content\AdminLayout\js\elements.spinner.js" />
+    <Content Include="Content\AdminLayout\js\elements.treeview.js" />
+    <Content Include="Content\AdminLayout\js\elements.typeahead.js" />
+    <Content Include="Content\AdminLayout\js\elements.wizard.js" />
+    <Content Include="Content\AdminLayout\js\elements.wysiwyg.js" />
+    <Content Include="Content\AdminLayout\js\excanvas.js" />
+    <Content Include="Content\AdminLayout\js\fullcalendar.js" />
+    <Content Include="Content\AdminLayout\js\grid.locale-en.js" />
+    <Content Include="Content\AdminLayout\js\holder.js" />
+    <Content Include="Content\AdminLayout\js\html5shiv.js" />
+    <Content Include="Content\AdminLayout\js\jquery-1.11.3.js" />
+    <Content Include="Content\AdminLayout\js\jquery-2.1.4.js" />
+    <Content Include="Content\AdminLayout\js\jquery-additional-methods.js" />
+    <Content Include="Content\AdminLayout\js\jquery-typeahead.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui.custom.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\jquery-ui.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\jquery-ui.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\accordion.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\autocomplete.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\button.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\core.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\datepicker.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\dialog.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\draggable.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\droppable.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\effect-blind.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\effect-bounce.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\effect-clip.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\effect-drop.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\effect-explode.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\effect-fade.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\effect-fold.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\effect-highlight.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\effect-puff.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\effect-pulsate.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\effect-scale.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\effect-shake.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\effect-size.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\effect-slide.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\effect-transfer.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\effect.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-af.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-ar-DZ.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-ar.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-az.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-be.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-bg.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-bs.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-ca.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-cs.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-cy-GB.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-da.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-de.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-el.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-en-AU.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-en-GB.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-en-NZ.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-eo.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-es.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-et.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-eu.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-fa.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-fi.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-fo.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-fr-CA.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-fr-CH.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-fr.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-gl.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-he.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-hi.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-hr.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-hu.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-hy.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-id.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-is.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-it-CH.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-it.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-ja.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-ka.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-kk.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-km.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-ko.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-ky.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-lb.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-lt.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-lv.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-mk.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-ml.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-ms.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-nb.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-nl-BE.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-nl.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-nn.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-no.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-pl.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-pt-BR.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-pt.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-rm.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-ro.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-ru.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-sk.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-sl.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-sq.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-sr-SR.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-sr.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-sv.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-ta.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-th.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-tj.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-tr.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-uk.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-vi.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-zh-CN.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-zh-HK.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\i18n\datepicker-zh-TW.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\menu.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\accordion.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\autocomplete.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\button.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\core.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\datepicker.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\dialog.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\draggable.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\droppable.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\effect-blind.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\effect-bounce.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\effect-clip.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\effect-drop.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\effect-explode.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\effect-fade.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\effect-fold.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\effect-highlight.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\effect-puff.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\effect-pulsate.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\effect-scale.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\effect-shake.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\effect-size.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\effect-slide.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\effect-transfer.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\effect.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-af.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-ar-DZ.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-ar.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-az.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-be.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-bg.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-bs.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-ca.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-cs.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-cy-GB.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-da.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-de.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-el.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-en-AU.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-en-GB.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-en-NZ.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-eo.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-es.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-et.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-eu.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-fa.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-fi.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-fo.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-fr-CA.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-fr-CH.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-fr.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-gl.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-he.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-hi.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-hr.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-hu.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-hy.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-id.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-is.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-it-CH.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-it.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-ja.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-ka.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-kk.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-km.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-ko.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-ky.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-lb.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-lt.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-lv.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-mk.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-ml.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-ms.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-nb.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-nl-BE.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-nl.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-nn.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-no.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-pl.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-pt-BR.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-pt.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-rm.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-ro.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-ru.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-sk.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-sl.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-sq.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-sr-SR.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-sr.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-sv.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-ta.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-th.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-tj.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-tr.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-uk.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-vi.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-zh-CN.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-zh-HK.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\i18n\datepicker-zh-TW.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\menu.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\mouse.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\position.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\progressbar.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\resizable.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\selectable.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\selectmenu.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\slider.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\sortable.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\spinner.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\tabs.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\tooltip.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\minified\widget.min.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\mouse.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\position.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\progressbar.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\resizable.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\selectable.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\selectmenu.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\slider.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\sortable.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\spinner.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\tabs.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\tooltip.js" />
+    <Content Include="Content\AdminLayout\js\jquery-ui\ui\widget.js" />
+    <Content Include="Content\AdminLayout\js\jquery.bootstrap-duallistbox.js" />
+    <Content Include="Content\AdminLayout\js\jquery.colorbox.js" />
+    <Content Include="Content\AdminLayout\js\jquery.dataTables.bootstrap.js" />
+    <Content Include="Content\AdminLayout\js\jquery.dataTables.js" />
+    <Content Include="Content\AdminLayout\js\jquery.easypiechart.js" />
+    <Content Include="Content\AdminLayout\js\jquery.flot.js" />
+    <Content Include="Content\AdminLayout\js\jquery.flot.pie.js" />
+    <Content Include="Content\AdminLayout\js\jquery.flot.resize.js" />
+    <Content Include="Content\AdminLayout\js\jquery.gritter.js" />
+    <Content Include="Content\AdminLayout\js\jquery.hotkeys.index.js" />
+    <Content Include="Content\AdminLayout\js\jquery.inputlimiter.js" />
+    <Content Include="Content\AdminLayout\js\jquery.jqGrid.js" />
+    <Content Include="Content\AdminLayout\js\jquery.knob.js" />
+    <Content Include="Content\AdminLayout\js\jquery.maskedinput.js" />
+    <Content Include="Content\AdminLayout\js\jquery.mobile.custom.js" />
+    <Content Include="Content\AdminLayout\js\jquery.nestable.js" />
+    <Content Include="Content\AdminLayout\js\jquery.raty.js" />
+    <Content Include="Content\AdminLayout\js\jquery.sparkline.index.js" />
+    <Content Include="Content\AdminLayout\js\jquery.ui.touch-punch.js" />
+    <Content Include="Content\AdminLayout\js\jquery.validate.js" />
+    <Content Include="Content\AdminLayout\js\markdown.js" />
+    <Content Include="Content\AdminLayout\js\moment.js" />
+    <Content Include="Content\AdminLayout\js\prettify.js" />
+    <Content Include="Content\AdminLayout\js\respond.js" />
+    <Content Include="Content\AdminLayout\js\select2.js" />
+    <Content Include="Content\AdminLayout\js\spin.js" />
+    <Content Include="Content\AdminLayout\js\spinbox.js" />
+    <Content Include="Content\AdminLayout\js\tree.js" />
+    <Content Include="Content\AdminLayout\js\wizard.js" />
+    <Content Include="Content\AdminLayout\swf\flashExport.swf" />
+    <Content Include="Content\assets\calendar\fullcalendar-init.js" />
+    <Content Include="Content\assets\calendar\fullcalendar.css" />
+    <Content Include="Content\assets\calendar\fullcalendar.min.js" />
+    <Content Include="Content\assets\Chonse\chosen-sprite.png" />
+    <Content Include="Content\assets\Chonse\chosen.css" />
+    <Content Include="Content\assets\Chonse\chosen.jquery.js" />
+    <Content Include="Content\assets\css\animate.css" />
+    <Content Include="Content\assets\css\bootstrap-datetimepicker.css" />
+    <Content Include="Content\assets\css\bootstrap-datetimepicker.min.css" />
+    <Content Include="Content\assets\css\bootstrap-select.css" />
+    <Content Include="Content\assets\css\bootstrap.css" />
+    <Content Include="Content\assets\css\bootstrap.min.css" />
+    <Content Include="Content\assets\css\charts\chartist.min.css" />
+    <Content Include="Content\assets\css\cs-skin-elastic.css" />
+    <Content Include="Content\assets\css\flag-icon.min.css" />
+    <Content Include="Content\assets\css\font-awesome.min.css" />
+    <Content Include="Content\assets\css\lib\chosen\chosen-sprite%402x.png" />
+    <Content Include="Content\assets\css\lib\chosen\chosen-sprite.png" />
+    <Content Include="Content\assets\css\lib\chosen\chosen.css" />
+    <Content Include="Content\assets\css\lib\chosen\chosen.min.css" />
+    <Content Include="Content\assets\css\lib\datatable\buttons.bootstrap.min.css" />
+    <Content Include="Content\assets\css\lib\datatable\buttons.dataTables.min.css" />
+    <Content Include="Content\assets\css\lib\datatable\dataTables.bootstrap.min.css" />
+    <Content Include="Content\assets\css\lib\vector-map\jqvmap.min.css" />
+    <Content Include="Content\assets\css\normalize.css" />
+    <Content Include="Content\assets\css\pe-icon-7-filled.css" />
+    <Content Include="Content\assets\css\style.css" />
+    <Content Include="Content\assets\css\style_login.css" />
+    <Content Include="Content\assets\css\themify-icons.css" />
+    <Content Include="Content\assets\css\variables.css" />
+    <Content Include="Content\assets\fonts\codropsicons\codropsicons.svg" />
+    <Content Include="Content\assets\fonts\codropsicons\index.html" />
+    <Content Include="Content\assets\fonts\codropsicons\license.txt" />
+    <Content Include="Content\assets\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\assets\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\assets\fonts\icomoon\icomoon.svg" />
+    <Content Include="Content\assets\fonts\icomoon\index.html" />
+    <Content Include="Content\assets\fonts\index.html" />
+    <Content Include="Content\assets\fonts\Pe-icon-7-filled.svg" />
+    <Content Include="Content\assets\fonts\themify.svg" />
+    <Content Include="Content\assets\js\chartjs.min.js" />
+    <Content Include="Content\assets\js\lib\chart-js\Chart.bundle.js" />
+    <Content Include="Content\assets\js\lib\chart-js\chartjs-init.js" />
+    <Content Include="Content\assets\js\lib\chartist\chartist-plugin-legend.js" />
+    <Content Include="Content\assets\js\lib\chartist\chartist.init.js" />
+    <Content Include="Content\assets\js\lib\chartist\chartist.min.js" />
+    <Content Include="Content\assets\js\lib\chartist\index.html" />
+    <Content Include="Content\assets\js\lib\chosen\chosen.jquery.js" />
+    <Content Include="Content\assets\js\lib\chosen\chosen.jquery.min.js" />
+    <Content Include="Content\assets\js\lib\chosen\chosen.proto.js" />
+    <Content Include="Content\assets\js\lib\chosen\chosen.proto.min.js" />
+    <Content Include="Content\assets\js\lib\data-table\buttons.bootstrap.min.js" />
+    <Content Include="Content\assets\js\lib\data-table\buttons.colVis.min.js" />
+    <Content Include="Content\assets\js\lib\data-table\buttons.flash.min.js" />
+    <Content Include="Content\assets\js\lib\data-table\buttons.html5.min.js" />
+    <Content Include="Content\assets\js\lib\data-table\buttons.print.min.js" />
+    <Content Include="Content\assets\js\lib\data-table\datatables-init.js" />
+    <Content Include="Content\assets\js\lib\data-table\dataTables.bootstrap.min.js" />
+    <Content Include="Content\assets\js\lib\data-table\dataTables.buttons.min.js" />
+    <Content Include="Content\assets\js\lib\data-table\datatables.min.js" />
+    <Content Include="Content\assets\js\lib\data-table\jquery-1.12.4.js" />
+    <Content Include="Content\assets\js\lib\data-table\jquery.dataTables.min.js" />
+    <Content Include="Content\assets\js\lib\data-table\jszip.min.js" />
+    <Content Include="Content\assets\js\lib\data-table\pdfmake.min.js" />
+    <Content Include="Content\assets\js\lib\data-table\vfs_fonts.js" />
+    <Content Include="Content\assets\js\lib\flot-chart\curvedLines.js" />
+    <Content Include="Content\assets\js\lib\flot-chart\excanvas.min.js" />
+    <Content Include="Content\assets\js\lib\flot-chart\flot-chart-init.js" />
+    <Content Include="Content\assets\js\lib\flot-chart\flot-tooltip\jquery.flot.tooltip.min.js" />
+    <Content Include="Content\assets\js\lib\flot-chart\jquery.flot.crosshair.js" />
+    <Content Include="Content\assets\js\lib\flot-chart\jquery.flot.js" />
+    <Content Include="Content\assets\js\lib\flot-chart\jquery.flot.pie.js" />
+    <Content Include="Content\assets\js\lib\flot-chart\jquery.flot.resize.js" />
+    <Content Include="Content\assets\js\lib\flot-chart\jquery.flot.spline.js" />
+    <Content Include="Content\assets\js\lib\flot-chart\jquery.flot.stack.js" />
+    <Content Include="Content\assets\js\lib\flot-chart\jquery.flot.time.js" />
+    <Content Include="Content\assets\js\lib\gauge\gauge.js" />
+    <Content Include="Content\assets\js\lib\gauge\gauge.min.js" />
+    <Content Include="Content\assets\js\lib\gauge\raphael-2.1.4.min.js" />
+    <Content Include="Content\assets\js\lib\gmap\gmap.init.js" />
+    <Content Include="Content\assets\js\lib\gmap\gmapApi.js" />
+    <Content Include="Content\assets\js\lib\gmap\gmaps.js" />
+    <Content Include="Content\assets\js\lib\gmap\gmaps.min.js" />
+    <Content Include="Content\assets\js\lib\moment\moment.js" />
+    <Content Include="Content\assets\js\lib\peitychart\jquery.peity.min.js" />
+    <Content Include="Content\assets\js\lib\peitychart\peitychart.init.js" />
+    <Content Include="Content\assets\js\lib\sparkline\jquery.sparkline.min.js" />
+    <Content Include="Content\assets\js\lib\vector-map\country\jquery.vmap.algeria.js" />
+    <Content Include="Content\assets\js\lib\vector-map\country\jquery.vmap.argentina.js" />
+    <Content Include="Content\assets\js\lib\vector-map\country\jquery.vmap.brazil.js" />
+    <Content Include="Content\assets\js\lib\vector-map\country\jquery.vmap.europe.js" />
+    <Content Include="Content\assets\js\lib\vector-map\country\jquery.vmap.france.js" />
+    <Content Include="Content\assets\js\lib\vector-map\country\jquery.vmap.germany.js" />
+    <Content Include="Content\assets\js\lib\vector-map\country\jquery.vmap.greece.js" />
+    <Content Include="Content\assets\js\lib\vector-map\country\jquery.vmap.iran.js" />
+    <Content Include="Content\assets\js\lib\vector-map\country\jquery.vmap.iraq.js" />
+    <Content Include="Content\assets\js\lib\vector-map\country\jquery.vmap.russia.js" />
+    <Content Include="Content\assets\js\lib\vector-map\country\jquery.vmap.tunisia.js" />
+    <Content Include="Content\assets\js\lib\vector-map\country\jquery.vmap.turkey.js" />
+    <Content Include="Content\assets\js\lib\vector-map\country\jquery.vmap.usa.js" />
+    <Content Include="Content\assets\js\lib\vector-map\country\jquery.vmap.world.js" />
+    <Content Include="Content\assets\js\lib\vector-map\jquery.vmap.js" />
+    <Content Include="Content\assets\js\lib\vector-map\jquery.vmap.min.js" />
+    <Content Include="Content\assets\js\lib\vector-map\jquery.vmap.sampledata.js" />
+    <Content Include="Content\assets\js\lib\vector-map\vector.init.js" />
+    <Content Include="Content\assets\js\main.js" />
+    <Content Include="Content\assets\js\plugins.js" />
+    <Content Include="Content\assets\js\popper.min.js" />
+    <Content Include="Content\assets\js\selectFx.js" />
+    <Content Include="Content\assets\js\vendor\index.html" />
+    <Content Include="Content\assets\js\vendor\jquery-1.11.3.min.js" />
+    <Content Include="Content\assets\js\vendor\jquery-2.1.4.min.js" />
+    <Content Include="Content\assets\js\vendor\modernizr-2.8.3.min.js" />
+    <Content Include="Content\assets\js\widgets.js" />
+    <Content Include="Content\assets\weather\css\weather-icons.css" />
+    <Content Include="Content\assets\weather\fonts\weathericons-regular-webfont.svg" />
+    <Content Include="Content\assets\weather\js\jquery.simpleWeather.min.js" />
+    <Content Include="Content\assets\weather\js\weather-init.js" />
+    <Content Include="Content\assets\css\PagedList.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\ToastrJquery\toastr.css" />
+    <Content Include="Content\ToastrJquery\toastr.min.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Images\admin.jpg" />
+    <Content Include="Images\admin.png" />
+    <Content Include="Images\aside-bg.jpg" />
+    <Content Include="Images\aside-left-bg.jpeg" />
+    <Content Include="Images\avatar\1.jpg" />
+    <Content Include="Images\avatar\1.png" />
+    <Content Include="Images\avatar\2.jpg" />
+    <Content Include="Images\avatar\3.jpg" />
+    <Content Include="Images\avatar\4.jpg" />
+    <Content Include="Images\avatar\5.jpg" />
+    <Content Include="Images\avatar\6.jpg" />
+    <Content Include="Images\avatar\64-1.jpg" />
+    <Content Include="Images\avatar\64-2.jpg" />
+    <Content Include="Images\bg_login.jpg" />
+    <Content Include="Images\bhld_login.PNG" />
+    <Content Include="Images\bh_login.jpg" />
+    <Content Include="Images\bia_login.jpg" />
+    <Content Include="Images\construction-person-icon.jpg" />
+    <Content Include="Images\contractor-admin.png" />
+    <Content Include="Images\flag\du.png" />
+    <Content Include="Images\flag\es.png" />
+    <Content Include="Images\flag\fr.png" />
+    <Content Include="Images\flag\it.png" />
+    <Content Include="Images\flag\us.png" />
+    <Content Include="Images\logo-color.png" />
+    <Content Include="Images\logo.png" />
+    <Content Include="Images\logoH50.png" />
+    <Content Include="Images\logo_color.png" />
+    <Content Include="Images\logo_white.png" />
+    <Content Include="Images\qlnt-bg.png" />
+    <Content Include="Models\QLNT.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>QLNT.edmx</DependentUpon>
+      <LastGenOutput>QLNT.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\QLNT.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>QLNT.edmx</DependentUpon>
+      <LastGenOutput>QLNT.cs</LastGenOutput>
+    </Content>
+    <Content Include="Scripts\bootstrap.bundle.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Content\AdminLayout\font-awesome\4.5.0\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\AdminLayout\font-awesome\4.5.0\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\AdminLayout\font-awesome\4.5.0\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\AdminLayout\font-awesome\4.5.0\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\AdminLayout\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\AdminLayout\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\AdminLayout\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\AdminLayout\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Content\ToastrJquery\toastr.less" />
+    <Content Include="Content\ToastrJquery\toastr.scss" />
+    <Content Include="Content\assets\css\bootstrap.css.map" />
+    <Content Include="Content\assets\css\bootstrap.min.css.map" />
+    <Content Include="Content\assets\fonts\codropsicons\codropsicons.eot" />
+    <Content Include="Content\assets\fonts\codropsicons\codropsicons.ttf" />
+    <Content Include="Content\assets\fonts\codropsicons\codropsicons.woff" />
+    <Content Include="Content\assets\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\assets\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\assets\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\assets\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\assets\fonts\FontAwesome.otf" />
+    <Content Include="Content\assets\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\assets\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\assets\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\assets\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Content\assets\fonts\icomoon\icomoon.eot" />
+    <Content Include="Content\assets\fonts\icomoon\icomoon.ttf" />
+    <Content Include="Content\assets\fonts\icomoon\icomoon.woff" />
+    <Content Include="Content\assets\fonts\Pe-icon-7-filled.eot" />
+    <Content Include="Content\assets\fonts\Pe-icon-7-filled.ttf" />
+    <Content Include="Content\assets\fonts\Pe-icon-7-filled.woff" />
+    <Content Include="Content\assets\fonts\themify.eot" />
+    <Content Include="Content\assets\fonts\themify.ttf" />
+    <Content Include="Content\assets\fonts\themify.woff" />
+    <Content Include="Content\assets\weather\fonts\weathericons-regular-webfont.eot" />
+    <Content Include="Content\assets\weather\fonts\weathericons-regular-webfont.ttf" />
+    <Content Include="Content\assets\weather\fonts\weathericons-regular-webfont.woff" />
+    <Content Include="Content\assets\weather\fonts\weathericons-regular-webfont.woff2" />
+    <Content Include="libman.json" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap\wells.less" />
+    <Content Include="Content\bootstrap\variables.less" />
+    <Content Include="Content\bootstrap\utilities.less" />
+    <Content Include="Content\bootstrap\type.less" />
+    <Content Include="Content\bootstrap\tooltip.less" />
+    <Content Include="Content\bootstrap\thumbnails.less" />
+    <Content Include="Content\bootstrap\theme.less" />
+    <Content Include="Content\bootstrap\tables.less" />
+    <Content Include="Content\bootstrap\scaffolding.less" />
+    <Content Include="Content\bootstrap\responsive-utilities.less" />
+    <Content Include="Content\bootstrap\responsive-embed.less" />
+    <Content Include="Content\bootstrap\progress-bars.less" />
+    <Content Include="Content\bootstrap\print.less" />
+    <Content Include="Content\bootstrap\popovers.less" />
+    <Content Include="Content\bootstrap\panels.less" />
+    <Content Include="Content\bootstrap\pagination.less" />
+    <Content Include="Content\bootstrap\pager.less" />
+    <Content Include="Content\bootstrap\normalize.less" />
+    <Content Include="Content\bootstrap\navs.less" />
+    <Content Include="Content\bootstrap\navbar.less" />
+    <Content Include="Content\bootstrap\modals.less" />
+    <Content Include="Content\bootstrap\mixins\vendor-prefixes.less" />
+    <Content Include="Content\bootstrap\mixins\text-overflow.less" />
+    <Content Include="Content\bootstrap\mixins\text-emphasis.less" />
+    <Content Include="Content\bootstrap\mixins\table-row.less" />
+    <Content Include="Content\bootstrap\mixins\tab-focus.less" />
+    <Content Include="Content\bootstrap\mixins\size.less" />
+    <Content Include="Content\bootstrap\mixins\responsive-visibility.less" />
+    <Content Include="Content\bootstrap\mixins\resize.less" />
+    <Content Include="Content\bootstrap\mixins\reset-text.less" />
+    <Content Include="Content\bootstrap\mixins\reset-filter.less" />
+    <Content Include="Content\bootstrap\mixins\progress-bar.less" />
+    <Content Include="Content\bootstrap\mixins\panels.less" />
+    <Content Include="Content\bootstrap\mixins\pagination.less" />
+    <Content Include="Content\bootstrap\mixins\opacity.less" />
+    <Content Include="Content\bootstrap\mixins\nav-vertical-align.less" />
+    <Content Include="Content\bootstrap\mixins\nav-divider.less" />
+    <Content Include="Content\bootstrap\mixins\list-group.less" />
+    <Content Include="Content\bootstrap\mixins\labels.less" />
+    <Content Include="Content\bootstrap\mixins\image.less" />
+    <Content Include="Content\bootstrap\mixins\hide-text.less" />
+    <Content Include="Content\bootstrap\mixins\grid.less" />
+    <Content Include="Content\bootstrap\mixins\grid-framework.less" />
+    <Content Include="Content\bootstrap\mixins\gradients.less" />
+    <Content Include="Content\bootstrap\mixins\forms.less" />
+    <Content Include="Content\bootstrap\mixins\clearfix.less" />
+    <Content Include="Content\bootstrap\mixins\center-block.less" />
+    <Content Include="Content\bootstrap\mixins\buttons.less" />
+    <Content Include="Content\bootstrap\mixins\border-radius.less" />
+    <Content Include="Content\bootstrap\mixins\background-variant.less" />
+    <Content Include="Content\bootstrap\mixins\alerts.less" />
+    <Content Include="Content\bootstrap\mixins.less" />
+    <Content Include="Content\bootstrap\media.less" />
+    <Content Include="Content\bootstrap\list-group.less" />
+    <Content Include="Content\bootstrap\labels.less" />
+    <Content Include="Content\bootstrap\jumbotron.less" />
+    <Content Include="Content\bootstrap\input-groups.less" />
+    <Content Include="Content\bootstrap\grid.less" />
+    <Content Include="Content\bootstrap\glyphicons.less" />
+    <Content Include="Content\bootstrap\forms.less" />
+    <Content Include="Content\bootstrap\dropdowns.less" />
+    <Content Include="Content\bootstrap\component-animations.less" />
+    <Content Include="Content\bootstrap\code.less" />
+    <Content Include="Content\bootstrap\close.less" />
+    <Content Include="Content\bootstrap\carousel.less" />
+    <Content Include="Content\bootstrap\buttons.less" />
+    <Content Include="Content\bootstrap\button-groups.less" />
+    <Content Include="Content\bootstrap\breadcrumbs.less" />
+    <Content Include="Content\bootstrap\bootstrap.less" />
+    <Content Include="Content\bootstrap\badges.less" />
+    <Content Include="Content\bootstrap\alerts.less" />
+    <Content Include="App_Data\NVM.xlsx" />
+    <Content Include="App_Data\NVM_temp.xlsx" />
+    <Content Include="App_Data\DK.xlsx" />
+    <Content Include="App_Data\DK_temp.xlsx" />
+    <Content Include="App_Data\TH.xlsx" />
+    <Content Include="App_Data\TH_temp.xlsx" />
+    <EntityDeploy Include="Models\QLNT.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>QLNT.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\QLNT.edmx.diagram">
+      <DependentUpon>QLNT.edmx</DependentUpon>
+    </Content>
+    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\jquery-2.2.3.js" />
+    <Content Include="Scripts\jquery-2.2.3.min.js" />
+    <Content Include="Scripts\jquery-3.0.0.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.js" />
+    <Content Include="Scripts\jquery-3.4.1.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\moment-with-locales.js" />
+    <Content Include="Scripts\moment-with-locales.min.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moment.min.js" />
+    <Content Include="Scripts\ToastrJquery\toastr.js" />
+    <Content Include="Scripts\ToastrJquery\toastr.min.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\NhanVien\Index.cshtml" />
+    <Content Include="Views\NhanVien\Create.cshtml" />
+    <Content Include="Views\NhanVien\Edit.cshtml" />
+    <Content Include="Views\NhanVien\Delete.cshtml" />
+    <Content Include="Views\Quyen\Create.cshtml" />
+    <Content Include="Views\Quyen\Index.cshtml" />
+    <Content Include="Views\Quyen\Edit.cshtml" />
+    <Content Include="Views\NguoiDung\Index.cshtml" />
+    <Content Include="Views\NguoiDung\Create.cshtml" />
+    <Content Include="Views\NguoiDung\Edit.cshtml" />
+    <Content Include="Views\NguoiDung\InsertPermission.cshtml" />
+    <Content Include="Views\ContractExtension\Index.cshtml" />
+    <Content Include="Views\ContractExtension\Create.cshtml" />
+    <Content Include="Views\ContractExtension\Edit.cshtml" />
+    <Content Include="Views\Permission\Index.cshtml" />
+    <Content Include="Views\ContractorStaff\Index.cshtml" />
+    <Content Include="Views\ContractorStaff\Create.cshtml" />
+    <Content Include="Views\ContractorStaff\Edit.cshtml" />
+    <Content Include="Views\ContractorStaff\ImportExcel.cshtml" />
+    <Content Include="Views\ResultsLearnSafe\Index.cshtml" />
+    <Content Include="Views\ResultsLearnSafe\UpdateBulk.cshtml" />
+    <Content Include="Views\ResultsLearnSafe\Edit.cshtml" />
+    <Content Include="Views\Card\Index.cshtml" />
+    <Content Include="Views\Card\Create.cshtml" />
+    <Content Include="Views\Card\Edit.cshtml" />
+    <Content Include="Views\LoaiKhach\Index.cshtml" />
+    <Content Include="Views\LoaiKhach\Create.cshtml" />
+    <Content Include="UploadedFiles\202104221514-NhanVienNT2.xlsx" />
+    <Content Include="UploadedFiles\202104231429-NhanVienNT2.xlsx" />
+    <Content Include="UploadedFiles\202104231432-NhanVienNT2.xlsx" />
+    <Content Include="UploadedFiles\202104231440-NhanVienNT2.xlsx" />
+    <Content Include="UploadedFiles\202104231452-NhanVienNT2.xlsx" />
+    <Content Include="UploadedFiles\202104291405-NhanVienNT2.xlsx" />
+    <Content Include="UploadedFiles\202104291406-NhanVienNT2.xlsx" />
+    <Content Include="UploadedFiles\202104291410-NhanVienNT2.xlsx" />
+    <Content Include="UploadedFiles\202104291414-NhanVienNT2.xlsx" />
+    <Content Include="UploadedFiles\202104291415-NhanVienNT2.xlsx" />
+    <Content Include="UploadedFiles\202104291417-NhanVienNT2.xlsx" />
+    <Content Include="UploadedFiles\202104291420-NhanVienNT2.xlsx" />
+    <Content Include="UploadedFiles\202104291423-NhanVienNT2.xlsx" />
+    <Content Include="UploadedFiles\202104291426-NhanVienNT2.xlsx" />
+    <Content Include="UploadedFiles\202104291427-NhanVienNT2.xlsx" />
+    <Content Include="UploadedFiles\202104291430-NhanVienNT2.xlsx" />
+    <Content Include="UploadedFiles\202104291434-NhanVienNT2.xlsx" />
+    <Content Include="UploadedFiles\202104291512-NhanVienNT2.xlsx" />
+    <Content Include="UploadedFiles\202105060834-TB_TTr_CaiTien_PhanMem.pdf" />
+    <Content Include="UploadedFiles\202105080837-HPDQ_To chuc dao tao Office 365.pdf" />
+    <Content Include="UploadedFiles\202105080841-NhanVienNT2.xlsx" />
+    <Content Include="UploadedFiles\202105080842-NhanVienNT2.xlsx" />
+    <Content Include="Uploads\NhanVienNT.xlsx" />
+    <Content Include="Uploads\NhanVienNT1.xlsx" />
+    <Content Include="Uploads\NhanVienNT2.xlsx" />
+    <Content Include="Uploads\Nhu cau chi tiet E learning 26.03.21.xlsx" />
+    <Content Include="Views\Department\Index.cshtml" />
+    <Content Include="Views\Department\Create.cshtml" />
+    <Content Include="Views\Department\Edit.cshtml" />
+    <Content Include="Views\Contractors\Index.cshtml" />
+    <Content Include="Views\Contractors\Create.cshtml" />
+    <Content Include="Views\Contractors\Edit.cshtml" />
+    <Content Include="Views\Contractors\ImportExcel.cshtml" />
+    <Content Include="Views\Contract\Index.cshtml" />
+    <Content Include="Views\Contract\Create.cshtml" />
+    <Content Include="Views\Contract\Edit.cshtml" />
+    <Content Include="Views\Contract\CheckInformation.cshtml" />
+    <Content Include="Views\ReportAbuse\Index.cshtml" />
+    <Content Include="Views\ReportAbuse\Create.cshtml" />
+    <Content Include="Views\LoaiKhach\Edit.cshtml" />
+    <Content Include="Views\LoaiKhach\Details.cshtml" />
+    <Content Include="Views\ReportAbuse\Edit.cshtml" />
+    <Content Include="Views\ConStaffStatistics\Index.cshtml" />
+    <Content Include="Views\ContractorStatistics\Index.cshtml" />
+    <Content Include="Views\ContractStatistics\Index.cshtml" />
+    <Content Include="Views\WarningNotice\Index.cshtml" />
+    <Content Include="Views\ManageCard\Index.cshtml" />
+    <Content Include="Views\ManageCard\Create.cshtml" />
+    <Content Include="Views\ManageCard\Edit.cshtml" />
+    <Content Include="Views\BlockCard\Index.cshtml" />
+    <Content Include="Views\BlockCard\Block.cshtml" />
+    <Content Include="Views\Safeenrollment\ImportExcel.cshtml" />
+    <Content Include="Views\Security\Index.cshtml" />
+    <Content Include="Views\Registration\Index.cshtml" />
+    <Content Include="Views\Registration\Create.cshtml" />
+    <Content Include="Views\Registration\Edit.cshtml" />
+    <Content Include="Views\Registration\ImportExcel.cshtml" />
+    <Content Include="Views\Registration\CheckInformation.cshtml" />
+    <Content Include="Views\Registration\CheckInformationoften.cshtml" />
+    <Content Include="Views\Registration\Security.cshtml" />
+    <Content Include="Views\Registration\List.cshtml" />
+    <Content Include="Views\Security\Security.cshtml" />
+    <Content Include="Views\Security\List.cshtml" />
+    <Content Include="Views\Signer\Approved.cshtml" />
+    <Content Include="Views\Signer\Pending.cshtml" />
+    <Content Include="Views\Gate\Index.cshtml" />
+    <Content Include="Views\Gate\Create.cshtml" />
+    <Content Include="Views\Gate\Edit.cshtml" />
+    <Content Include="Views\CustomerType\Index.cshtml" />
+    <Content Include="Views\CustomerType\Create.cshtml" />
+    <Content Include="Views\CustomerType\Edit.cshtml" />
+    <Content Include="Views\Safeenrollment\DanhSachHAT.cshtml" />
+    <Content Include="Views\Safeenrollment\Details.cshtml" />
+    <Content Include="Views\Safeenrollment\Index.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Users\Create.cshtml" />
+    <Content Include="Views\Users\Edit.cshtml" />
+    <Content Include="Views\Users\InsertPermission.cshtml" />
+    <Content Include="Views\Access\Index.cshtml" />
+    <Content Include="Views\Access\Create.cshtml" />
+    <Content Include="Views\Contract\Details.cshtml" />
+    <Content Include="Views\Personnel\Index.cshtml" />
+    <Content Include="Views\Periodic\Index.cshtml" />
+    <Content Include="Views\Personnel\Create.cshtml" />
+    <Content Include="Views\Demarcation\Create.cshtml" />
+    <Content Include="Views\Personnel\Edit.cshtml" />
+    <Content Include="Views\Protectiontype\Index.cshtml" />
+    <Content Include="Views\Protectiontype\Create.cshtml" />
+    <Content Include="Views\Protectiontype\Edit.cshtml" />
+    <Content Include="Views\Periodic\Details.cshtml" />
+    <Content Include="Views\Periodic\Create.cshtml" />
+    <Content Include="Views\Periodic\Edit.cshtml" />
+    <Content Include="Views\Demarcation\Edit.cshtml" />
+    <Content Include="Views\Demarcation\Index.cshtml" />
+    <Content Include="Views\Periodicalperiod\Index.cshtml" />
+    <Content Include="Views\Periodicalperiod\Create.cshtml" />
+    <Content Include="Views\Periodicalperiod\Details.cshtml" />
+    <Content Include="Views\Periodicalperiod\Edit.cshtml" />
+    <Content Include="Views\Quitjob\Index.cshtml" />
+    <Content Include="Views\Quitjob\Create.cshtml" />
+    <Content Include="Views\Quitjob\Edit.cshtml" />
+    <Content Include="Views\Periodicalperiod\_ToolSearch.cshtml" />
+    <Content Include="Views\Protectionmargin\Index.cshtml" />
+    <Content Include="Views\Protectionmargin\Create.cshtml" />
+    <Content Include="Views\Protectionmargin\Edit.cshtml" />
+    <Content Include="Views\Staffing\Index.cshtml" />
+    <Content Include="Views\Staffing\Create.cshtml" />
+    <Content Include="Views\Staffing\Edit.cshtml" />
+    <Content Include="Views\Newstaff\Index.cshtml" />
+    <Content Include="Views\Newstaff\Create.cshtml" />
+    <Content Include="Views\Newstaff\Edit.cshtml" />
+    <Content Include="Views\NewstaffWarehouse\Index.cshtml" />
+    <Content Include="Views\NewstaffWarehouse\_ToolSearch.cshtml" />
+    <Content Include="Views\Periodicdetails\Index.cshtml" />
+    <Content Include="Views\Periodicdetails\Create.cshtml" />
+    <Content Include="Views\Periodicdetails\Edit.cshtml" />
+    <Content Include="Views\Periodicwarehouse\Index.cshtml" />
+    <Content Include="Views\Periodicwarehouse\_ToolSearch.cshtml" />
+    <Content Include="Views\Protectionmargindetail\Index.cshtml" />
+    <Content Include="Views\Protectionmargindetail\Create.cshtml" />
+    <Content Include="Views\Protectionmargindetail\Edit.cshtml" />
+    <Content Include="Views\Consumption\Index.cshtml" />
+    <Content Include="Views\Consumption\Create.cshtml" />
+    <Content Include="Views\Consumabledetails\Index.cshtml" />
+    <Content Include="Views\Consumabledetails\Create.cshtml" />
+    <Content Include="Views\Consumabledetails\Edit.cshtml" />
+    <Content Include="Views\Consumablewarehouse\_ToolSearch.cshtml" />
+    <Content Include="Views\Consumablewarehouse\Index.cshtml" />
+    <Content Include="Views\Consumption\Edit.cshtml" />
+    <Content Include="Views\Recall\Index.cshtml" />
+    <Content Include="Views\Recall\Create.cshtml" />
+    <Content Include="Views\Recalldetails\Index.cshtml" />
+    <Content Include="Views\Recalldetails\Create.cshtml" />
+    <Content Include="Views\Recall\Edit.cshtml" />
+    <Content Include="Views\Statistical\Index.cshtml" />
+    <Content Include="Views\Recalldetails\Edit.cshtml" />
+    <Content Include="Views\PeriodicalperiodDetai\Index.cshtml" />
+    <Content Include="Views\PeriodicalperiodDetai\Create.cshtml" />
+    <Content Include="Views\PeriodicalperiodDetai\Edit.cshtml" />
+    <Content Include="Views\Consumptionperiod\Index.cshtml" />
+    <Content Include="Views\Consumptionperiod\Create.cshtml" />
+    <Content Include="Views\Consumptionperiod\Edit.cshtml" />
+    <Content Include="Views\ConsumptionperiodDetai\Index.cshtml" />
+    <Content Include="Views\ConsumptionperiodDetai\Create.cshtml" />
+    <Content Include="Views\ConsumptionperiodDetai\Edit.cshtml" />
+    <Content Include="Views\Consumedregularly\Index.cshtml" />
+    <Content Include="Views\Consumedregularly\Create.cshtml" />
+    <Content Include="Views\Consumedregularly\Edit.cshtml" />
+    <Content Include="Views\ConsumedregularlyDetai\Index.cshtml" />
+    <Content Include="Views\ConsumedregularlyDetai\Create.cshtml" />
+    <Content Include="Views\ConsumedregularlyDetai\Edit.cshtml" />
+    <Content Include="Views\Staffing\CheckInformation.cshtml" />
+    <Content Include="Views\Demarcation\CheckInformation.cshtml" />
+    <Content Include="Views\Consumption\CheckInformation.cshtml" />
+    <Content Include="Views\ApproveDK\NotApproved.cshtml" />
+    <Content Include="Views\ApproveDK\Edit.cshtml" />
+    <Content Include="Views\CompleteapprovalDK\Index.cshtml" />
+    <Content Include="Views\ApproveTH\Index.cshtml" />
+    <Content Include="Views\ApproveTH\Edit.cshtml" />
+    <Content Include="Views\CompleteapprovalTH\Index.cshtml" />
+    <Content Include="Views\Staffing\ImportExcel.cshtml" />
+    <Content Include="Views\NewstaffWarehouse\UpdateBulk.cshtml" />
+    <Content Include="Views\Demarcation\ImportExcel.cshtml" />
+    <Content Include="Views\Consumption\ImportExcel.cshtml" />
+    <Content Include="Views\Periodicwarehouse\UpdateBulk.cshtml" />
+    <Content Include="Views\Consumablewarehouse\UpdateBulk.cshtml" />
+    <Content Include="Views\Consumptionperiod\ImportExcel.cshtml" />
+    <Content Include="Views\Periodicalperiod\ImportExcel.cshtml" />
+    <Content Include="Views\Account\Index.cshtml" />
+    <Content Include="Views\Account\Edit.cshtml" />
+    <Content Include="Views\Protectionmargin\ImportExcel.cshtml" />
+    <Content Include="Views\Consumedregularly\ImportExcel.cshtml" />
+    <Content Include="Views\Demarcation\DownExcelFile.cshtml" />
+    <Content Include="Views\Consumption\DownExcelFile.cshtml" />
+    <Content Include="Views\Staffing\DownExcelFile.cshtml" />
+    <Content Include="Views\Protectionmargin\DownExcelFile.cshtml" />
+    <Content Include="Views\Consumedregularly\DownExcelFile.cshtml" />
+    <Content Include="Views\Periodicalperiod\DownExcelFile.cshtml" />
+    <Content Include="Views\Consumptionperiod\DownExcelFile.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\CloseCard\" />
+    <Folder Include="Views\PhanQuyen\" />
+    <Folder Include="Views\Recallinformation\" />
+    <Folder Include="Views\ResultsSchoolSafe\" />
+    <Folder Include="Views\Test\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <None Include="packages.config" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>59598</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44364/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

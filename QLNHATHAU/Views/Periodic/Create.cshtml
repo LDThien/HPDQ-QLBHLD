@@ -1,0 +1,152 @@
+﻿@model QLNHATHAU.Models.PeriodicValidation
+<script src="~/Content/assets/Chonse/chosen.jquery.js"></script>
+<link href="~/Content/assets/Chonse/chosen.css" rel="stylesheet" />
+@using (Html.BeginForm("Create", "Periodic", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="modal-dialog" id="form">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="ModalTitle"></h5>
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+            </div>
+            <div class="modal-body">
+                <div class="form-row">
+                    <div class="col-md-12">
+                        <label class="small mb-1">Phong Ban</label>
+                        @Html.DropDownListFor(model => model.PhongBanID, ViewBag.PBList as SelectList, "--Phong Ban--", new { @id = "PhongBanID", @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-12">
+                        <label class="small mb-1">Họ Tên Và Mã Nhân Viên</label>
+                        <script>
+                            $(document).ready(function () {
+                                $("#PhongBanID").change(function () {
+                                    $.get("/Periodic/GetNhanSu", { id: $("#PhongBanID").val() }, function (data) {
+                                        $("#NhanSuID").empty();
+                                        $.each(data, function (index, row) {
+                                            $("#NhanSuID").append("<option value ='" + row.IDNV + "'>" + row.MaNV + " - " + row.HoTen + "</option>")
+                                        });
+                                    });
+                                })
+                            });
+                        </script>
+                        @Html.DropDownListFor(model => model.NhanSuID, new SelectList(" "), "--Chọn họ tên và mã nhân viên--", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.NhanSuID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <label class="small mb-1">Vị Trí Làm Việc</label>
+                        @Html.DropDownListFor(model => model.VTLVID, ViewBag.VTList as SelectList, "--Vị Trí Làm Việc--", new { @id = "VTLVID", @class = "form-control" })
+                    </div>
+                    <div class="col-md-6">
+                        <label class="small mb-1">Ngày Xuất </label>
+                        @Html.EditorFor(model => model.NgayXuat, new { @value = DateTime.Today, htmlAttributes = new { @class = "form-control", @type = "date", placeholder = "Ngày Xuất", @id = "NgayXuat" } })
+                        @Html.ValidationMessageFor(model => model.NgayXuat, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="small mb-1"> Áo Quần BP/MN </label>
+                            @Html.EditorFor(model => model.AoQuanBPNM, new { htmlAttributes = new { @class = "form-control", placeholder = "Nhập số lượng", @id = "AoQuanBPNM" } })
+                            @Html.ValidationMessageFor(model => model.AoQuanBPNM, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="small mb-1">Size Áo Quần BP/MN </label>
+                        @Html.DropDownListFor(model => model.SizeAoQuanBPNM, ViewBag.AQList as SelectList, "--Size Áo Quần--", new { @id = "SizeAoQuanBPNM", @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="small mb-1"> Áo Quần KTV/BGĐ </label>
+                            @Html.EditorFor(model => model.AoQuanKTVGD, new { htmlAttributes = new { @class = "form-control", placeholder = "Nhập số lượng", @id = "AoQuanKTVGD" } })
+                            @Html.ValidationMessageFor(model => model.AoQuanKTVGD, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="small mb-1">Size Áo Quần KTV/BGĐ </label>
+                        @Html.DropDownListFor(model => model.SizeAoQuanKTVGD, ViewBag.QAList as SelectList, "--Size Áo Quần--", new { @id = "SizeAoQuanKTVGD", @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="small mb-1">Mũ BHLĐ Xanh</label>
+                            @Html.EditorFor(model => model.MuXanh, new { htmlAttributes = new { @class = "form-control", placeholder = "Nhập số lượng", @id = "MuXanh" } })
+                            @Html.ValidationMessageFor(model => model.MuXanh, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="small mb-1">Mũ BHLĐ Trắng</label>
+                        @Html.EditorFor(model => model.MuTrang, new { htmlAttributes = new { @class = "form-control", placeholder = "Nhập số lượng", @id = "MuTrang" } })
+                        @Html.ValidationMessageFor(model => model.MuTrang, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="small mb-1"> Giày Thấp Cổ </label>
+                            @Html.EditorFor(model => model.GiayThapCo, new { htmlAttributes = new { @class = "form-control", placeholder = "Nhập số lượng", @id = "GiayThapCo" } })
+                            @Html.ValidationMessageFor(model => model.GiayThapCo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="small mb-1"> Size Giày Thấp Cổ </label>
+                            @Html.DropDownListFor(model => model.SizeGiay, ViewBag.GList as SelectList, "--Size Giày--", new { @id = "SizeGiay", @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="small mb-1">Ghi Chú</label>
+                            @Html.EditorFor(model => model.GhiChu, new { htmlAttributes = new { @class = "form-control", placeholder = "Ghi Chú", @id = "GhiChu" } })
+                            @Html.ValidationMessageFor(model => model.GhiChu, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                &nbsp;
+                <div class="col-md-12" style="margin-left: 170px;">
+                    <input type="submit" value="Thêm mới" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<style>
+    .button_submit {
+        float: right;
+        margin-bottom: 15px;
+    }
+
+    .button_cancel {
+        float: right;
+        margin-right: 15px
+    }
+
+    .margin-checkbox {
+        margin-right: 30px;
+    }
+</style>
+<script type="text/javascript">
+    $("#PhongBanID").chosen({
+        width: "100%"
+    });
+    $("#TTLVID").chosen({
+        width: "100%"
+    });
+</script>
+
+
+
+
+
+
+
+

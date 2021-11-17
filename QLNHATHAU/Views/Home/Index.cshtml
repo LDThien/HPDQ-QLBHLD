@@ -1,0 +1,309 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using QLNHATHAU.Models;
+@{
+    QLNhaThauEntities db_context = new QLNhaThauEntities();
+}
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+<link href="~/Content/assets/css/pe-icon-7-filled.css" rel="stylesheet" />
+<div class="overview row">
+    <div class="col-lg-4 col-md-6">
+        @{
+            var count = db_context.DinhBienNVs.ToList().Count;
+        }
+        <div class="card" style="border-radius: 10px;">
+            <div class="card-header bg-footer-inner">
+                <div class="stat-widget-five">
+                    <div class="stat-icon dib white-color">
+                        <i class="pe-7f-users"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="text-left dib">
+                            <div class="stat-text"><span>Bảo Hộ Lao Động Nhân Viên Mới </span></div>
+                            <div class="stat-heading">Số lượng : @count </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-left: 30px; margin-right: 30px; border-top-style: double; border-color: white;">
+                    <a class="small text-white stretched-link" href="@Url.Action("Index","Statistical")">
+                        <span> Xem chi tiết </span>
+                        <i class="fa fa-angle-double-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-lg-4 col-md-6">
+        @{
+            var count1 = db_context.DinhBienDKs.ToList().Count;
+        }
+        <div class="card" style="border-radius: 10px;">
+            <div class="card-header bg-midnight-bloom">
+                <div class="stat-widget-five">
+                    <div class="stat-icon dib white-color">
+                        <i class="pe-7f-bell"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="text-left dib">
+                            <div class="stat-text"><span class="count">Bảo Hộ Lao Động Định Kỳ</span></div>
+                            <div class="stat-heading">Số lượng : @count1 </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-left: 30px; margin-right: 30px; border-top-style: double; border-color: white;">
+                    <a class="small text-white stretched-link" href="@Url.Action("Index","Statistical")">
+                        <span> Xem chi tiết </span>
+                        <i class="fa fa-angle-double-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-6">
+        @{
+            var count2 = db_context.DinhBienTHs.ToList().Count;
+        }
+        <div class="card" style="border-radius: 10px;">
+            <div class="card-header bg-grow-early">
+                <div class="stat-widget-five">
+                    <div class="stat-icon dib white-color">
+                        <i class="pe-7f-attention"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="text-left dib">
+                            <div class="stat-text"><span class="count">Bảo Hộ Lao Động Tiêu Hao</span></div>
+                            <div class="stat-heading">Số lượng : @count2 </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-left: 30px;margin-right: 30px; border-top-style: double; border-color: white;">
+                    <a class="small text-white stretched-link" href="@Url.Action("Index","Statistical")">
+                        <span> Xem chi tiết </span>
+                        <i class="fa fa-angle-double-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*BẢO HỘ LAO ĐỘNG ĐỊNH KỲ*@
+<figure class="highcharts-figure">
+    <div id="containerdk" style="width: 100%;"></div>
+
+</figure>
+<script>
+    $(document).ready(function () {
+        $.getJSON("/Home/GetDataDK", function (data) {
+            var Names = []
+            var Pbs = []
+
+            for (var i = 0; i < data.length; i++) {
+                Names.push(data[i].name);
+                Pbs.push(data[i].count);
+            }
+
+            Highcharts.chart('containerdk', {
+                chart: {
+                    type: 'line'
+                },
+                credits: {
+                    enabled: false
+                },
+                title: {
+                    text: 'BẢO HỘ LAO ĐỘNG ĐỊNH KỲ'
+                },
+                xAxis: {
+                    categories: Names
+                },
+                yAxis: {
+                    title: {
+                        text: 'Số Lượng'
+                    }
+                },
+                plotOptions: {
+                    line: {
+                        dataLabels: {
+                            enabled: true
+                        },
+                        enableMouseTracking: false
+                    }
+                },
+                series: [{
+                    name: 'Bảo Hộ Lao Động Định Kỳ',
+                    data: Pbs
+                }]
+            });
+        });
+    });
+
+</script>
+
+@*BẢO HỘ LAO ĐỘNG TIÊU HAO*@
+<figure class="highcharts-figure" style="border-top-style: double;">
+    <div id="containerth" style="width: 100%;"></div>
+
+</figure>
+<script>
+    $(document).ready(function () {
+        $.getJSON("/Home/GetDataTH", function (data) {
+
+            var Names = []
+            var Pbs = []
+
+            for (var i = 0; i < data.length; i++) {
+                Names.push(data[i].name);
+                Pbs.push(data[i].count);
+            }
+
+
+            Highcharts.chart('containerth', {
+                chart: {
+                    type: 'line'
+                },
+                credits: {
+                    enabled: false
+                },
+                title: {
+                    text: 'BẢO HỘ LAO ĐỘNG TIÊU HAO'
+                },
+                xAxis: {
+                    categories: Names
+                },
+                yAxis: {
+                    title: {
+                        text: 'Số Lượng'
+                    }
+                },
+                plotOptions: {
+                    line: {
+                        dataLabels: {
+                            enabled: true
+                        },
+                        enableMouseTracking: false
+                    }
+                },
+                series: [{
+                    name: 'Bảo Hộ Lao Động Tiêu hao',
+                    data: Pbs
+                }]
+            });
+        });
+    });
+
+</script>
+
+@*BẢO HỘ LAO ĐỘNG NHÂN VIÊN MỚI*@
+<figure class="highcharts-figure" style="border-top-style: double;">
+    <div id="containernv" style="width: 100%;"></div>
+
+</figure>
+<script>
+    $(document).ready(function () {
+        $.getJSON("/Home/GetDataNVM", function (data) {
+
+            var Names = []
+            var Pbs = []
+
+            for (var i = 0; i < data.length; i++) {
+                Names.push(data[i].name);
+                Pbs.push(data[i].count);
+            }
+
+
+            Highcharts.chart('containernv', {
+                chart: {
+                    type: 'line'
+                },
+                credits: {
+                    enabled: false
+                },
+                title: {
+                    text: 'BẢO HỘ LAO ĐỘNG NHÂN VIÊN MỚI'
+                },
+                xAxis: {
+                    categories: Names
+                },
+                yAxis: {
+                    title: {
+                        text: 'Số Lượng'
+                    }
+                },
+                plotOptions: {
+                    line: {
+                        dataLabels: {
+                            enabled: true
+                        },
+                        enableMouseTracking: false
+                    }
+                },
+                series: [{
+                    name: 'Bảo Hộ Lao Động Nhân viên mới',
+                    data: Pbs
+                }]
+            });
+        });
+    });
+
+</script>
+
+@*BẢO HỘ LAO ĐỘNG THU HỒI*@
+<figure class="highcharts-figure" style="border-top-style: double;">
+    <div id="containerthoi" style="width: 100%;"></div>
+
+</figure>
+<script>
+    $(document).ready(function () {
+        $.getJSON("/Home/GetDataTHoi", function (data) {
+
+            var Names = []
+            var Pbs = []
+
+            for (var i = 0; i < data.length; i++) {
+                Names.push(data[i].name);
+                Pbs.push(data[i].count);
+            }
+
+
+            Highcharts.chart('containerthoi', {
+                chart: {
+                    type: 'line'
+                },
+                credits: {
+                    enabled: false
+                },
+                title: {
+                    text: 'BẢO HỘ LAO ĐỘNG THU HỒI'
+                },
+                xAxis: {
+                    categories: Names
+                },
+                yAxis: {
+                    title: {
+                        text: 'Số Lượng'
+                    }
+                },
+                plotOptions: {
+                    line: {
+                        dataLabels: {
+                            enabled: true
+                        },
+                        enableMouseTracking: false
+                    }
+                },
+                series: [{
+                    name: 'Bảo Hộ Lao Động Thu Hồi',
+                    data: Pbs
+                }]
+            });
+        });
+    });
+
+</script>

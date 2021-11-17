@@ -1,0 +1,42 @@
+﻿@using QLNHATHAU.Models
+@{ Layout = null;}
+@model List<DanhSachHATValidation>
+@if (Model.Count > 0)
+{
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped table-hover" cellspacing="0">
+            <thead class="thead-light">
+                <tr>
+                    <td class="text-center">STT</td>
+                    <td>Họ tên</td>
+                    <td>CMND</td>
+                    <td>Giới tính</td>
+                    <td>Quốc tịch</td>
+                    <td>Chức Vụ</td>
+                    <td>Thời hạn thẻ</td>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int RowNo = 1;
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                             <td>@RowNo@{RowNo++;}</td>
+                            <td>@item.HoTen</td>
+                            <td>@item.CMND</td>
+                            <td>@item.GioiTinh</td>
+                            <td>@item.QuocTich</td>
+                            <td>@item.ChucVu</td>
+                            <td>@item.ThoiHanThe</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+
+    </div>
+}
+
+

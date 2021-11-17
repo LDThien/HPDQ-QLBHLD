@@ -1,0 +1,84 @@
+﻿
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using QLNHATHAU.Models
+@model PeriodicValidation
+<div class="card mb-3">
+    <div class="card-body">
+
+        <div class="card mb-3" style="border-style: inset;">
+            <div class="card-header" style="border-style: groove;">
+                <h3 class="text-center">Danh Sách Bảo Hộ Lao Động</h3>
+            </div>
+            <div class="card-body" style="padding-bottom: 0px;">
+                <div class="table-responsive" style="margin-top: 10px; padding-top: 20px; padding-left: 20px; padding-right: 20px; border-style: groove;border-top-width: 1px;
+                     border-left-width: 1px;
+                     border-bottom-width: 1px;
+                     border-right-width: 1px;">
+                    <table class="table table-bordered table-striped table-hover" cellspacing="0" style="border-style: groove;">
+                        <tr>
+                            <td width="300px">
+                                <b>Tên Bảo Hộ Lao Động</b>
+                            </td>
+                            <td  width="300px" class="text-center"> <b> Số Lượng </b> </td>
+                            <td width="300px"  class="text-center" > <b> Size </b> </td>
+                        </tr>
+                        <tr>
+                            <td width="250px">
+                                Giày Thấp Cổ :
+                            </td>
+                            <td  class="text-center"> @Model.GiayThapCo</td>
+                            <td  class="text-center"> @Model.SizeGiay</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Áo Quần KTV/BGĐ :
+                            </td>
+                            <td  class="text-center">@Model.AoQuanKTVGD</td>
+                            <td  class="text-center"> @Model.SizeAoQuanKTVGD</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Áo Quần BP/NM :
+                            </td>
+                            <td  class="text-center">
+                                @Model.AoQuanBPNM
+                            </td>
+                            <td  class="text-center"> @Model.SizeAoQuanBPNM</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Mũ BHLĐ Trắng :
+                            </td>
+                            <td  class="text-center">
+                                @Model.MuTrang
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Mũ BHLĐ Xanh :
+                            </td>
+                            <td  class="text-center">
+                                @Model.MuXanh
+                            </td>
+                            <td></td>
+                        </tr>
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+        <div class="form-group">
+            <div class="  col-md-offset-5 col-sm-offset-4 col-sm-5" style="color: #007bff;">
+                @Html.ActionLink("Quay lại", "")
+            </div>
+        </div>
+
+    </div>
+</div>
+

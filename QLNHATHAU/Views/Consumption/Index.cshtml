@@ -1,0 +1,275 @@
+﻿@using QLNHATHAU.Models
+@model PagedList.IPagedList<ConsumptionValidation>
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Content/assets/Chonse/chosen.jquery.js"></script>
+<link href="~/Content/assets/Chonse/chosen.css" rel="stylesheet" />
+@if (TempData["msgSuccess"] != null)
+{
+    @Html.Raw(TempData["msgSuccess"])
+}
+@if (TempData["msgError"] != null)
+{
+    @Html.Raw(TempData["msgError"])
+}
+<style>
+    #btn-add {
+        margin-right: 5px;
+    }
+    #btn-Down {
+        margin-right: 5px;
+    }
+
+
+    body {
+        width: 100%;
+        height: 100%;
+    }
+
+    .button_create {
+        float: right;
+        margin-bottom: 15px;
+    }
+
+    .icon_action {
+        cursor: pointer;
+        /*margin-left: 10px;*/
+    }
+
+    .center-td {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .file_icon {
+        font-size: 25px;
+        color: orange;
+        cursor: pointer;
+    }
+
+    ul#selectedValue {
+        list-style: none;
+        position: absolute;
+        padding: 0;
+        margin: 0;
+        list-style-type: none;
+        background-color: #f2f2f2;
+    }
+
+        ul#selectedValue li.ui-menu-item {
+            padding: 2px 5px;
+        }
+
+            ul#selectedValue li.ui-menu-item:hover {
+                background-color: #ccc
+            }
+
+            ul#selectedvalue li.ui-menu-item a:link, a:active, a:visited, a:hover {
+                text-decoration: none;
+                color: black;
+            }
+</style>
+<link href="~/Content/assets/css/PagedList.css" rel="stylesheet" />
+<div class="divbreadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"> <a href="/"><i class="menu-icon fa fa-recycle"></i> Quản lý xuất Bảo hộ lao động </a></li>
+
+        <li class="breadcrumb-item active">Bảo Hộ Lao Động Tiêu Hao</li>
+    </ol>
+</div>
+<div class="card mb-4">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-2">
+                @Html.DropDownList("PBList", null, "-- Phòng Ban --", new { id = "IDPhongBan", @class = "form-control", })
+            </div>
+            <div class="col-md-2">
+                @Html.DropDownList("NVList", null, "-- Họ và tên --", new { id = "ID", @class = "form-control", })
+            </div>
+            <div class="col-md-2">
+                @Html.DropDownList("VTList", null, "-- Vị trị làm việc --", new { id = "IDViTri", @class = "form-control", })
+            </div>
+            <div class="col-md-2">
+                <button type="button" id="btsearch" class="btn btn-primary pull-left"><i class="fa fa-search">&nbsp;</i>&nbsp;Tìm kiếm </button>
+            </div>
+            <div class="col-md-4">
+                <button type="button" id="btn-Import" class="btn btn-success pull-right"><i class="fa fa-file-excel-o">&nbsp;</i>&nbsp;Import Excel </button>
+                <div class="modal fade" id="myModalimport" role="dialog" data-url='@Url.Action("ImportExcel","Consumption")'></div>
+                &nbsp;
+                <button type="button" id="btn-Down" class="btn btn-success pull-right"><i class="fa fa-file-excel-o">&nbsp;</i>&nbsp;Down Biểu Mẫu </button>
+                <div class="modal fade" id="myModaldown" role="dialog" data-url='@Url.Action("DownExcelFile","Consumption")'></div>
+                &nbsp;
+                <button type="button" id="btn-add" class="btn btn-primary pull-right"><i class="fa fa-plus">&nbsp;</i>&nbsp;Thêm mới </button>
+                <div class="modal fade" id="myModal" role="dialog" data-url='@Url.Action("Create","Consumption")'></div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" id="table" width="100%" cellpadding="0">
+                <thead class="thead-light">
+                    <tr>
+                        <th width="30px">STT</th>
+                        <th width="130px" class="text-center"> Mã Nhân Viên </th>
+                        <th width="200px" class="text-center"> Họ Tên </th>
+                        <th width="150px" class="text-center"> Phòng Ban </th>
+                        <th class="text-center"> Vị Trí Làm Việc </th>
+                        <th class="text-center"> Bảo hộ lao động theo vị trí </th>
+                        <th class="text-center"> Ngày Xuất </th>
+                        <th class="text-center"> Tình Trạng </th>
+                        <th class="text-center"> Trình Ký </th>
+                        <th width="100px" class="text-center"> Thao tác </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int pageno = (int)Model.PageNumber;
+                        int itemperpage = (int)Model.PageSize;
+                        int RowNo = ((pageno - 1) * itemperpage) + 1;
+                    }
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        <td class="text-center"> @RowNo@{RowNo++;}</td>
+                        <td>@item.MaNV </td>
+                        <td>@item.HoTen</td>
+                        <td>@item.TenPhongBan</td>
+                        <td>@item.TenVTLV</td>
+                        <td>@item.TenVTBHLD</td>
+                        <td class="text-center">@item.NgayXuat.ToString("dd-MM-yyyy")</td>
+                        <td class="text-center">@item.TenTT</td>
+                        @if (item.PheDuyetID == 0)
+                        {
+                            <td class="label-1">Chưa Trình Ký</td>
+                        }
+                        else if (item.PheDuyetID == 1)
+                        {
+                            <td class="label-2">Đang Trình Ký</td>
+                        }
+                        else if (item.PheDuyetID == 2)
+                        {
+                            <td class="label-3">Đã Phê Duyệt</td>
+                        }
+                    <td class="center-td">
+
+                        @if (item.PheDuyetID == 0)
+                        {
+                            <a id="Check_@item.IDDBTH" href="#" class="icon_action" title="Trình ký"><i class="fa fa-share-square"></i></a>
+                            <div class="modal fade" id="myModale_Check_@item.IDDBTH" role="dialog" data-url='@Url.Action("CheckInformation","Consumption", new { id = item.IDDBTH })'></div>
+                            <script type="text/javascript">
+                                    $("#Check_@item.IDDBTH").click(function () {
+                                        var url = $('#myModale_Check_@item.IDDBTH').data('url');
+                                        $.get(url, function (data) {
+                                            $("#myModal").html(data);
+                                            $("#ModalTitle").html("Trình ký");
+                                            $("#myModal").modal('show');
+                                        });
+                                    });
+                            </script>
+                            //&nbsp;
+                            <a title="BHLĐ chi tiết" class="fa fa-list-ul" id="@item.IDDBTH" href="@Url.Action("Index","Consumabledetails", new { id = item.IDDBTH })"></a>
+                            //&nbsp;
+                            <a id="btn-edit_@item.IDDBTH" title="Sửa" class="fa fa-pencil-square-o icon_action"></a>
+                            <div class="modal fade" id="myModale_@item.IDDBTH" role="dialog" data-url='@Url.Action("Edit","Consumption", new { id = item.IDDBTH })'></div>
+                            <script type="text/javascript">
+                                    $("#btn-edit_@item.IDDBTH").click(function () {
+                                        var url = $('#myModale_@item.IDDBTH').data('url');
+                                        console.log(url);
+                                        $.get(url, function (data) {
+                                            $("#myModal").html(data);
+                                            $("#ModalTitle").html("Cập nhật thông tin");
+                                            $("#myModal").modal('show');
+                                        });
+                                    });
+                            </script>
+                            //&nbsp;
+
+                            <a class="fa fa-trash icon_action" ,title="Xóa" href="@Url.Action("Delete", "Consumption", new { id = item.IDDBTH })"
+                               onclick="return confirm('Bạn muốn xóa khách có tên: @item.HoTen')" title="Xóa"></a>
+                        }
+                        else if (item.PheDuyetID == 1)
+                        {
+                            <a id="Check_@item.IDDBTH" href="#" class="icon_action" title="Trình ký"><i class="fa fa-share-square"></i></a>
+                            <div class="modal fade" id="myModale_Check_@item.IDDBTH" role="dialog" data-url='@Url.Action("CheckInformation","Consumption", new { id = item.IDDBTH })'></div>
+                            <script type="text/javascript">
+                                    $("#Check_@item.IDDBTH").click(function () {
+                                        var url = $('#myModale_Check_@item.IDDBTH').data('url');
+                                        $.get(url, function (data) {
+                                            $("#myModal").html(data);
+                                            $("#ModalTitle").html("Trình ký");
+                                            $("#myModal").modal('show');
+                                        });
+                                    });
+                            </script>
+
+                            <a title="BHLĐ chi tiết" class="fa fa-list-ul" id="@item.IDDBTH" href="@Url.Action("Index","Consumabledetails", new { id = item.IDDBTH })"></a>
+
+                        }
+                        else if (item.PheDuyetID == 2)
+                        {
+                            <a title="BHLĐ chi tiết" class="fa fa-list-ul" id="@item.IDDBTH" href="@Url.Action("Index","Consumabledetails", new { id = item.IDDBTH })"></a>
+
+                            <a class="fa fa-trash icon_action" ,title="Xóa" href="@Url.Action("Delete", "Consumption", new { id = item.IDDBTH })"
+                               onclick="return confirm('Bạn muốn xóa khách có tên: @item.HoTen')" title="Xóa"></a>
+                        }
+
+                    </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="pager">
+                @Html.PagedListPager(Model, page => Url.Action("Index", "Consumption", new { page }))
+                <span class="pageoff"> Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount</span>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $('#btn-add').click(function () {
+        var url = $('#myModal').data('url');
+        $.get(url, function (data) {
+            $("#myModal").html(data);
+            $("#ModalTitle").html("Thêm định biên tiêu hao");
+            $("#myModal").modal('show');
+        });
+    });
+    $('#btn-Import').click(function () {
+        var url = $('#myModalimport').data('url');
+        $.get(url, function (data) {
+            $("#myModal").html(data);
+            $("#ModalTitle").html("IMPORT DANH SÁCH TIÊU HAO");
+            $("#myModal").modal('show');
+        });
+    });
+    $('#btn-Down').click(function () {
+        var url = $('#myModaldown').data('url');
+        $.get(url, function (data) {
+            $("#myModal").html(data);
+            $("#myModal").modal('show');
+        });
+    });
+       $("#btsearch").on('click', function () {
+              var IDPhongBan = $('#IDPhongBan').val();
+              var ID = $('#ID').val();
+              var IDViTri = $('#IDViTri').val();
+
+              window.location.href = '@Url.Action("Index", "Consumption")?IDPhongBan=' + IDPhongBan + '&ID=' + ID + '&IDViTri=' + IDViTri;
+              });
+
+    $("#IDPhongBan").chosen({
+        width: "100%"
+    });
+    $("#ID").chosen({
+        width: "100%"
+    });
+    $("#IDViTri").chosen({
+        width: "100%"
+    });
+</script>
+

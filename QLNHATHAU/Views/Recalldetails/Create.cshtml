@@ -1,0 +1,78 @@
+﻿@model QLNHATHAU.Models.RecalldetailsValidation
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="modal-dialog" id="form">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="ModalTitle"></h5>
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+            </div>
+            <div class="modal-body">
+                <div class="form-row">
+                    <div class="col-md-12">
+                        <label class="small mb-1"> Tên Trang Bị Bảo Hộ Lao Động </label>
+                        @Html.DropDownListFor(model => model.BHLDID, ViewBag.BHLDList as SelectList, "--Loại Bảo Hộ Lao Động--", new { @id = "BHLDID", @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="small mb-1"> Số Lượng </label>
+                            @Html.EditorFor(model => model.SoLuong, new { htmlAttributes = new { @class = "form-control", placeholder = "Số Lượng", @id = "SoLuong" } })
+                            @Html.ValidationMessageFor(model => model.SoLuong, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="small mb-1"> Size </label>
+                        @Html.EditorFor(model => model.Size, new { htmlAttributes = new { @class = "form-control", placeholder = " Size ", @id = "Size" } })
+                        @Html.ValidationMessageFor(model => model.Size, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-12">
+                        <label class="small mb-1"> Tình trạng thu hồi </label>
+                        @Html.DropDownListFor(model => model.TinhTrangID, ViewBag.TTHTList as SelectList, "--Tình trạng thu hồi--", new { @id = "TinhTrangID", @class = "form-control" })
+                    </div>
+                </div>
+                &nbsp;
+                <div class="col-md-12" style="margin-left: 170px;">
+                    <input type="submit" value="Thêm mới" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script src="~/Content/assets/Chonse/chosen.jquery.js"></script>
+<link href="~/Content/assets/Chonse/chosen.css" rel="stylesheet" />
+
+<style>
+    .button_submit {
+        float: right;
+        margin-bottom: 15px;
+    }
+
+    .button_cancel {
+        float: right;
+        margin-right: 15px
+    }
+
+    .margin-checkbox {
+        margin-right: 30px;
+    }
+</style>
+<script type="text/javascript">
+
+    $("#BHLDID").chosen({
+        width: "100%"
+    });
+</script>
+
+
+
+
+
+
+
+
+

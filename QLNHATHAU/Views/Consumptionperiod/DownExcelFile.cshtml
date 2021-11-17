@@ -1,0 +1,32 @@
+﻿@model QLNHATHAU.Models.ConsumptionperiodValidation
+@using (Html.BeginForm("DownExcelFile", "Consumptionperiod", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="ModalTitle">DOWNLOAD BIỂU MẪU IMPORT</h5>
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+            </div>
+            <div class="modal-body">
+                <form id="form1" runat="server">
+                    <div>
+                        <label class="small mb-1" for="inputLastName">Nhấp download để tải tệp xuống </label>
+                    </div>
+                    <button ID="Button1" runat="server" OnClick="DownExcelFile" class="btn btn-success button_submit pull-right"> &nbsp; Download </button>
+
+                    <br />
+                    <br />
+                    <asp:Label ID="Label1" runat="server"></asp:Label>
+                </form>
+
+            </div>
+        </div>
+    </div>
+}
+
+
+
+
+
+
+

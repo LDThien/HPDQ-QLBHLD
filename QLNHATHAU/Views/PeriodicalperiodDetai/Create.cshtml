@@ -1,0 +1,73 @@
+﻿@model QLNHATHAU.Models.PeriodicalperiodDetaiValidation
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="modal-dialog" id="form">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="ModalTitle"></h5>
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+            </div>
+            <div class="modal-body">
+                <div class="form-row">
+                    <div class="col-md-12">
+                        <label class="small mb-1"> Tên Trang Bị Bảo Hộ Lao Động </label>
+                        @Html.DropDownListFor(model => model.BHLDID, ViewBag.BHLDList as SelectList, "--Nhập trạng bị bảo hộ lao động--", new { @id = "BHLDID", @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="small mb-1"> Ngày nhận việc </label>
+                            @Html.EditorFor(model => model.NgayNV, new { @value = DateTime.Today, htmlAttributes = new { @class = "form-control", @type = "date", placeholder = "Chọn ngày", @id = "NgayNV" } })
+                            @Html.ValidationMessageFor(model => model.NgayNV, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="small mb-1"> Thời Hạn </label>
+                        @Html.EditorFor(model => model.ThoiHan, new { htmlAttributes = new { @class = "form-control", placeholder = " Thời hạn ", @id = "ThoiHan" } })
+                        @Html.ValidationMessageFor(model => model.ThoiHan, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                &nbsp;
+                <div class="col-md-12" style="margin-left: 170px;">
+                    <input type="submit" value="Thêm mới" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script src="~/Content/assets/Chonse/chosen.jquery.js"></script>
+<link href="~/Content/assets/Chonse/chosen.css" rel="stylesheet" />
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<style>
+    .button_submit {
+        float: right;
+        margin-bottom: 15px;
+    }
+
+    .button_cancel {
+        float: right;
+        margin-right: 15px
+    }
+
+    .margin-checkbox {
+        margin-right: 30px;
+    }
+</style>
+<script type="text/javascript">
+
+    $("#BHLDID").chosen({
+        width: "100%"
+    });
+</script>
+
+
+
+
+
+
+
+
+

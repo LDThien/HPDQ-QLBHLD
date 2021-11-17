@@ -1,0 +1,59 @@
+﻿@model QLNHATHAU.Models.CardValidation
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="ModalTitle"></h5>
+                <a href="#" class="close" data-dismiss="modal"></a>
+            </div>
+            <div class="modal-body">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <fieldset id="SubmitForm">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="small mb-1">Mã Card</label>
+                            @Html.EditorFor(model => model.MaCard, new { htmlAttributes = new { @class = "form-control", placeholder = "Mã card", @id = "MaCard" } })
+                            @Html.ValidationMessageFor(model => model.MaCard, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="small mb-1">Ngày hết hạn</label>
+                            @Html.TextBox("NgayHetHan", null, new { @id = "NgayHetHan", @type = "date", @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.NgayHetHan, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="btn-margin-top">
+                        <input type="submit" value="Xác nhận" class="btn btn-success button_submit" />
+                        <input type="reset" value="Hủy" class="btn btn-danger button_cancel" />
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+}
+<style>
+    .button_submit {
+        float: right;
+    }
+
+    .button_cancel {
+        float: right;
+        margin-right: 15px
+    }
+
+    .btn-margin-top {
+        margin-top: 15px;
+    }
+</style>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

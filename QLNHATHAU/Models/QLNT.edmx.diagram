@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="03c766fa96314f40885f858bfc6cd2d2" Name="Diagram1">
+        <EntityTypeShape EntityType="QLNhaThauModel.BHLDDK" Width="1.5" PointX="7.5" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaThauModel.BHLDTH" Width="1.5" PointX="10.5" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaThauModel.BHLĐXuat" Width="1.5" PointX="10.5" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaThauModel.Card" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaThauModel.CardNhanVien" Width="1.5" PointX="18" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaThauModel.CauHinhPheDuyet" Width="1.5" PointX="2.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaThauModel.Cong" Width="1.5" PointX="15.75" PointY="26" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaThauModel.DangKyHAT" Width="1.5" PointX="15" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaThauModel.DanhSachHAT" Width="1.5" PointX="4.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaThauModel.DinhBienBHLD" Width="1.5" PointX="3" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaThauModel.DinhBienBHLDTH" Width="1.5" PointX="6" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaThauModel.DinhBienBHLDTHCT" Width="1.5" PointX="10" PointY="14.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaThauModel.DinhBienChiTiet" Width="1.5" PointX="10" PointY="19.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaThauModel.DinhBienDK" Width="1.5" PointX="5.25" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaThauModel.DinhBienNV" Width="1.5" PointX="8.25" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaThauModel.DinhBienTH" Width="1.5" PointX="8.25" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaThauModel.DKKhach" Width="1.5" PointX="18" PointY="21" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaThauModel.DKKhachCT" Width="1.5" PointX="20.25" PointY="22" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaThauModel.DSKhach" Width="1.5" PointX="6.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaThauModel.GiaHanHD" Width="1.5" PointX="15" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaThauModel.HopDong" Width="1.5" PointX="12.75" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaThauModel.KeQuaHoc" Width="1.5" PointX="18" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaThauModel.LoaiBHLD" Width="1.5" PointX="7.75" PointY="24.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaThauModel.LoaiH" Width="1.5" PointX="8.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaThauModel.LoaiKhach" Width="1.5" PointX="15.75" PointY="28.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaThauModel.NghiViec" Width="1.5" PointX="10.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaThauModel.NguoiDung" Width="1.5" PointX="5.25" PointY="25.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaThauModel.NhanVien" Width="1.5" PointX="3" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaThauModel.NhanVienNT" Width="1.5" PointX="15.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaThauModel.NhaThau" Width="1.5" PointX="15.75" PointY="21.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaThauModel.PCHN" Width="1.5" PointX="12.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaThauModel.PCHN_HopDong" Width="1.5" PointX="15" PointY="17.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaThauModel.PhanQuyen" Width="1.5" PointX="12.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaThauModel.PheDuyet" Width="1.5" PointX="2.75" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaThauModel.PheDuyetBHLD" Width="1.5" PointX="7.5" PointY="16.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaThauModel.PheDuyetTH" Width="1.5" PointX="10.5" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaThauModel.PhongBan" Width="1.5" PointX="0.75" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaThauModel.Quyen" Width="1.5" PointX="4.75" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaThauModel.sysdiagram" Width="1.5" PointX="12.75" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaThauModel.ThoiHanBHLDDK" Width="1.5" PointX="4.75" PointY="18" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaThauModel.ThoiHanBHLDDKCT" Width="1.5" PointX="14.75" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaThauModel.ThoiHanBHLDTH" Width="1.5" PointX="17.75" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaThauModel.ThoiHanBHLDTHCT" Width="1.5" PointX="17.75" PointY="16" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaThauModel.ThuHoiBHLD" Width="1.5" PointX="7.75" PointY="21.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaThauModel.ThuHoiBHLDCT" Width="1.5" PointX="10" PointY="24" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaThauModel.TinhTrangLV" Width="1.5" PointX="0.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaThauModel.TinhTrangNBHLD" Width="1.5" PointX="0.75" PointY="19" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaThauModel.TinhTrangTH" Width="1.5" PointX="19.75" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaThauModel.TongQuan" Width="1.5" PointX="19.75" PointY="16" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaThauModel.TTLV" Width="1.5" PointX="20.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaThauModel.TTTK" Width="1.5" PointX="2.75" PointY="21" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaThauModel.VanBan" Width="1.5" PointX="20.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaThauModel.ViPham" Width="1.5" PointX="18" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaThauModel.Vitri" Width="1.5" PointX="0.75" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaThauModel.TinhTrangTrinhKy" Width="1.5" PointX="4.75" PointY="21" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhaThauModel.PHONGBANCHN_VIEW" Width="1.5" PointX="20.75" PointY="8" IsExpanded="true" />
+        <AssociationConnector Association="QLNhaThauModel.FK_BHLDDK_DinhBienDK" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaThauModel.FK_BHLDTH_DinhBienTH" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaThauModel.FK_BHLĐXuat_DinhBienNV" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaThauModel.FK_CardNhanVien_NhanVienNT" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaThauModel.FK_DKKhach_Cong" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaThauModel.FK_DKHAnToan_HopDong" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaThauModel.FK_DKHAnToan_NhaThau" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaThauModel.FK_DinhBienChiTiet_DinhBienBHLD" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaThauModel.FK_DinhBienDK_DinhBienBHLD" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaThauModel.FK_DinhBienNV_DinhBienBHLD" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaThauModel.FK_DinhBienBHLDTHCT_DinhBienBHLDTH" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaThauModel.FK_DinhBienTH_DinhBienBHLDTH" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaThauModel.FK_DinhBienBHLDTHCT_LoaiBHLD" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaThauModel.FK_DinhBien_LoaiBHLD" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaThauModel.FK_DinhBienDK_NhanVien" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaThauModel.FK_PheDuyetBHLD_DinhBienDK" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaThauModel.FK_DinhBienNV_NhanVien" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaThauModel.FK_DinhBienTH_NhanVien" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaThauModel.FK_PheDuyetTH_DinhBienTH" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaThauModel.FK_DKKhach_LoaiKhach" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaThauModel.FK_DKKhach_NhaThau" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaThauModel.FK_DKKhachCT_DKKhach" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaThauModel.FK_GiaHanHD_HopDong" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaThauModel.FK_KeQuaHoc_HopDong" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaThauModel.FK_PCHN_HopDong_HopDong" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaThauModel.FK_ViPham_HopDong" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaThauModel.FK_KeQuaHoc_NhanVienNT" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaThauModel.FK_KeQuaHoc_NhaThau" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaThauModel.FK_ThuHoiBHLDCT_LoaiBHLD" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaThauModel.FK_NguoiDung_NhanVien" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaThauModel.FK_NhanVien_PhongBan" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaThauModel.FK_NhanVien_TinhTrangLV" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaThauModel.FK_NhanVien_Vitri1" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaThauModel.FK_ViPham_NhanVienNT" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaThauModel.FK_ViPham_NhaThau" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhaThauModel.FK_ThuHoiBHLDCT_ThuHoiBHLD" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

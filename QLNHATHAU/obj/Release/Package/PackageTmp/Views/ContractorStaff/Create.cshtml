@@ -1,0 +1,128 @@
+﻿@using QLNHATHAU.Models
+@model ContractorStaffValidation
+
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<script src="~/Content/assets/Chonse/chosen.jquery.js"></script>
+<link href="~/Content/assets/Chonse/chosen.css" rel="stylesheet" />
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="ModalTitle"></h5>
+                <a href="#" class="close" data-dismiss="modal"></a>
+            </div>
+            <div class="modal-body">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <fieldset id="SubmitForm">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="small mb-1">Số hợp đồng</label>
+                                @Html.DropDownListFor(model => model.IDHD, ViewBag.HDList as SelectList, "--Chọn số hợp đồng--", new { @id = "IDHD", @class = "form-control"})
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="small mb-1">Nhà thầu</label>
+                                <script>
+                                    $(document).ready(function () {
+                                        $("#IDNhaThau").text("Tên nhà thầu tương ứng");
+                                        console.log($("#IDNhaThau").val());
+                                        $("#IDHD").change(function () {
+                                            $.get("/ContractorStaff/ViewNhaThau", { id: $("#IDHD").val() }, function (data) {
+                                                if (data[0] != null && data[0] != undefined) {
+                                                    $("#IDNhaThau").text(data[0].Ten);
+                                                } else {
+                                                    $("#IDNhaThau").text("Không có nhà thầu");
+                                                }
+                                            });
+                                        });
+                                    });
+                                </script>
+                                @Html.LabelFor(model=>model.IDNhaThau, new { @id= "IDNhaThau"})
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="small mb-1">Số chứng minh/Hộ chiếu</label>
+                                @Html.EditorFor(model => model.CMND, new { htmlAttributes = new { @class = "form-control", placeholder = "Số chứng minh/Hộ chiếu", @id = "CMND" } })
+                                @Html.ValidationMessageFor(model => model.CMND, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="small mb-1">Họ và tên</label>
+                                @Html.EditorFor(model => model.HovaTen, new { htmlAttributes = new { @class = "form-control", placeholder = "Họ và tên", @id = "HovaTen" } })
+                                @Html.ValidationMessageFor(model => model.HovaTen, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="small mb-1">Ngày sinh</label>
+                                @Html.EditorFor(model => model.NgaySinh, new { @value = DateTime.Today, htmlAttributes = new { @class = "form-control", placeholder = "Ngày sinh", @id = "NgaySinh", @type = "date" } })
+                                @Html.ValidationMessageFor(model => model.NgaySinh, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="small mb-1">Giới tính</label>
+                                @Html.DropDownListFor(model => model.GioiTinh, ViewBag.GTList as SelectList, "--Chọn giới tính--", new { htmlAttributes = new { @class = "form-control", placeholder = "Giới tính", @id = "GioiTinh" } })
+                                @Html.ValidationMessageFor(model => model.GioiTinh, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="small mb-1">Quốc tịch</label>
+                                @Html.EditorFor(model => model.QuocTich, new { htmlAttributes = new { @class = "form-control", placeholder = "Quốc tịch", @id = "QuocTich" } })
+                                @Html.ValidationMessageFor(model => model.QuocTich, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="btn-margin-top">
+                        <input type="submit" value="Xác nhận" class="btn btn-success button_submit" />
+                        <input type="reset" value="Hủy" class="btn btn-danger button_cancel" />
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+}
+<style>
+    .button_submit {
+        float: right;
+    }
+
+    .button_cancel {
+        float: right;
+        margin-right: 15px
+    }
+
+    .btn-margin-top {
+        margin-top: 15px;
+    }
+
+    #IDNhaThau {
+        display: block !important;
+    }
+
+</style>
+<script>
+    $("#GioiTinh").chosen({
+        width: "100%"
+    });
+    //$("#IDNhaThau").chosen({
+    //    width: "100%"
+    //});
+    $("#IDHD").chosen({
+        width: "100%"
+    });
+</script>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

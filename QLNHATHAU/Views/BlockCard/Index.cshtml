@@ -1,0 +1,188 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using QLNHATHAU.Models;
+@model PagedList.IPagedList<ManageCardValidation>
+@using PagedList.Mvc;
+
+@if (TempData["msgSuccess"] != null)
+{
+    @Html.Raw(TempData["msgSuccess"])
+}
+@if (TempData["msgError"] != null)
+{
+    @Html.Raw(TempData["msgError"])
+}
+<style>
+    .on {
+        display: none;
+    }
+
+    .on, .off {
+        color: white;
+        position: absolute;
+        transform: translate(-50%,-50%);
+        top: 50%;
+        left: 50%;
+        font-size: 10px;
+        font-family: Verdana, sans-serif;
+    }
+
+    input:checked + .slider .on {
+        display: block;
+    }
+
+    input:checked + .slider .off {
+        display: none;
+    }
+
+
+    .slider.round {
+        border-radius: 28px;
+    }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 83px;
+        height: 28px;
+    }
+
+        .switch input {
+            display: none;
+        }
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ca2222;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+    input:checked + .slider {
+        background-color: #2ab934;
+    }
+
+    input:focus + .slider {
+        box-shadow: 0 0 1px #2196F3;
+    }
+
+    input:checked + .slider:before {
+        -webkit-transform: translateX(55px);
+        -ms-transform: translateX(55px);
+        transform: translateX(55px);
+    }
+</style>
+<link href="~/Content/assets/css/PagedList.css" rel="stylesheet" />
+
+<div class="card mb-4">
+    <div class="card-header">
+        <label class="pull-left">QL Cắt Thẻ</label>
+
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" id="table" width="100%" cellpadding="0">
+                <thead class="thead-light">
+                    <tr>
+                        <th class="text-center" width="80px">STT</th>
+                        <th>Nhân Viên</th>
+                        <th>Nhà Thầu</th>
+                        <th>Mã số Card</th>
+                        <th class="text-center">Ngày Bắt đầu</th>
+                        <th class="text-center">Ngày Kết Thúc</th>
+                        <th class="text-center" width="120px">Tổng số VP</th>
+                        <th>Thao tác</th>
+                        <th class="text-center" width="180px">Trạng thái Thẻ</th>
+
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int pageno = (int)Model.PageNumber;
+                        int itemperpage = (int)Model.PageSize;
+                        int RowNo = ((pageno - 1) * itemperpage) + 1;
+                    }
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="text-center">@RowNo@{RowNo++;}</td>
+                            <td>@item.TenNVNT </td>
+                            <td>@item.NhaThau</td>
+                            <td>@item.MSCard</td>
+                            <td class="text-center">@item.NgayBatDau.ToString("dd-MM-yyyy")</td>
+                            <td class="text-center">@item.NgayHetHan.ToString("dd-MM-yyyy")</td>
+                            <td class="text-center">@item.TSVP</td>
+                            <td>
+                                <a id="btn-block_@item.ID" title="Cắt thẻ"><i class="fa fa-ban icon_action"> Cắt thẻ</i></a>
+                                <div class="modal fade" id="myModaled_@item.ID" role="dialog" data-url='@Url.Action("Block","ManageCard", new { id = item.ID })'></div>
+                                <script type="text/javascript">
+                                        $("#btn-block_@item.ID").click(function () {
+                                            var url = $('#myModaled_@item.ID').data('url');
+                                            console.log(url);
+                                            $.get(url, function (data) {
+                                                $("#myModal").html(data);
+                                                $("#ModalTitle").html("Cắt thẻ nhân viên");
+                                                $("#myModal").modal('show');
+                                            });
+                                        });
+                                </script>
+                            </td>
+                            <td class="text-center">
+                                <label class="switch">
+                                    @if (@item.TTThe == false)
+                                    {
+                                        <input type="checkbox" id="togBtn_@item.ID" disabled>
+                                        <span class="slider round" id="textToggl_@item.ID">
+                                            <span class="off">OFF</span>
+                                        </span>
+
+                                    }
+                                    else
+                                    {
+                                        <input type="checkbox" checked id="togBtn_@item.ID" disabled>
+                                        <span class="slider round" id="textToggl_@item.ID">
+                                            <span class="on">ON</span>
+                                        </span>
+                                    }
+                                </label>
+                            </td>
+                            
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="pager">
+                @Html.PagedListPager(Model, page => Url.Action("Index", "BlockCard", new { page }))
+                <span class="pageoff">Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+

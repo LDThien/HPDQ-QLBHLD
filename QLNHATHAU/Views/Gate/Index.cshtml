@@ -1,0 +1,84 @@
+﻿@using QLNHATHAU.Models
+@model PagedList.IPagedList<CongValidation>
+@using PagedList.Mvc
+<link href="~/Content/assets/css/PagedList.css" rel="stylesheet" />
+
+@if (TempData["msgSuccess"] != null)
+{
+    @Html.Raw(TempData["msgSuccess"])
+}
+@if (TempData["msgError"] != null)
+{
+    @Html.Raw(TempData["msgError"])
+}
+<div class="card mb-4">
+    <div class="card-header">
+        <label class="pull-left">Danh sách cổng</label>
+        <button type="button" id="btn-add" class="btn btn-primary pull-right"><i class="fa fa-plus">&nbsp;</i>&nbsp;Thêm mới </button>
+        <div class="modal fade" id="myModal" role="dialog" data-url='@Url.Action("Create","Cong")'></div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" id="table" width="100%" cellpadding="0">
+                <thead class="thead-light">
+                    <tr>
+                        <th width="30px">STT</th>
+                        <th>Tên Cổng</th>
+                        <th class="text-center" width="180px">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int pageno = (int)Model.PageNumber;
+                        int itemperpage = (int)Model.PageSize;
+                        int RowNo = ((pageno - 1) * itemperpage) + 1;
+                    }
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="text-center"> @RowNo@{RowNo++;}</td>
+                            <td>@item.TenCong</td>
+                            <td class="text-center">
+                                <a id="btn-edit_@item.IDCong" title="Sửa" class="btn-action"><i class="fa fa-edit"></i></a>
+                                <div class="modal fade" id="myModale_@item.IDCong" role="dialog" data-url='@Url.Action("Edit","Cong", new { id = item.IDCong })'></div>
+                                <script type="text/javascript">
+                                    $("#btn-edit_@item.IDCong").click(function () {
+                                        var url = $('#myModale_@item.IDCong').data('url');
+                                        $.get(url, function (data) {
+                                            console.log(url);
+                                            $("#myModal").html(data);
+                                            $("#ModalTitle").html("Cập nhật Cổng");
+                                            $("#myModal").modal('show');
+                                        });
+                                    });
+                                </script>
+                                <a title="Xóa" class="btn-action" href="@Url.Action("Delete", "Cong", new { id = item.IDCong })" onclick="return confirm('Bạn muốn xóa @item.TenCong')"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="pager">
+                @Html.PagedListPager(Model, page => Url.Action("Index", "Cong", new { page }))
+                <span class="pageoff">Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $('#btn-add').click(function () {
+        var url = $('#myModal').data('url');
+        console.log(url);
+        $.get(url, function (data) {
+            $("#myModal").html(data);
+            $("#ModalTitle").html("Thêm mới hợp đồng");
+            $("#myModal").modal('show');
+        });
+    });
+</script>
+
+@section scripts{
+
+
+}

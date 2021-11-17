@@ -1,0 +1,83 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using QLNHATHAU.Models
+@model PagedList.IPagedList<QuyenValidation>
+@using PagedList.Mvc
+<link href="~/Content/assets/css/PagedList.css" rel="stylesheet" />
+
+@if (TempData["msgSuccess"] != null)
+{
+    @Html.Raw(TempData["msgSuccess"])
+}
+@if (TempData["msgError"] != null)
+{
+    @Html.Raw(TempData["msgError"])
+}
+<div class="card mb-4">
+    <div class="card-header">
+        <label class="pull-left">Quản lý quyền</label>
+        <button type="button" id="btn-add" class="btn btn-primary pull-right"><i class="fa fa-plus">&nbsp;</i>&nbsp;Thêm mới </button>
+        <div class="modal fade" id="myModal" role="dialog" data-url='@Url.Action("Create","Access")'></div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" id="table" width="100%" cellpadding="0">
+                <thead class="thead-light">
+                    <tr>
+                        <th width="30px">STT</th>
+                        <th>Tên Quyền</th>
+                        <th class="text-center" width="150px">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int pageno = (int)Model.PageNumber;
+                        int itemperpage = (int)Model.PageSize;
+                        int RowNo = ((pageno - 1) * itemperpage) + 1;
+                    }
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="text-center"> @RowNo@{RowNo++;}</td>
+                            <td>@item.TenQuyen</td>
+                            <td class="text-center">
+                                <a id="btn-edit_@item.IDQuyen" title="Sửa" class="btn btn-circle btn-icon-only green"><i class="fa fa-edit"></i></a>
+                                <div class="modal fade" id="myModale_@item.IDQuyen" role="dialog" data-url='@Url.Action("Edit","Access", new { id = item.IDQuyen })'></div>
+                                <script type="text/javascript">
+                                    $("#btn-edit_@item.IDQuyen").click(function () {
+                                        var url = $('#myModale_@item.IDQuyen').data('url');
+                                        $.get(url, function (data) {
+                                            $("#myModal").html(data);
+                                            $("#ModalTitle").html("Cập nhật quyền");
+                                            $("#myModal").modal('show');
+                                        });
+                                    });
+                                </script>
+                                <a class="btn btn-circle btn-icon-only green" title="Xóa" href="@Url.Action("Delete", "Access", new { id = item.IDQuyen })" onclick="return confirm('Bạn muốn xóa @item.TenQuyen')"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="pager">
+                @Html.PagedListPager(Model, page => Url.Action("Index", "Access", new { page }))
+                <span class="pageoff">Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $('#btn-add').click(function () {
+        var url = $('#myModal').data('url');
+        $.get(url, function (data) {
+            $("#myModal").html(data);
+            $("#ModalTitle").html("Thêm mới quyền");
+            $("#myModal").modal('show');
+        });
+    });
+</script>

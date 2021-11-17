@@ -1,0 +1,171 @@
+﻿@using QLNHATHAU.Models
+@model PagedList.IPagedList<NguoiDungValidation>
+@using PagedList.Mvc
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Danh sách người dùng</title>
+   
+    <link href="~/Content/assets/css/PagedList.css" rel="stylesheet" />
+    <style>
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        a:active, a:hover {
+            outline: 0;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #ff407b;
+        }
+
+        .button_create {
+            float: right;
+            margin-bottom: 15px;
+        }
+
+        .icon_action {
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .center-td {
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        ul#selectedValue {
+            list-style: none;
+            position: absolute;
+            padding: 0;
+            margin: 0;
+            list-style-type: none;
+            background-color: #f2f2f2;
+        }
+
+            ul#selectedValue li.ui-menu-item {
+                padding: 2px 5px;
+            }
+
+                ul#selectedValue li.ui-menu-item:hover {
+                    background-color: #ccc
+                }
+
+                ul#selectedvalue li.ui-menu-item a:link, a:active, a:visited, a:hover {
+                    text-decoration: none;
+                    color: black;
+                }
+        #table tr[disabled] td::after {
+            position: absolute;
+            content: '';
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    @if (TempData["msgSuccess"] != null)
+    {
+        @Html.Raw(TempData["msgSuccess"])
+    }
+    @if (TempData["msgError"] != null)
+    {
+        @Html.Raw(TempData["msgError"])
+    }
+    <div class="card mb-4">
+        <div class="card-header">
+            <label class="pull-left">Quản trị người dùng</label>
+            <button type="button" id="btn-add" class="btn btn-primary pull-right"><i class="fa fa-plus">&nbsp;</i>&nbsp;Thêm mới </button>
+            <div class="modal fade" id="myModal" role="dialog" data-url='@Url.Action("Create","NguoiDung")'></div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover" id="table" width="100%" cellpadding="0">
+                    <thead class="thead-light">
+                        <tr>
+                            <th width="30px">STT</th>
+                            <th>Tên đăng nhập</th>
+                            <th>Họ và tên</th>
+                            <th>Bộ phận</th>
+                            <th class="text-center" width="150px">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int pageno = (int)Model.PageNumber;
+                            int itemperpage = (int)Model.PageSize;
+                            int RowNo = ((pageno - 1) * itemperpage) + 1;
+                        }
+                        @foreach (var item in Model)
+                        {
+                        <tr>
+                            <td class="text-center"> @RowNo@{RowNo++;}</td>
+                            <td>@item.TenDangNhap </td>
+                            <td>@item.TenNV</td>
+                            <td>@item.Ten</td>
+                            <td class="center-td">
+                                <a id="btn-permission_@item.IDNguoiDung" title="Phân Quyền" class="btn btn-circle btn-icon-only green"><i class="fa fa-cogs" aria-hidden="true"></i></a>
+                                <div class="modal fade" id="myModale_@item.IDNguoiDung" role="dialog" data-url='@Url.Action("InsertPermission","NguoiDung", new { id = item.IDNguoiDung })'></div>
+                                <script type="text/javascript">
+                                        $("#btn-permission_@item.IDNguoiDung").click(function () {
+                                        var url = $('#myModale_@item.IDNguoiDung').data('url');
+                                        $.get(url, function (data) {
+                                            $("#myModal").html(data);
+                                            $("#ModalTitle").html("Phân Quyền");
+                                            $("#myModal").modal('show');
+                                        });
+                                    });
+                                </script>
+                                <a id="btn-edit_@item.IDNguoiDung" title="Sửa" class="btn btn-circle btn-icon-only green"><i class="fa fa-edit"></i></a>
+                                <div class="modal fade" id="myModaled_@item.IDNguoiDung" role="dialog" data-url='@Url.Action("Edit","NguoiDung", new { id = item.IDNguoiDung })'></div>
+                                <script type="text/javascript">
+                                    $("#btn-edit_@item.IDNguoiDung").click(function () {
+                                        var url = $('#myModaled_@item.IDNguoiDung').data('url');
+                                        console.log(url);
+                                        $.get(url, function (data) {
+                                            $("#myModal").html(data);
+                                            $("#ModalTitle").html("Cập nhật người dùng");
+                                            $("#myModal").modal('show');
+                                        });
+                                    });
+                                </script>
+                                <a class="btn btn-circle btn-icon-only green" title="Xóa" href="@Url.Action("Delete", "NguoiDung", new { id = item.IDNguoiDung })"
+                                   onclick="return confirm('Bạn muốn xóa nhân viên có MaNV: @item.MaNV')"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+                <div class="pager">
+                    @Html.PagedListPager(Model, page => Url.Action("Index", "NguoiDung", new { page }))
+                    <span class="pageoff">Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+    $('#btn-add').click(function () {
+        var url = $('#myModal').data('url');
+        $.get(url, function (data) {
+            $("#myModal").html(data);
+            $("#ModalTitle").html("Thêm mới người dùng");
+            $("#myModal").modal('show');
+        });
+    });
+</script>
+
+@section scripts{
+
+
+}

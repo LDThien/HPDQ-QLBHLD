@@ -1,0 +1,98 @@
+﻿@model QLNHATHAU.Models.ManageCardValidation
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+<div class="modal-dialog" id="form">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 id="ModalTitle"></h5>
+            <a href="#" class="close" data-dismiss="modal">&times;</a>
+        </div>
+        <div class="modal-body">
+            <div class="form-row">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.ID)
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="small mb-1">Nhà Thầu</label>
+                        @Html.DropDownList("NhaThauID", null, new { @id = "IDNhaThau", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.NhaThauID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="small mb-1">Nhân Viên</label>
+                        <script>
+                            $(document).ready(function () {
+                                $("#IDNhaThau").click(function () {
+                                    $.get("/ManageCard/GetNhanVienNT", { id: $("#IDNhaThau").val() }, function (data) {
+                                        $("#NhanVienNTID").empty();
+                                        $.each(data, function (index, row) {
+                                            $("#NhanVienNTID").append("<option value ='" + row.IDNVNT + "'>" + row.HovaTen + "</option>")
+                                        });
+                                    });
+                                })
+                            });
+                        </script>
+                        @Html.DropDownList("NhanVienNTID", null, new { @id = "NhanVienNTID", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.NhanVienNTID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="small mb-1">Ngày Bắt Đầu</label>
+                        @Html.EditorFor(model => model.NgayBatDau, new { @value = DateTime.Today, htmlAttributes = new { @class = "form-control", @type = "date", placeholder = "Ngày Bắt đầu", @id = "NgayBatDau", @Value = ViewBag.NgayBatDau } })
+                        @Html.ValidationMessageFor(model => model.NgayBatDau, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="small mb-1">Ngày Kết Thúc</label>
+                        @Html.EditorFor(model => model.NgayHetHan, new { @value = DateTime.Today, htmlAttributes = new { @class = "form-control", @type = "date", placeholder = "Ngày Hết hạn", @id = "NgayHetHan", @Value = ViewBag.NgayHetHan } })
+                        @Html.ValidationMessageFor(model => model.NgayHetHan, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="small mb-1">Mã số Card</label>
+                        @Html.EditorFor(model => model.MSCard, new { htmlAttributes = new { @class = "form-control", placeholder = "Mã số Card", @id = "MaSoCard" } })
+                        @Html.ValidationMessageFor(model => model.MSCard, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+
+                <div class="col-md-12">
+                    <input type="submit" id="button_submit" value="Xác nhận" class="btn btn-success button_submit" />
+                    <input type="reset" value="Hủy" class="btn btn-danger button_cancel" data-dismiss="modal" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+}
+<style>
+    .button_submit {
+        float: right;
+        margin-bottom: 15px;
+    }
+
+    .button_cancel {
+        float: right;
+        margin-right: 15px
+    }
+
+    .margin-checkbox {
+        margin-right: 30px;
+    }
+</style>

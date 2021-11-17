@@ -1,0 +1,141 @@
+﻿
+
+@using QLNHATHAU.Models
+@model PagedList.IPagedList<PermissionValidation>
+@using PagedList.Mvc
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Danh sách phân quyền</title>
+    <link href="~/Content/assets/css/PagedList.css" rel="stylesheet" />
+  
+</head>
+<body>
+    @if (TempData["msgSuccess"] != null)
+    {
+        @Html.Raw(TempData["msgSuccess"])
+    }
+    @if (TempData["msgError"] != null)
+    {
+        @Html.Raw(TempData["msgError"])
+    }
+    <div class="card mb-4">
+        <div class="card-header">
+            <label class="pull-left">Quản lý phân quyền</label>
+            <button type="button" id="btn-save" class="btn btn-warning pull-right"><i class="fa fa-floppy-o">&nbsp;</i>&nbsp;Lưu</button>
+            <div class="modal fade" id="myModal" role="dialog"></div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover" id="table" width="100%" cellpadding="0">
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            @foreach (var q in ViewBag.QuyenListFull)
+                            {
+                                <th>@q.Text</th>
+                            }
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (ViewBag.PermissionList != null)
+                        {
+                            foreach (var p in ViewBag.PermissionList)
+                            {
+                            <tr value="@p.Key">
+                                <td>@p.Key</td>
+                                @foreach (var i in ViewBag.QuyenList)
+                                {
+                                    if (p.Value.Contains(i))
+                                    {
+                                        <td>
+                                            <input type="checkbox" name="IDQuyen" value="@i" checked="checked" />
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            <input type="checkbox" name="IDQuyen" value="@i"/>
+                                        </td>
+                                    }
+                                }
+                            </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+
+                    @*<div class="pager">
+                @Html.PagedListPager(Model, page => Url.Action("Index", "Permision", new { page }))
+                <span class="pageoff">Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount</span>
+            </div>*@
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+    var arrPer = [];
+    
+    $('#btn-save').click(function () {
+        arrPer = detectChangeTable();
+        arrPer = JSON.stringify({ 'arrPerr': arrPer });
+        $.ajax({
+            url: '/Permission/SaveData',
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'POST',
+            data: arrPer,
+            traditional: true,
+            beforeSend: function () {
+            },
+            success: function (result) {
+                console.log(result);
+                console.log(1);
+            }
+        });
+    });
+
+    //function detectChangeTable() {
+    //    var data;
+    //    var table = $("table tbody");
+    //    table.on("change", "input:checkbox", function () {
+    //        var result = table.find("tr").map(function () {
+    //            return $(this).find("input:checkbox").map(function () {
+    //                if (this.checked) {
+    //                    return this.value;
+    //                }
+    //            }).get().join(",");
+
+    //        }).get().join("/");
+    //        data = result;
+    //    }).find("input:checkbox:eq(0)").change();
+
+    //    return data;
+    //}
+    function detectChangeTable() {
+        var table = $("table tbody");
+        table.on("change", "input:checkbox", function () {
+            table.find("tr").map(function (index, value) {
+                var resultCheck = $(this).find("input:checkbox").map(function () {
+                    if (this.checked) {
+                        return this.value;
+                    }
+                });
+                var idQuyen = resultCheck.get();
+                arrPer.push({ userName: value.firstElementChild.innerHTML, idQuyen: idQuyen.toString() });
+            });
+        }).find("input:checkbox:eq(0)").change();
+
+        return arrPer;
+    }
+</script>
+
+@section scripts{
+
+
+}

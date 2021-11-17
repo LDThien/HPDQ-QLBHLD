@@ -1,0 +1,254 @@
+﻿@using QLNHATHAU.Models
+@model PagedList.IPagedList<ResultsLearnSafeValidation>
+@using PagedList.Mvc
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Danh sách nhân viên nhà thầu học an toàn</title>
+   
+    <link href="~/Content/assets/css/PagedList.css" rel="stylesheet" />
+    
+    <script>
+        $(document).ready(function () {
+            let button = document.querySelector("#btn-save");
+            button.disabled = true;
+        });
+    </script>
+</head>
+<body>
+    @if (TempData["msgSuccess"] != null)
+    {
+        @Html.Raw(TempData["msgSuccess"])
+    }
+    @if (TempData["msgError"] != null)
+    {
+        @Html.Raw(TempData["msgError"])
+    }
+    <div class="divbreadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"> <a href="/"><i class="fa fa-arrows-alt"></i> Quản lý nhà thầu</a></li>
+            <li class="breadcrumb-item"> <a href="/"> Đào tạo an toàn</a></li>
+            <li class="breadcrumb-item active">Kết quả</li>
+        </ol>
+    </div>
+    <div></div>
+    <div class="card mb-4">
+        <div class="row">
+            <div class="card-header">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="searchdiv">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <input type="text" id="txtshd" name="input2-group2" placeholder="Số HĐ" class="form-control" value="@ViewBag.shd">
+                                    </div>
+                                    <div class="col-md-5">
+                                        @Html.DropDownList("NTList", null, "--Tất cả--", new { id = "IDNhaThau", @class = "form-control", @style = "width:100%", })
+                                    </div>
+                                    <div class="col-md-3">
+                                        @Html.DropDownList("TTList", null, "--Tất cả--", new { id = "IDTinhTrang", @class = "form-control", @style = "width:100%", })
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="divsearchex">
+                                            <button type="button" id="btsearch" class="btn btn-primary pull-left"><i class="fa fa-search">&nbsp;</i>&nbsp;Tìm kiếm </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <button type="button" id="btn-update-bulk" class="btn btn-outline-primary pull-right" style="margin-left:5px"><i class="fa fa-floppy-o">&nbsp;</i>&nbsp;Cấp thẻ</button>
+                            <div class="modal fade" id="myModal_bulk" role="dialog" data-url='@Url.Action("UpdateBulk","ResultsLearnSafe")'></div>
+                            &nbsp;
+                            <button type="button" id="btn-save" class="btn btn-primary pull-right"><i class="fa fa-floppy-o">&nbsp;</i>&nbsp;Cập nhật</button>
+                            <div class="modal fade" id="myModal" role="dialog" data-url='@Url.Action("Save","ResultsLearnSafe")'></div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+       
+       
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover" id="table" width="100%" cellpadding="0">
+                    <thead class="thead-light">
+                        <tr>
+                            <th width="30px" class="text-center">STT</th>
+                            <th class="text-center">Mã nhân viên NT</th>
+                            <th class="text-center">Tên nhân viên</th>
+                            <th class="text-center">Số hợp đồng</th>
+                            <th class="text-center">Tên nhà thầu</th>
+                            <th class="text-center">Ngày học</th>
+                            <th class="text-center">Kết quả học</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int pageno = (int)Model.PageNumber;
+                            int itemperpage = (int)Model.PageSize;
+                            int RowNo = ((pageno - 1) * itemperpage) + 1;
+                        }
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="text-center"> @RowNo@{RowNo++;}</td>
+                                <td>@item.MaNVNT</td>
+                                <td>@item.TenNVNT</td>
+                                <td>@item.SoHD</td>
+                                <td>@item.TenNT</td>
+                                <td class="center-td">@item.NgayHoc</td>
+                                <td class="text-center">
+                                    <label class="switch">
+                                        @if (@item.KetQua == true)
+                                        {
+                                            <input type="checkbox" checked id="togBtn_@item.IDKQHAT">
+
+                                            <span class="slider round" id="textToggl_@item.IDKQHAT">
+                                                <span class="on">Đạt</span>
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <input type="checkbox" id="togBtn_@item.IDKQHAT">
+                                            <span class="slider round" id="textToggl_@item.IDKQHAT">
+                                                <span class="off">Chưa</span>
+                                            </span>
+                                        }
+                                        <script type="text/javascript">
+                                        var changeTogle = [];
+                                        $("#textToggl_@item.IDKQHAT").click((i, v) => {
+                                            let button = document.querySelector("#btn-save");
+                                            button.disabled = false;
+                                            var a = $("#textToggl_@item.IDKQHAT").find('span').text();
+                                            if (a == 'Chưa') {
+                                                var htmlOn = '<span class="on">Đạt</span>';
+                                                $("#textToggl_@item.IDKQHAT").html(htmlOn);
+                                                changeTogle.push({ IDKQHAT: @item.IDKQHAT, KetQua: true, IDNhanVienNT: @item.NhanVienNTID });
+                                            } else {
+                                                var htmlOff = '<span class="off">Chưa</span>';
+                                                $("#textToggl_@item.IDKQHAT").html(htmlOff);
+                                                changeTogle.push({ IDKQHAT: @item.IDKQHAT, KetQua: false, IDNhanVienNT: @item.NhanVienNTID });
+                                            }
+                                        });
+                                        </script>
+                                    </label>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <div class="pager">
+                    @Html.PagedListPager(Model, page => Url.Action("Index", "ResultsLearnSafe", new { page }))
+                    <span class="pageoff">Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    var MaNVNTList = [];
+    var MaNVNTListLasted = [];
+    $('#btn-save').click(function () {
+        $.ajax({
+            url: '/ResultsLearnSafe/Save',
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'POST',
+            data: JSON.stringify(changeTogle),
+            traditional: true,
+            beforeSend: function () {
+            },
+            success: function (result) {
+            }
+        });
+    });
+
+    $('#btn-update-bulk').click(function () {
+        var url = $('#myModal_bulk').data('url');
+        $.get(url, { data: MaNVNTListLasted.toString() }, function (data) {
+            $("#myModal_bulk").html(data);
+            $("#ModalTitle").html("Cập nhập đồng loạt");
+            $("#myModal_bulk").modal('show');
+        });
+    });
+
+    // disable button
+
+    
+    // event
+    var selectionPivot;
+    // 1 for left button, 2 for middle, and 3 for right.
+    var LEFT_MOUSE_BUTTON = 1;
+    var trs = document.getElementById('table').tBodies[0].getElementsByTagName('tr');
+    var idTds = $('td:first-child');
+   
+    idTds.each(function (idx, val) {
+        // onselectstart because IE doesn't respect the css `user-select: none;`
+        val.onselectstart = function () { return false; };
+        $(val).mousedown(function (event) {
+            if (event.which != LEFT_MOUSE_BUTTON) {
+                return;
+            }
+            var row = trs[idx];
+            if (!event.ctrlKey && !event.shiftKey) {
+                clearAll();
+                toggleRow(row);
+                selectionPivot = row;
+                return;
+            }
+            if (event.ctrlKey && event.shiftKey) {
+                selectRowsBetweenIndexes(selectionPivot.rowIndex, row.rowIndex);
+                return;
+            }
+            if (event.ctrlKey) {
+                toggleRow(row);
+                selectionPivot = row;
+            }
+            if (event.shiftKey) {
+                clearAll();
+                selectRowsBetweenIndexes(selectionPivot.rowIndex, row.rowIndex);
+            }
+        });
+    });
+
+    function toggleRow(row) {
+        row.className = row.className == 'selected' ? '' : 'selected';
+        var id = $(row).closest("tr").find("td:first-child").text().trim();
+        if (!MaNVNTListLasted.includes(id)) {
+            MaNVNTListLasted.push(id);
+        } else {
+            MaNVNTListLasted = MaNVNTListLasted.filter(x => x !== id);
+        }
+    }
+
+    function selectRowsBetweenIndexes(ia, ib) {
+        var bot = Math.min(ia, ib);
+        var top = Math.max(ia, ib);
+        for (var i = bot; i <= top; i++) {
+            MaNVNTList.push($(trs[i - 1]).closest("tr").find("td:first-child").text().trim());
+            trs[i - 1].className = 'selected';
+        }
+        $.each(MaNVNTList, (i, el) => {
+            if ($.inArray(el, MaNVNTListLasted) === -1) MaNVNTListLasted.push(el);
+        });
+    }
+
+    function clearAll() {
+        for (var i = 0; i < trs.length; i++) {
+            trs[i].className = '';
+        }
+    }
+</script>
+@section scripts{
+
+
+}

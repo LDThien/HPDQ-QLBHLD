@@ -1,0 +1,148 @@
+﻿@model QLNHATHAU.Models.ReportAbuseValidation
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="modal-dialog" id="form">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="ModalTitle"></h5>
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+            </div>
+            <div class="modal-body">
+                <div class="form-row">
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="small mb-1">Nhà Thầu</label>
+                            @Html.DropDownListFor(model => model.IDNhaThau, ViewBag.NTList as SelectList, "--Chọn nhà thầu--", new { @id = "IDNhaThau", @class = "form-control" })
+                        </div>
+                    </div>
+                    @*<div class="col-md-12">
+                        <div class="form-group">
+                            <label class="small mb-1">Hạng Mục</label>
+                            @Html.DropDownListFor(model => model.HopDongID, ViewBag.HDList as SelectList, "--Chọn hạng mục--", new { @id = "HopDongID", @class = "form-control" })
+                        </div>
+                    </div>*@
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="small mb-1">Hạng Mục</label>
+                            <script>
+                                $(document).ready(function () {
+                                    $("#IDNhaThau").change(function () {
+                                        $.get("/ReportAbuse/GetHopDong", { id: $("#IDNhaThau").val() }, function (data) {
+                                            $("#HopDongID").empty();
+                                            $.each(data, function (index, row) {
+                                                $("#HopDongID").append("<option value ='" + row.IDHD + "'>" + row.TenHD + "</option>")
+                                            });
+                                        });
+                                    })
+                                });
+                            </script>
+                            @Html.DropDownListFor(model => model.HopDongID, new SelectList(" "), "--Chọn hạng mục--", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.HopDongID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="small mb-1">Nhân Viên</label>
+
+                            @*<script>
+                                $(document).ready(function () {
+                                    $("#IDNhaThau").text("Tên nhà thầu tương ứng");
+                                    console.log($("#IDNhaThau").val());
+                                    $("#HopDongID").change(function () {
+                                        $.get("/ReportAbuse/ViewNhaThau", { id: $("#HopDongID").val() }, function (data) {
+                                            if (data[0] != null && data[0] != undefined) {
+                                                $("#IDNhaThau").text(data[0].Ten);
+                                            } else {
+                                                $("#IDNhaThau").text("Không có nhà thầu");
+                                            }
+                                        });
+                                    });
+                                });
+                            </script>
+                            @Html.LabelFor(model => model.IDNhaThau, new { @id = "IDNhaThau" })*@
+
+                            <script>
+                                $(document).ready(function () {
+                                    $("#HopDongID").click(function () {
+                                        $.get("/ReportAbuse/GetNhanVienNT", { id: $("#HopDongID").val() }, function (data) {
+                                            $("#NhanVienNTID").empty();
+                                            $.each(data, function (index, row) {
+                                                $("#NhanVienNTID").append("<option value ='" + row.IDNVNT + "'>" + row.HovaTen + "</option>")
+                                            });
+                                        });
+                                    })
+                                });
+                            </script>
+                            @Html.DropDownListFor(model => model.NhanVienNTID, new SelectList(" "), "--Chọn nhân viên--", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.NhanVienNTID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="small mb-1">Nội dung Vi phạm</label>
+                            @Html.EditorFor(model => model.NoiDungVP, new { htmlAttributes = new { @class = "form-control", placeholder = "Nội dung Vi phạm", @id = "NoiDungVP" } })
+                            @Html.ValidationMessageFor(model => model.NoiDungVP, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="small mb-1">Ngày Vi Phạm</label>
+                            @Html.EditorFor(model => model.NgayVP, new { @value = DateTime.Today, htmlAttributes = new { @class = "form-control", @type = "date", placeholder = "Ngày Vi phạm", @id = "NgayVP" } })
+                            @Html.ValidationMessageFor(model => model.NgayVP, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="small mb-1">Mức Vi phạm</label>
+                            @Html.EditorFor(model => model.MucVP, new { htmlAttributes = new { @class = "form-control", placeholder = "Mức Vi phạm", @id = "MucVP" } })
+                            @Html.ValidationMessageFor(model => model.MucVP, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <input type="submit" id="button_submit" value="Xác nhận" class="btn btn-success button_submit" />
+                        <input type="reset" value="Hủy" class="btn btn-danger button_cancel" data-dismiss="modal" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<style>
+    .button_submit {
+        float: right;
+        margin-bottom: 15px;
+    }
+
+    .button_cancel {
+        float: right;
+        margin-right: 15px
+    }
+
+    .margin-checkbox {
+        margin-right: 30px;
+    }
+</style>
+<script>
+    $('#form').each(() => {
+        $(this).data('serialized', $(this).serialize());
+
+    }).on('change input', 'input', 'select', (e) => {
+        var $form = $(this).closest("form");
+        var state = $form.serialize() === $form.data('serialized');
+        $('#button_submit').prop('disabled', state);
+    }).find('#button_submit').prop('disabled', true);
+
+</script>
+
+

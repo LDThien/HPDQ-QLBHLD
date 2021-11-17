@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model QLNHATHAU.Models.DangKyHocAnToanValidation
+
+<fieldset id="SubmitForm">
+    <h3> <i class="fa fa-table"></i> Thông tin chung</h3>
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped table-hover" cellspacing="0">
+            <tr>
+                <td>Số hợp đồng:</td>
+                <td> @Html.DisplayFor(model => model.SoHD)</td>
+            </tr>
+            <tr>
+                <td>Nhà thầu:</td>
+                <td> @Html.DisplayFor(model => model.TenNhaThau)</td>
+            </tr>
+            <tr>
+                <td> Chỉ huy trưởng:</td>
+                <td>
+                    @Html.DisplayFor(model => model.ChiHuyTruong)
+                </td>
+            </tr>
+
+
+
+            <tr>
+                <td>
+                    Ngày dự kiến học
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.NgayDuKienHoc)
+                </td>
+            </tr>
+        </table>
+    </div>
+    @{Html.RenderAction("DanhSachHAT", "Safeenrollment", new { id = Model.IDDKHAT });}
+</fieldset>

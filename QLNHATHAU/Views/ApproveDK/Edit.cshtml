@@ -1,0 +1,61 @@
+﻿@model QLNHATHAU.Models.ApproveValidation
+<script src="~/Content/assets/Chonse/chosen.jquery.js"></script>
+<link href="~/Content/assets/Chonse/chosen.css" rel="stylesheet" />
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm())
+
+{
+@Html.AntiForgeryToken()
+<div class="modal-dialog" id="form">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 id="ModalTitle"></h5>
+            <a href="#" class="close" data-dismiss="modal">&times;</a>
+        </div>
+        @Html.HiddenFor(model => model.IDPD)
+        <div class="modal-body">
+
+            <fieldset id="SubmitForm">
+                <div class="form-row">
+                    <div class="col-md-12">
+                        <label> Ghi Chú </label>
+                        @Html.EditorFor(model => model.GhiChu, new { htmlAttributes = new { @class = "form-control", placeholder = "Ghi Chú", @id = "GhiChu" } })
+                        @Html.ValidationMessageFor(model => model.GhiChu, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                &nbsp;
+                <div class="btn-margin-top text-center">
+                    <input type="submit" value="Xác nhận" class="btn btn-success button_submit" />
+                    <input type="reset" value="Hủy" class="btn btn-danger button_cancel" data-dismiss="modal" />
+                </div>
+            </fieldset>
+
+        </div>
+
+
+    </div>
+</div>
+}
+<style>
+    .button_submit {
+        float: right;
+        margin-bottom: 15px;
+    }
+
+    .button_cancel {
+        float: right;
+        margin-right: 15px
+    }
+
+    .margin-checkbox {
+        margin-right: 30px;
+    }
+</style>
+
+
+
+
+
+

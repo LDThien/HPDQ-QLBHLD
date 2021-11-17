@@ -1,0 +1,100 @@
+﻿@model QLNHATHAU.Models.RegistrationValidation
+<script src="~/Content/assets/Chonse/chosen.jquery.js"></script>
+<link href="~/Content/assets/Chonse/chosen.css" rel="stylesheet" />
+@using (Html.BeginForm("Create", "Registration", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="modal-dialog" id="form">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="ModalTitle"></h5>
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <label class="small mb-1">Nhà Thầu</label>
+                        @Html.DropDownListFor(model => model.NhaThauID, ViewBag.NTList as SelectList, "--Nhà Thầu--", new { @id = "NhaThauID", @class = "form-control" })
+                    </div>
+                    <div class="col-md-6">
+                        <label class="small mb-1">Phòng Ban</label>
+                        @Html.DropDownListFor(model => model.PhongBanID, ViewBag.PBList as SelectList, "--Phòng Ban--", new { @id = "PhongBanID", @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <label class="small mb-1">Loại Khách</label>
+                        @Html.DropDownListFor(model => model.LoaiKhachID, ViewBag.LKList as SelectList, "--Loại Khách--", new { @id = "LoaiKhachID", @class = "form-control" })
+                    </div>
+                    <div class="col-md-6">
+                        <label class="small mb-1">Cổng</label>
+                        @Html.DropDownListFor(model => model.CongID, ViewBag.CongList as SelectList, "--Cổng--", new { @id = "CongID", @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <label class="small mb-1">Người Đại Diện</label>
+                        @Html.EditorFor(model => model.NguoiDaiDien, new { htmlAttributes = new { @class = "form-control", placeholder = "Người Đại Diện", @id = "NguoiDaiDien" } })
+                        @Html.ValidationMessageFor(model => model.NguoiDaiDien, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-6">
+                        <label class="small mb-1">Ngày Bảo Lãnh</label>
+                        @Html.EditorFor(model => model.NgayBL, new { @value = DateTime.Today, htmlAttributes = new { @class = "form-control", @type = "date", placeholder = "Ngày Bảo Lãnh", @id = "NgayBL" } })
+                        @Html.ValidationMessageFor(model => model.NgayBL, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="small mb-1"> Phương Tiện </label>
+                            @Html.EditorFor(model => model.PhuongTien, new { htmlAttributes = new { @class = "form-control", placeholder = "Phương Tiện", @id = "PhuongTien" } })
+                            @Html.ValidationMessageFor(model => model.PhuongTien, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="small mb-1">Biển Số</label>
+                            @Html.EditorFor(model => model.BienSo, new { htmlAttributes = new { @class = "form-control", placeholder = "Biển Số", @id = "BienSo" } })
+                            @Html.ValidationMessageFor(model => model.BienSo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <input type="submit" value="Thêm mới" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<style>
+    .button_submit {
+        float: right;
+        margin-bottom: 15px;
+    }
+
+    .button_cancel {
+        float: right;
+        margin-right: 15px
+    }
+
+    .margin-checkbox {
+        margin-right: 30px;
+    }
+</style>
+<script type="text/javascript">
+    $("#PhongBanID").chosen({
+        width: "100%"
+    });
+    $("#NhaThauID").chosen({
+        width: "100%"
+    });
+</script>
+
+
+
+
+

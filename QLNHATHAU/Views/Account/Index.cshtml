@@ -1,0 +1,165 @@
+﻿@using QLNHATHAU.Models
+@model PagedList.IPagedList<NguoiDungValidation>
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Content/assets/Chonse/chosen.jquery.js"></script>
+<link href="~/Content/assets/Chonse/chosen.css" rel="stylesheet" />
+@if (TempData["msgSuccess"] != null)
+{
+    @Html.Raw(TempData["msgSuccess"])
+}
+@if (TempData["msgError"] != null)
+{
+    @Html.Raw(TempData["msgError"])
+}
+<style>
+    #btn-add {
+        margin-right: 5px;
+    }
+
+    body {
+        width: 100%;
+        height: 100%;
+    }
+
+    .button_create {
+        float: right;
+        margin-bottom: 15px;
+    }
+
+    .icon_action {
+        cursor: pointer;
+        /*margin-left: 10px;*/
+    }
+
+    .center-td {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .file_icon {
+        font-size: 25px;
+        color: orange;
+        cursor: pointer;
+    }
+
+    ul#selectedValue {
+        list-style: none;
+        position: absolute;
+        padding: 0;
+        margin: 0;
+        list-style-type: none;
+        background-color: #f2f2f2;
+    }
+
+        ul#selectedValue li.ui-menu-item {
+            padding: 2px 5px;
+        }
+
+            ul#selectedValue li.ui-menu-item:hover {
+                background-color: #ccc
+            }
+
+            ul#selectedvalue li.ui-menu-item a:link, a:active, a:visited, a:hover {
+                text-decoration: none;
+                color: black;
+            }
+</style>
+<link href="~/Content/assets/css/PagedList.css" rel="stylesheet" />
+<div class="divbreadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"> <a href="/"><i class="menu-icon fa fa-recycle"></i> Quản lý xuất Bảo hộ lao động </a></li>
+
+        <li class="breadcrumb-item active">Tài khoản</li>
+    </ol>
+</div>
+<div class="card mb-4">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-3">
+                @Html.DropDownList("NDList", null, "------- Tên Đăng Nhập -------", new { id = "IDNguoiDung", @class = "form-control", })
+            </div>
+
+            <div class="col-md-3">
+                @Html.DropDownList("NVList", null, "------- Họ và tên -------", new { id = "ID", @class = "form-control", })
+            </div>
+
+            <div class="col-md-3">
+                <button type="button" id="btsearch" class="btn btn-primary pull-left"><i class="fa fa-search">&nbsp;</i>&nbsp;Tìm kiếm </button>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" id="table" width="100%" cellpadding="0">
+                <thead class="thead-light">
+                    <tr>
+                        <th width="30px">STT</th>
+                        <th width="150px" class="text-center"> Tên Đăng Nhập </th>
+                        <th width="250px" class="text-center"> Họ Tên </th>
+                        <th width="250px" class="text-center"> Phòng Ban </th>
+                        <th width="300px"class="text-center"> Vị Trí Làm Việc </th>
+                        <th width="250px" class="text-center"> Quyền Đăng Nhập </th>
+                        <th width="150px" class="text-center"> Thao tác </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int pageno = (int)Model.PageNumber;
+                        int itemperpage = (int)Model.PageSize;
+                        int RowNo = ((pageno - 1) * itemperpage) + 1;
+                    }
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        <td class="text-center"> @RowNo@{RowNo++;}</td>
+                        <td>@item.MaNV </td>
+                        <td>@item.HoTen</td>
+                        <td>@item.TenPhongBan</td>
+                        <td>@item.TenViTri</td>
+                        <td>@item.TenQuyen</td>
+
+                        <td class="center-td">
+                            <a id="btn-edit_@item.IDNguoiDung" title="Sửa" class="fa fa-pencil-square-o icon_action"></a>
+                            <div class="modal fade" id="myModale_@item.IDNguoiDung" role="dialog" data-url='@Url.Action("Edit","Account", new { id = item.IDNguoiDung })'></div>
+                            <script type="text/javascript">
+                                    $("#btn-edit_@item.IDNguoiDung").click(function () {
+                                        var url = $('#myModale_@item.IDNguoiDung').data('url');
+                                        console.log(url);
+                                        $.get(url, function (data) {
+                                            $("#myModale_@item.IDNguoiDung").html(data);
+                                            $("#ModalTitle").html("Cập nhật thông tin");
+                                            $("#myModale_@item.IDNguoiDung").modal('show');
+                                        });
+                                    });
+                            </script>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="pager">
+                @Html.PagedListPager(Model, page => Url.Action("Index", "Account", new { page }))
+                <span class="pageoff"> Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount</span>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+  $("#btsearch").on('click', function () {
+      var ID = $('#ID').val();
+      var IDNguoiDung = $('#IDNguoiDung').val();
+      window.location.href = '@Url.Action("Index", "Account")?ID=' + ID + '&IDNguoiDung=' + IDNguoiDung;
+  });
+
+    $("#ID").chosen({
+        width: "100%"
+    });
+    $("#IDNguoiDung").chosen({
+        width: "100%"
+    });
+</script>

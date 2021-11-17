@@ -1,0 +1,78 @@
+﻿@model QLNHATHAU.Models.ExportprotectionValidation
+<script src="~/Content/assets/Chonse/chosen.jquery.js"></script>
+<link href="~/Content/assets/Chonse/chosen.css" rel="stylesheet" />
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="modal-dialog" id="form">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="ModalTitle"></h5>
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+            </div>
+            @Html.HiddenFor(model => model.IDBHLDX)
+            <div class="modal-body">
+
+                <fieldset id="SubmitForm">
+                    <div class="form-row">
+                        <div class="col-md-12">
+                            <label class="small mb-1"> Tên Trang Bị Bảo Hộ Lao Động </label>
+                            @Html.DropDownListFor(model => model.BHLDID, ViewBag.BHLDList as SelectList, "--Loại Bảo Hộ Lao Động--", new { @id = "BHLDID", @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="small mb-1"> Số Lượng </label>
+                                @Html.EditorFor(model => model.Soluong, new { htmlAttributes = new { @class = "form-control", placeholder = "Số Lượng", @id = "Soluong" } })
+                                @Html.ValidationMessageFor(model => model.Soluong, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="small mb-1"> Size </label>
+                            @Html.EditorFor(model => model.Size, new { htmlAttributes = new { @class = "form-control", placeholder = " Size ", @id = "Size" } })
+                            @Html.ValidationMessageFor(model => model.Size, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="btn-margin-top text-center">
+                        <input type="submit" value="Xác nhận" class="btn btn-success button_submit" />
+                        <input type="reset" value="Hủy" class="btn btn-danger button_cancel" data-dismiss="modal" />
+                    </div>
+                </fieldset>
+
+            </div>
+
+
+        </div>
+    </div>
+}
+<style>
+    .button_submit {
+        float: right;
+        margin-bottom: 15px;
+    }
+
+    .button_cancel {
+        float: right;
+        margin-right: 15px
+    }
+
+    .margin-checkbox {
+        margin-right: 30px;
+    }
+</style>
+<script type="text/javascript">
+    $("#PhongBanID").chosen({
+        width: "100%"
+    });
+    $("#NhaThauID").chosen({
+        width: "100%"
+    });
+</script>
+
+
+
+
+
+
+

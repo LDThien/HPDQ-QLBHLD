@@ -1,0 +1,55 @@
+﻿@model QLNHATHAU.Models.PhongBanValidation
+@{ Layout = null;}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="ModalTitle">Thêm phòng ban</h5>
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+            </div>
+            <div class="modal-body">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <fieldset id="SubmitForm">
+                    <div class="form-group">
+                        <label class="small mb-1" for="inputLastName">Tên viết tắt (ISO)</label>
+                        @Html.EditorFor(model => model.TenVT, new { htmlAttributes = new { @class = "form-control", placeholder = "Nhập tên viết tắt (ISO)", @id = "TenVT" } })
+                        @Html.ValidationMessageFor(model => model.TenVT, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <label class="small mb-1" for="inputLastName">Tên phòng ban</label>
+                        @Html.EditorFor(model => model.TenDai, new { htmlAttributes = new { @class = "form-control", placeholder = "Nhập BP/NM", @id = "TenDai" } })
+                        @Html.ValidationMessageFor(model => model.TenDai, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        <label class="small mb-1" for="inputLastName">Phòng chức năng</label>
+                        @Html.CheckBoxFor(model => model.PCHN, new { htmlAttributes = new { @class = "form-control", placeholder = "Phòng chức năng", @id = "PCHN" } })
+                        @Html.ValidationMessageFor(model => model.PCHN, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @*<input type="submit" value="Thêm mới" class="btn btn-primary pull-right" id="btncreate" />*@
+                        <button class="btn btn-primary pull-right" id="btncreate"><i class="fa fa-plus"></i> Thêm mới</button>
+                    </div>
+                </fieldset>
+
+            </div>
+        </div>
+    </div>
+    <script>
+        $('#btncreate').click(function () {
+            if ($('#TenVT').val().length == 0) {
+                alert('Vui lòng nhập tên viết tắt BP/NM');
+                return false;
+            }
+            if ($('#TenDai').val().length == 0) {
+                alert('Vui lòng nhập tên BP/NM');
+                return false;
+            }
+        });
+    </script>
+}
+

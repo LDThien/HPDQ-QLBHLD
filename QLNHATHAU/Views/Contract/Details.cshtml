@@ -1,0 +1,116 @@
+﻿
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using QLNHATHAU.Models
+@model IEnumerable<QLNHATHAU.Models.HopDongValidation>
+
+<div class="card mb-3">
+    <div class="card-header">
+        Chi tiết hợp đồng
+    </div>
+    <div class="card-body">
+        @foreach (var item in Model)
+        {
+            <div class="card mb-3">
+
+                <div class="card-body">
+                    <div class="table-responsive">
+
+                        <table class="table table-bordered table-hover" cellspacing="0">
+                            <tr>
+                                <td width="250px">Số hợp đồng</td>
+                                <td>@Html.DisplayFor(modelItem => item.SoHD)</td>
+                            </tr>
+                            <tr>
+                                <td>Tên hợp đồng</td>
+                                <td>@item.TenHD</td>
+                            </tr>
+                            <tr>
+                                <td>Nhà thầu</td>
+                                <td>@item.TenNhaThau</td>
+                            </tr>
+                            <tr>
+                                <td>Người đại diện</td>
+                                <td>@item.NguoiDaiDien</td>
+                            </tr>
+                            <tr>
+                                <td>BP/NM quản lý</td>
+                                <td>@item.TenPhongBan</td>
+                            </tr>
+                            <tr>
+                                <td>Phòng chức năng</td>
+                                <td>@item.TenPhongChucNang</td>
+                            </tr>
+                            <tr>
+                                <td>Ngày bắt đầu</td>
+                                <td>@Html.DisplayFor(modelItem => item.NgayBD)</td>
+                            </tr>
+                            <tr>
+                                <td>Ngày kết thúc</td>
+                                <td>@Html.DisplayFor(modelItem => item.NgayKT)</td>
+                            </tr>
+
+
+
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <i class="fa fa-table"></i> Bộ phận xử lý
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-hover" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th width="250px">BP/ NM</th>
+                                    <th width="250px">Ngày xử lý</th>
+                                    <th>Kết quả xử lý</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{QLNhaThauEntities db = new QLNhaThauEntities();
+                                    var model = from a in db.PheDuyets
+                                                join b in db.HopDongs on a.HoSoID equals b.IDHD
+                                                where a.HoSoID == item.IDHD
+                                                select new PheDuyet()
+                                                {
+                                                    TenBPXL = b.TenBPXL,
+                                                    NgayXuLy = a.NgayXuLy,
+                                                    KetQua = a.KetQua
+
+                                                };
+
+                                    foreach (var it in model)
+                                    {
+                                        <tr>
+                                            <td>@it.TenBPXL</td>
+                                            <td>@Html.DisplayFor(modelItem => it.NgayXuLy)</td>
+                                            <td>@it.KetQua</td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        }
+        <div class="form-group">
+            <div class="  col-md-offset-5 col-sm-offset-4 col-sm-5">
+                <input type="submit" value="In biên bản" class="btn btn-primary" onClick="window.print()" />
+                @Html.ActionLink("Quay lại", "")
+            </div>
+        </div>
+    </div>
+</div>

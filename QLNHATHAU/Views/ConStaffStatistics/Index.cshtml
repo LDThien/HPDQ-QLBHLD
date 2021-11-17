@@ -1,0 +1,159 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using QLNHATHAU.Models;
+@model PagedList.IPagedList<ContractorStaffValidation>
+@using PagedList.Mvc;
+<script src="~/Content/assets/Chonse/chosen.jquery.js"></script>
+<link href="~/Content/assets/Chonse/chosen.css" rel="stylesheet" />
+@if (TempData["msgSuccess"] != null)
+{
+    @Html.Raw(TempData["msgSuccess"])
+}
+@if (TempData["msgError"] != null)
+{
+    @Html.Raw(TempData["msgError"])
+}
+<link href="~/Content/assets/css/PagedList.css" rel="stylesheet" />
+<div class="card mb-4">
+    <div class="card-header">
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="">
+                    <label class="pull-left">Thống kê Nhân viên</label>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                @Html.DropDownList("NTList", null, "--Nhà thầu--", new
+                {
+                    id = "IDNhaThau",
+                    @class = "form-control",
+                    @style = "width:100%",@*@onChange = "ChangeNhaThau(this)"*@})
+            </div>
+            <div class="col-md-3">
+                @Html.DropDownList("HDList", null, "--Hợp đồng--", new
+                {
+                    id = "IDHD",
+                    @class = "form-control",
+                    @style = "width:100%",@*@onChange = "ChangeNhaThau(this)"*@})
+                <script>
+                    $(document).ready(function () {
+                        $("#IDNhaThau").change(function () {
+                            $.get("/ConStaffStatistics/GetHopDong", { NhaThauID: $("#IDNhaThau").val() }, function (data) {
+                                $("#IDHD").empty();
+                                $.each(data, function (index, row) {
+                                    $("#IDHD").append("<option value ='" + row.IDHD + "'>" + row.TenHD + "</option>")
+                                });
+                            });
+                        })
+                    });
+                </script>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <input id="txtsearch" class="form-control" type="text" placeholder="Tìm kiếm nhân viên ..." value="@ViewBag.search">
+                </div>
+            </div>
+            <div class="col-md-3 text-center">
+                <button type="button" id="btn-search" class="btn btn-primary"><i class="fa fa-search">&nbsp;</i>&nbsp;Search </button>
+            </div>
+
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" id="table" width="100%" cellpadding="0">
+                <thead class="thead-light">
+                    <tr>
+                        <th class="text-center" width="100px">STT</th>
+                        <th width="180px">Mã Nhân Viên</th>
+                        <th width="320px">Họ và Tên</th>
+                        <th width="180px">Số CMND</th>
+                        <th width="300px">Hạng mục</th>
+                        <th>Nhà thầu</th>
+                        <th class="text-center" width="150px">Trạng thái</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int pageno = (int)Model.PageNumber;
+                        int itemperpage = (int)Model.PageSize;
+                        int RowNo = ((pageno - 1) * itemperpage) + 1;
+                    }
+
+                    @foreach (var item in Model)
+                    {
+
+                        <tr>
+                            <td class="text-center"> @RowNo@{RowNo++;}</td>
+                            <td id ="MaNV">@item.MaNV </td>
+                            <td>@item.HovaTen</td>
+                            <td>@item.CMND</td>
+                            <td>@item.TenHD</td>
+                            <td>@item.TenNhaThau</td>
+                            <td class="text-center">
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="pager">
+                @Html.PagedListPager(Model, page => Url.Action("Index", "ConStaffStatistics", new { page, IDNhaThau = Request.QueryString["IDNhaThau"] }))
+                <span class="pageoff">Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $("#btn-search").on('click', function () {
+        console.log($('#IDNhaThau').val());
+        console.log($('#IDHD').val());
+        @*window.location.href = '@Url.Action("Index", "ConStaffStatistics")?IDNhaThau=' + $('#IDNhaThau').val() + '&HDID=' + $('#IDHD').val();*@
+        var search = $('#txtsearch').val();
+        var IDNhaThau = $('#IDNhaThau').val();
+        var IDHD = $('#IDHD').val();
+        window.location.href = '@Url.Action("Index", "ConStaffStatistics")?IDNhaThau=' + IDNhaThau + '&HDID=' + IDHD +'&search=' + search;
+    });
+
+    @*function ChangeNhaThau(obj) {
+            window.location.href = '@Url.Action("Index", "ConStaffStatistics")?IDNhaThau=' + obj.value;
+        }*@
+    $("#IDNhaThau").chosen({
+        width: "100%"
+    });
+
+    @*$("#bsearch").on('click', function () {
+        var search = $('#txtsearch').val();
+        var IDNhaThau = $('#IDNhaThau').val();
+        window.location.href = '@Url.Action("Index", "ConStaffStatistics")?IDNhaThau=' + IDNhaThau+'&search=' + search;
+    });*@
+
+    $("#txtsearch").keyup(function (event) {
+         if (event.keyCode == 13) {
+             $("#btn-search").click();
+         }
+    });
+
+</script>
+
+<style>
+    .chosen-container-single .chosen-single {
+        color: #495057;
+        background: #fff;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        border-radius: .25rem;
+        transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.8;
+    }
+</style>

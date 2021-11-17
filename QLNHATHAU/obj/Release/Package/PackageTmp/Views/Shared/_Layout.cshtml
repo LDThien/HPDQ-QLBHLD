@@ -1,0 +1,365 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Quản lý nhà thầu - Công Ty Cổ Phần Thép Hòa Phát Dung Quất</title>
+    <meta name="description" content="Quản lý nhà thầu - Công Ty Cổ Phần Thep Hòa Phát Dung Quất">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" href="/favicon.ico">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="~/Content/assets/css/font-awesome.min.css">
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/assets/css/style.css">
+    <link rel="stylesheet" href="~/Content/assets/css/charts/chartist.min.css">
+    <script src="~/Content/assets/js/chartjs.min.js"></script>
+    <script src="~/Scripts/jquery-3.0.0.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    
+</head>
+<body>
+    @if (!User.Identity.IsAuthenticated)
+    {
+        Response.Redirect("~/Login");
+    }
+
+    @using QLNHATHAU.Models
+    <aside id="left-panel" class="left-panel">
+        <nav class="navbar navbar-expand-sm navbar-default">
+            <div id="main-menu" class="main-menu collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active">
+                        <a href="@Url.Action("Index","Home")"><i class="menu-icon fa fa-laptop"></i><span>Tổng quan</span> </a>
+                    </li>
+                    @*<li class="">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-bar-chart"></i><span>Charts</span></a>
+
+        </li>*@
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cog"></i><span>Quản trị</span></a>
+                        <ul class="sub-menu children dropdown-menu">
+
+                            <li><a href="@Url.Action("Index","Department")"><span>1. Phòng ban</span></a></li>
+                            <li><a href="@Url.Action("Index","Contractors")"><span>2. Nhà thầu</span></a></li>
+                            <li><a href="@Url.Action("Index","CustomerType")"><span>3. Loại Khách</span></a></li>
+                            <li><a href="@Url.Action("Index","Gate")"><span>4. Cổng</span></a></li>
+                            <li><a href="@Url.Action("Index","Customer")"><span>5. Người dùng</span></a></li>
+                            <li><a href="@Url.Action("Index","Permiss")"><span>6. Quyền</span></a></li>
+                            <li><a href="@Url.Action("Index","Permission")"><span>7. Phân Quyền</span></a></li>
+                            <li><a href="@Url.Action("Index","ContractorStaff")"><span>8. Nhân Viên Nhà thầu</span></a></li>
+
+                        </ul>
+                    </li>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-users"></i><span>Đăng Ký Khách</span></a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><a href="@Url.Action("Index","Registration")"><span>1. Đăng Ký Khách </span></a></li>
+                            <li><a href="@Url.Action("Index","Security")"><span>2. An Ninh </span></a></li>
+                        </ul>
+                    </li>
+
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-pencil-square"></i><span>Phê Duyệt</span></a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><a href="@Url.Action("Approved","Signer")"><span>1. Chờ Phê Duyệt </span></a></li>
+                            <li><a href="@Url.Action("Pending","Signer")"><span>2. Đã Phê Duyệt </span></a></li>
+                        </ul>
+                    </li>
+
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-file-text-o"></i><span>QL Hợp Đồng</span></a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><a href="@Url.Action("Index","Contract")"><span>1. Hợp đồng</span></a></li>
+                            <li><a href="@Url.Action("Index","ResultsLearnSafe")">2. Gia hạn hợp đồng<span></span></a></li>
+                        </ul>
+                    </li>
+
+
+
+
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-suitcase"></i><span>QL học an toàn</span></a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="fa fa-id-badge"></i><a href="@Url.Action("Index","Safeenrollment")"><span>Đăng ký học an toàn</span></a></li>
+                            <li><i class="fa fa-leanpub"></i><a href="@Url.Action("Index","ResultsLearnSafe")"><span>Kết quả học an toàn</span></a></li>
+
+                        </ul>
+                    </li>
+
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-search"></i><span>Kiểm xoát an ninh</span></a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><a href="@Url.Action("Index","Security")"><span>Kiểm soát khách</span></a></li>
+                            <li><a href="@Url.Action("Index","ResultsLearnSafe")">Kiểm soát học an toàn<span></span></a></li>
+                        </ul>
+                    </li>
+
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-warning"></i><span>QL Vi Phạm</span></a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><a href="@Url.Action("Index","ReportAbuse")"><span>QL Vi phạm</span></a></li>
+                            <li><a href="@Url.Action("Index","WarningNotice")">Cảnh báo Cắt thẻ<span></span></a></li>
+                        </ul>
+                    </li>
+
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-credit-card"></i><span>QL Thẻ Nhân viên NT</span></a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><a href="@Url.Action("Index","ManageCard")"><span>QL thẻ </span></a></li>
+                            <li><a href="@Url.Action("Index","BlockCard")"><span>QL Cắt thẻ</span></a></li>
+                        </ul>
+                    </li>
+
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th-large"></i><span>Thống kê</span></a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="fa fa-leanpub"></i><a href="@Url.Action("Index","ContractorStatistics")"><span>Nhà thầu</span></a></li>
+                            <li><i class="fa fa-id-badge"></i><a href="@Url.Action("Index","ConStaffStatistics")"><span>Nhân viên</span></a></li>
+                            <li><i class="fa fa-leanpub"></i><a href="@Url.Action("Index","ContractStatistics")"><span>Hạng mục</span></a></li>
+                        </ul>
+                    </li>
+
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-bar-chart"></i><span>Báo cáo</span></a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="fa fa-leanpub"></i><a href=""><span>Nhà thầu</span></a></li>
+                            <li><i class="fa fa-id-badge"></i><a href="@Url.Action("Index","ContractorStaff")"><span>Nhân viên</span></a></li>
+                            <li><i class="fa fa-leanpub"></i><a href=""><span>Hạng mục</span></a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+        </nav>
+    </aside>
+
+
+    <div id="right-panel" class="right-panel">
+
+
+        <header>
+            <nav class="rad-navigation">
+                <div class="rad-logo-container">
+                    <a class="rad-logo" href="@Url.Action("Index","Home")"><img src="/images/logoH50.png" alt="logo"></a>
+                    @*<a href="./" class="rad-logo">Quản Lý Nhà Thầu</a>*@
+
+                    <a href="#" class="rad-toggle-btn pull-right" onclick=collapseAside()><i class="fa fa-bars"></i></a>
+                </div>
+                <a href="#" class="rad-logo-title">Phần Mềm Quản Lý Nhà Thầu</a>
+                <a href="#" class="rad-logo-hidden">HPDQ</a>
+                <div class="rad-top-nav-container">
+
+                    <ul class="pull-right links">
+                        <li class="rad-dropdown no-color">
+                            @*<a class="rad-menu-item" href="#"><img class="rad-list-img sm-img" src="/images/admin.png" alt="me"></a>*@
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <san>@MyAuthentication.TenNV</san>;
+                            }
+                            <ul class="rad-dropmenu-item sm-menu">
+                                <li class="rad-notification-item">
+                                    <a class="rad-notification-content lg-text" href="#"><i class="fa fa-edit"></i> My Profile</a>
+                                </li>
+                                <li class="rad-notification-item">
+                                    <a class="rad-notification-content lg-text" href="#"><i class="fa fa-power-off"></i> Sign out</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!--<li class="rad-dropdown">
+                            <a class="rad-menu-item" href="#"><i class="fa fa-cog"></i></a>
+                            <ul class="rad-dropmenu-item rad-settings">
+                                <li class="rad-dropmenu-header"><a href="#">Settings</a></li>
+                                <li class="rad-notification-item text-left">
+                                    <div class="pull-left"><i class="fa fa-link"></i></div>
+                                    <div class="pull-right">
+                                        <label class="rad-chk-pin pull-right">
+                                            <input type="checkbox"><span></span>
+                                        </label>
+                                    </div>
+                                    <div class="rad-notification-body">
+                                        <div class="lg-text">Change to Flat Theme</div>
+                                        <div class="sm-text">Flattify it</div>
+                                    </div>
+                                </li>
+                                <li id="rad-color-opts" class="rad-notification-item text-left">
+                                    <div class="pull-left"><i class="fa fa-puzzle-piece"></i></div>
+                                    <div class="pull-right">
+                                        <div class="rad-color-swatch">
+                                            <label class="colors rad-bg-teal rad-option-selected
+                                                   ">
+                                                <input type="radio" name="color" value="teal">
+                                            </label>
+                                            <label class="colors rad-bg-crimson">
+                                                <input type="radio" name="color" value="crimson">
+                                            </label>-->
+
+                                            @*<label class="colors rad-bg-purple">
+                                                    <input type="radio" name="color" value="purple">
+                                                </label>*@
+                                            <!--<label class="colors rad-bg-orange">
+                                                <input type="radio" name="color" value="orange">
+                                            </label>
+                                            <label class="colors rad-bg-twitter">
+                                                <input type="radio" name="color" value="twitter">
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="rad-notification-body">
+                                        <div class="lg-text">Choose a color</div>
+                                        <div class="sm-text">Make it colorful</div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>-->
+                    </ul>
+                    @*<ul class="pull-right links">
+                        <li>
+                            <a class="rad-menu-item" href="#"><i class="fa fa-comment-o"><span class="rad-menu-badge rad-bg-success">0</span></i></a>
+                        </li>
+                        <li class="rad-dropdown">
+                            <a class="rad-menu-item" href="#"><i class="fa fa-envelope-o"><span class="rad-menu-badge rad-bg-primary">23</span></i></a>
+                            <ul class="rad-dropmenu-item">
+                                <li class="rad-dropmenu-header"><a href="#">Your Notifications</a></li>
+                                <li class="rad-notification-item text-left">
+                                    <a class="rad-notification-content" href="#">
+                                        <div class="pull-left">
+                                            <i class="fa fa-html5 fa-2x"></i>
+                                        </div>
+                                        <div class="rad-notification-body">
+                                            <div class="lg-text">Introduction to fetch()</div>
+                                            <div class="sm-text">The fetch API</div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="rad-notification-item text-left">
+                                    <a class="rad-notification-content" href="#">
+                                        <div class="pull-left">
+                                            <i class="fa fa-bitbucket fa-2x"></i>
+                                        </div>
+                                        <div class="rad-notification-body">
+                                            <div class="lg-text">Check your BitBucket</div>
+                                            <div class="sm-text">Last Chance</div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="rad-notification-item text-left">
+                                    <a class="rad-notification-content" href="#">
+                                        <div class="pull-left">
+                                            <i class="fa fa-google fa-2x"></i>
+                                        </div>
+                                        <div class="rad-notification-body">
+                                            <div class="lg-text">Google Account</div>
+                                            <div class="sm-text">sathishlxg@gmail.com</div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="rad-dropmenu-footer"><a href="#">See all notifications</a></li>
+                            </ul>
+                        </li>
+                        <li class="rad-dropdown">
+                            <a class="rad-menu-item" href="#"><i class="fa fa-bell-o"><span class="rad-menu-badge">49</span></i></a>
+                            <ul class="rad-dropmenu-item">
+                                <li class="rad-dropmenu-header"><a href="#">Your Alerts</a></li>
+                                <li class="rad-notification-item text-left">
+                                    <a class="rad-notification-content" href="#">
+                                        <div class="pull-left">
+                                            <i class="fa fa-html5 fa-2x"></i>
+                                        </div>
+                                        <div class="rad-notification-body">
+                                            <div class="lg-text">Introduction to fetch()</div>
+                                            <div class="sm-text">The fetch API</div>
+                                            <em class="pull-right sm-text"><i class="fa fa-clock-o"></i> 2 sec ago</em>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="rad-notification-item text-left">
+                                    <a class="rad-notification-content" href="#">
+                                        <div class="pull-left">
+                                            <i class="fa fa-bitbucket fa-2x"></i>
+                                        </div>
+                                        <div class="rad-notification-body">
+                                            <div class="lg-text">Check your BitBucket</div>
+                                            <div class="sm-text">Last Chance</div>
+                                            <em class="pull-right sm-text"><i class="fa fa-clock-o"></i> 49 mins ago</em>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="rad-notification-item text-left">
+                                    <a class="rad-notification-content" href="#">
+                                        <div class="pull-left">
+                                            <i class="fa fa-google fa-2x"></i>
+                                        </div>
+                                        <div class="rad-notification-body">
+                                            <div class="lg-text">Google Account</div>
+                                            <div class="sm-text">sathishlxg@gmail.com</div>
+                                            <em class="pull-right sm-text"><i class="fa fa-clock-o"></i> 2 days ago</em>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="rad-dropmenu-footer"><a href="#">See all alerts</a></li>
+                            </ul>
+                        </li>
+                    </ul>*@
+                </div>
+            </nav>
+        </header>
+
+        <div class="content pb-0">
+            @RenderBody()
+
+
+        </div>
+        <div class="clearfix"></div>
+        <footer class="site-footer">
+            <div class="footer-inner">
+                <div class="row">
+                    <div class="col-sm-6">
+                        Copyright © @DateTime.Now.Year Ban Công nghệ thông tin
+                    </div>
+                    <div class="col-sm-6 text-right">
+                        Công ty cổ phần Thép Hòa Phát Dung Quất
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    @*<script src="~/Scripts/bootstrap.bundle.js"></script>*@
+    @RenderSection("scripts", required: false)
+
+</body>
+
+</html>
+
+
+@*<script src='https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js'></script>
+    <script src='https://code.jquery.com/ui/1.11.4/jquery-ui.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.3/jquery.slimscroll.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.8.0/lodash.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js'></script>*@
+
+    @*<script src="https://code.jquery.com/jquery-3.6.0.js"></script>*@
+
+<script>
+
+
+    function collapseAside() {
+
+
+        var l = document.getElementById("left-panel");
+        l.classList.toggle("colapse");
+
+        var r = document.getElementById("right-panel");
+        r.classList.toggle("colapse");
+
+        var sp = document.getElementById("main-menu");
+        sp.classList.toggle("colapse");
+
+    }
+    
+    $(document).on('click', 'ul li', function () {
+    $(this).addClass('active').siblings().removeClass('active')
+    })
+
+</script>

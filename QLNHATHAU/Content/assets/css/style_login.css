@@ -1,0 +1,179 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url(/Images/bia_login.jpg);
+    font-family: 'Montserrat', sans-serif;
+    height: 100vh;
+    margin: 0 auto;
+    color: #333;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center center;
+    background-size: cover;
+}
+.bg-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0, 0.5); /* Black w/opacity/see-through */
+    height: 100%;
+    margin-bottom:20px;
+    width: 100%;
+}
+h3 {
+    font-weight: bold;
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+p {
+    font-size: 14px;
+    font-weight: 100;
+    line-height: 20px;
+    letter-spacing: 0.5px;
+    margin: 20px 0 30px;
+}
+
+span {
+    font-size: 12px;
+}
+
+a {
+    color: white;
+    font-size: 14px;
+    text-decoration: none;
+    margin: 15px 0;
+}
+
+a:hover{
+    color: #05428c;
+}
+
+button {
+    border-radius: 20px;
+    border: 1px solid #05428c;
+    background-color: #05428c;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 12px 45px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+    cursor: pointer;
+}
+
+form {
+    background-color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 50px;
+    height: 100%;
+    text-align: center;
+}
+
+input {
+    background-color: #eee;
+    border: none;
+    padding: 12px 15px;
+    margin: 8px 0;
+    width: 100%;
+}
+
+.container {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    position: relative;
+    overflow: hidden;
+    width: 890px;
+    max-width: 100%;
+    min-height: 480px;
+}
+
+.form-container {
+    position: absolute;
+    top: 0;
+    height: 100%;
+}
+
+.log-in-container {
+    left: 0;
+    width: 50%;
+    z-index: 2;
+}
+
+
+.overlay-container {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    background-image: url(/images/bh_login.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+
+.overlay {
+    /*background: #FF416C;
+    background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
+    background: linear-gradient(to right, #FF4B2B, #FF416C);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 0 0;
+    color: #FFFFFF;*/
+    position: relative;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 2;
+    background: rgba(255,255,255,.2);
+   
+}
+
+.overlay-panel {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    /*justify-content: center;*/
+    flex-direction: column;
+    padding: 0 40px;
+    text-align: center;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 9;
+}
+
+
+.overlay-right {
+    right: 0;
+}
+
+.overlay-panel img{
+    max-width: 100%;
+    margin: 3rem auto 3rem;
+}
+
+.overlay-panel h3{
+    margin: 1rem 0;
+    color: #05428c;
+}
+.copyright
+{
+    position: absolute;
+    bottom: .5rem;
+}
+.copyright p{
+    color: #fff !important;
+}

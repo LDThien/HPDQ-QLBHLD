@@ -1,0 +1,182 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using QLNHATHAU.Models
+@model PagedList.IPagedList<HopDongValidation>
+@using PagedList.Mvc
+@if (TempData["msgSuccess"] != null)
+{
+    @Html.Raw(TempData["msgSuccess"])
+}
+@if (TempData["msgError"] != null)
+{
+    @Html.Raw(TempData["msgError"])
+}
+<script src="~/Content/assets/Chonse/chosen.jquery.js"></script>
+<link href="~/Content/assets/Chonse/chosen.css" rel="stylesheet" />
+<link href="~/Content/assets/css/PagedList.css" rel="stylesheet" />
+<div class="divbreadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"> <a href="/"><i class="fa fa-arrows-alt"></i> Quản lý nhà thầu</a></li>
+        <li class="breadcrumb-item active">Hợp đồng</li>
+    </ol>
+</div>
+
+
+<div class="card mb-4">
+
+
+
+</div>
+<div class="row">
+    <div class="card-header">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="searchdiv">
+                        <div class="row">
+                            @*<div class="col-md-2">
+                                <input type="text" id="txtshd" name="input2-group2" placeholder="Số HĐ" class="form-control" value="@ViewBag.shd">
+                            </div>
+                            <div class="col-md-5">
+                                @Html.DropDownList("NTList", null, "--Tất cả--", new { id = "IDNhaThau", @class = "form-control", @style = "width:100%", })
+                            </div>*@
+                            <div class="col-md-3">
+                                @Html.DropDownList("TTList", null, "--Tất cả--", new { id = "IDTinhTrang", @class = "form-control", @style = "width:100%", })
+                            </div>
+                            <div class="col-md-2">
+                                <div class="divsearchex">
+                                    <button type="button" id="btsearch" class="btn btn-primary pull-left"><i class="fa fa-search">&nbsp;</i>&nbsp;Tìm kiếm </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <button type="button" id="btn-addnt" class="btn btn-primary pull-right"><i class="fa fa-plus">&nbsp;</i>&nbsp;Thêm nhà thầu </button>
+                    <div class="modal fade" id="myModalnt" role="dialog" data-url='@Url.Action("Create","Contract")'></div>
+
+                    <button type="button" id="btn-add" class="btn btn-primary pull-right"><i class="fa fa-plus">&nbsp;</i>&nbsp;Thêm hợp đồng </button>
+                    <div class="modal fade" id="myModal" role="dialog" data-url='@Url.Action("Create","Contract")'></div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-border table-hover" id="table" width="100%" cellpadding="0">
+                <thead class="thead-light">
+                    <tr>
+                        <th width="30px">STT</th>
+                        <th width="180px">Số hợp đồng</th>
+                        <th class="text-center">Nhà thầu</th>
+                        <th width="170px" class="text-center"> Ngày bắt đầu</th>
+                        <th width="170px" class="text-center"> Ngày kết thúc</th>
+                        <th width="150px" class="text-center"> Tình trạng</th>
+                        <th width="180px" class="text-center"> Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int pageno = (int)Model.PageNumber;
+                        int itemperpage = (int)Model.PageSize;
+                        int RowNo = ((pageno - 1) * itemperpage) + 1;
+                    }
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="text-center"> @RowNo@{RowNo++;}</td>
+                            <td>@item.SoHD </td>
+
+                            <td class="">@item.TenNhaThau</td>
+                            <td class="text-center">@item.NgayBD.Value.ToString("dd-MM-yyyy")</td>
+                            <td class="text-center">@item.NgayKT.Value.ToString("dd-MM-yyyy")</td>
+                            <td class="file-path text-center">
+                                @{ if (item.TinhTrang == 4)
+                                    {
+                                        <span class="label-4">@item.TenTinhTrang</span>
+                                    }
+                                    else if (item.TinhTrang == 3)
+                                    {
+                                        <span class="label-3">@item.TenTinhTrang</span>
+                                    }
+                                    else if (item.TinhTrang == 2)
+                                    {
+                                        <span class="label-2">@item.TenTinhTrang</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="label-1">@item.TenTinhTrang</span>
+                                    }
+                                }
+
+                            </td>
+                            <td class="text-center">
+                                <a href="@Url.Action("Details", "Contract", new { id = item.IDHD })"><i class="fa fa-info-circle"></i> </a>
+                                @if (item.TinhTrang == 1)
+                                {
+                                    <a id="btn-edit_@item.IDHD" href="#" title="Sửa" class="btn-action-edit"><i class="fa fa-edit"></i></a>
+                                    <div class="modal fade" id="myModale_@item.IDHD" role="dialog" data-url='@Url.Action("Edit","Contract", new { id = item.IDHD })'></div>
+                                    <script type="text/javascript">
+                                    $("#btn-edit_@item.IDHD").click(function () {
+                                        var url = $('#myModale_@item.IDHD').data('url');
+                                        $.get(url, function (data) {
+                                            $("#myModal").html(data);
+                                            $("#ModalTitle").html("Cập nhật hợp đồng");
+                                            $("#myModal").modal('show');
+                                        });
+                                    });
+                                    </script>
+                                    <a class="btn-action-delete" title="Xóa" href="@Url.Action("Delete", "Contract", new { id = item.IDHD })" onclick="return confirm('Bạn muốn xóa hợp đồng có số HD: @item.SoHD')"><i class="fa fa-trash"></i> </a>
+                                }
+                                <a class="btn-action-signer" id="Check_@item.IDHD" href="#" title="Trình ký"><i class="fa fa-share-square"></i></a>
+                                <div class="modal fade" id="myModale_Check_@item.IDHD" role="dialog" data-url='@Url.Action("CheckInformation","Contract", new { id = item.IDHD })'></div>
+                                <script type="text/javascript">
+                                    $("#Check_@item.IDHD").click(function () {
+                                        var url = $('#myModale_Check_@item.IDHD').data('url');
+                                        $.get(url, function (data) {
+                                            $("#myModal").html(data);
+                                            $("#ModalTitle").html("Trình ký");
+                                            $("#myModal").modal('show');
+                                        });
+                                    });
+                                </script>
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="pager">
+                @Html.PagedListPager(Model, page => Url.Action("Index", "Contract", new { page }))
+                <span class="pageoff">Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount</span>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $('#btn-add').click(function () {
+        var url = $('#myModal').data('url');
+        $.get(url, function (data) {
+            $("#myModal").html(data);
+            $("#ModalTitle").html("Thêm mới hợp đồng");
+            $("#myModal").modal('show');
+        });
+    });
+    $("#IDNhaThau").chosen({
+        width: "100%"
+    });
+    $("#btsearch").on('click', function () {
+        var shd = $('#txtshd').val();
+        var IDNhaThau = $('#IDNhaThau').val();
+        var IDTinhTrang = $('#IDTinhTrang').val();
+        window.location.href = '@Url.Action("Index", "Contract")?IDNhaThau=' + IDNhaThau + '&IDTinhTrang=' + IDTinhTrang + '&shd=' + shd;
+    });
+</script>
+
+
+

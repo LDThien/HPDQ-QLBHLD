@@ -1,0 +1,39 @@
+﻿@using QLNHATHAU.Models
+@model PeriodicalperiodValidation
+
+@using (Html.BeginForm())
+
+{
+
+    var aa = Model;
+<div class="card-img-top">
+
+        <button type="button" id="btn-add" class="btn btn-primary pull-right"><i class="fa fa-plus">&nbsp;</i>&nbsp;Thêm mới </button>
+        <div class="modal fade" id="myModal" role="dialog" data-url='@Url.Action("Create","Periodicalperiod")'></div>
+   
+</div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-1 pull-right">
+                <h5 class="text-center" style="padding-top: 7px;">Từ ngày</h5>
+            </div>
+            <div class="col-md-2 pull-left">
+                @Html.TextBox("begind", null, new { @id = "begind", @type = "date", @class = "form-control" })
+            </div>
+            <div class="col-md-1">
+                <h5 class="text-center" style="padding-top: 7px;">Đến ngày</h5>
+            </div>
+
+            <div class="col-md-2">
+                @Html.TextBox("endd", null, new { @id = "endd", @type = "date", @class = "form-control" })
+            </div>
+            <div class="col-md-3">
+                @*<label for="date_end" style="visibility:hidden">End Date</label>*@
+                <input type="submit" value="Tìm kiếm" class="btn btn-primary pull-left" id="btnsearch" />
+            </div>
+           
+        </div>
+    </div>
+}
+
+

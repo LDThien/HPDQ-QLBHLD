@@ -1,0 +1,390 @@
+﻿@using QLNHATHAU.Models
+@model PagedList.IPagedList<ConsumptionValidation>
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Content/assets/Chonse/chosen.jquery.js"></script>
+<link href="~/Content/assets/Chonse/chosen.css" rel="stylesheet" />
+@if (TempData["msgSuccess"] != null)
+{
+    @Html.Raw(TempData["msgSuccess"])
+}
+@if (TempData["msgError"] != null)
+{
+    @Html.Raw(TempData["msgError"])
+}
+<style>
+    body {
+        width: 100%;
+        height: 100%;
+    }
+
+    a:active, a:hover {
+        outline: 0;
+        text-decoration: none;
+    }
+
+    a:hover {
+        color: #ff407b;
+    }
+
+    .button_create {
+        float: right;
+        margin-bottom: 15px;
+    }
+
+    .icon_action {
+        cursor: pointer;
+        margin-left: 10px;
+    }
+
+    .center-td {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    ul#selectedValue {
+        list-style: none;
+        position: absolute;
+        padding: 0;
+        margin: 0;
+        list-style-type: none;
+        background-color: #f2f2f2;
+    }
+
+        ul#selectedValue li.ui-menu-item {
+            padding: 2px 5px;
+        }
+
+            ul#selectedValue li.ui-menu-item:hover {
+                background-color: #ccc
+            }
+
+            ul#selectedvalue li.ui-menu-item a:link, a:active, a:visited, a:hover {
+                text-decoration: none;
+                color: black;
+            }
+
+    #table tr[disabled] td::after {
+        position: absolute;
+        content: '';
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.2);
+    }
+
+    /*sxxxx*/
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 90px;
+        height: 34px;
+    }
+
+        .switch input {
+            display: none;
+        }
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ca2222;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+    input:checked + .slider {
+        background-color: #2ab934;
+    }
+
+    input:focus + .slider {
+        box-shadow: 0 0 1px #2196F3;
+    }
+
+    input:checked + .slider:before {
+        -webkit-transform: translateX(55px);
+        -ms-transform: translateX(55px);
+        transform: translateX(55px);
+    }
+
+    /*------ ADDED CSS ---------*/
+    .on {
+        display: none;
+    }
+
+    .on, .off {
+        color: white;
+        position: absolute;
+        transform: translate(-50%,-50%);
+        top: 50%;
+        left: 50%;
+        font-size: 10px;
+        font-family: Verdana, sans-serif;
+    }
+
+    input:checked + .slider .on {
+        display: block;
+    }
+
+    input:checked + .slider .off {
+        display: none;
+    }
+
+    /*--------- END --------*/
+
+    /* Rounded sliders */
+    .slider.round {
+        border-radius: 34px;
+    }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+
+    .selected {
+        background: #0bf;
+    }
+
+    #btn-update-bulk {
+        margin-right: 15px;
+    }
+</style>
+<link href="~/Content/assets/css/PagedList.css" rel="stylesheet" />
+<div class="divbreadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"> <a href="/"><i class="menu-icon fa fa-recycle"></i> Quản lý Kho</a></li>
+
+        <li class="breadcrumb-item active">Bảo Hộ Lao Động Tiêu Hao</li>
+    </ol>
+</div>
+<div class="card mb-4">
+    <div class="card-header">
+
+        <div class="row">
+            <div class="col-md-9">
+                @{Html.RenderAction("_ToolSearch", "Consumablewarehouse");}
+            </div>
+            <div class="col-md-3">
+
+
+                <button type="button" id="btn-Export" class="btn btn-primary pull-right" style=" margin-left: 0%;"><i class="fa fa-file-excel-o">&nbsp;</i>&nbsp;Xuất Excel</button>
+                <a class="modal fade" id="myModalimport" role="dialog" data-url='@Url.Action("ExportToExcel","Consumablewarehouse")'></a>
+
+                <button type="button" id="btn-save" class="btn btn-warning pull-right" style="margin-right: 1%;"><i class="fa fa-floppy-o">&nbsp;</i>&nbsp;Lưu</button>
+                <div class="modal fade" id="myModal" role="dialog" data-url='@Url.Action("Save","Consumablewarehouse")'></div>
+
+                <button type="button" id="btn-update-bulk" class="btn btn-info pull-right" style="margin-right: 1%;"><i class="fa fa-floppy-o">&nbsp;</i>&nbsp;Cập nhật nhiều</button>
+                <div class="modal fade" id="myModal_bulk" role="dialog" data-url='@Url.Action("UpdateBulk","Consumablewarehouse")'></div>
+
+
+            </div>
+
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" id="table" width="100%" cellpadding="0">
+                <thead class="thead-light">
+                    <tr>
+                        <th width="30px">STT</th>
+                        <th width="150px" class="text-center"> Mã Nhân Viên </th>
+                        <th width="200px" class="text-center"> Họ Tên </th>
+                        <th width="200px" class="text-center"> Phòng Ban </th>
+                        <th class="text-center"> Vị Trí Làm Việc </th>
+                        <th class="text-center"> Bảo hộ lao động theo vị trí </th>
+                        <th class="text-center"> Ngày Xuất </th>
+                        <th class="text-center"> Tình Trạng </th>
+                        <th width="100px" class="text-center"> Thao tác </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int pageno = (int)Model.PageNumber;
+                        int itemperpage = (int)Model.PageSize;
+                        int RowNo = ((pageno - 1) * itemperpage) + 1;
+                    }
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="text-center"> @RowNo@{RowNo++;}</td>
+                            <td>@item.MaNV </td>
+                            <td>@item.HoTen</td>
+                            <td>@item.TenPhongBan</td>
+                            <td>@item.TenVTLV</td>
+                            <td>@item.TenVTBHLD</td>
+                            <td class="text-center">@item.NgayXuat.ToString("dd-MM-yyyy")</td>
+                            <td class="text-center">
+                                <label class="switch">
+                                    @if (@item.TinhTrangID == 1)
+                                    {
+                                        <input type="checkbox" checked id="togBtn_@item.IDDBTH">
+                                        <span class="slider round" id="textToggl_@item.IDDBTH">
+                                            <span class="on">Nhận</span>
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <input type="checkbox" id="togBtn_@item.IDDBTH">
+                                        <span class="slider round" id="textToggl_@item.IDDBTH">
+                                            <span class="off">Chưa</span>
+                                        </span>
+                                    }
+                                    <script type="text/javascript">
+                                        var changeTogle = [];
+                                        $("#textToggl_@item.IDDBTH").click((i, v) => {
+                                            let button = document.querySelector("#btn-save");
+                                            button.disabled = false;
+
+                                            var a = $("#textToggl_@item.IDDBTH").find('span').text();
+
+                                            console.log(a)
+
+                                            if (a == 'Chưa')
+                                            {
+                                                var htmlOn = '<span class="on"> Nhận </span>';
+                                                $("#textToggl_@item.IDDBTH").html(htmlOn);
+                                                changeTogle.push({ IDDBTH: @item.IDDBTH, TinhTrangID: 1, ID: @item.NhanSuID });
+                                            }
+                                            else
+                                            {
+                                                var htmlOff = '<span class="off"> Chưa </span>';
+                                                 $("#textToggl_@item.IDDBTH").html(htmlOff);
+                                                changeTogle.push({ IDDBTH: @item.IDDBTH, TinhTrangID: 0, ID: @item.NhanSuID });
+
+                                            }
+                                        });
+                                    </script>
+                                </label>
+                            </td>
+                            <td class="center-td">
+                                <a title="BHLĐ chi tiết" class="fa fa-list-ul" id="@item.IDDBTH" href="@Url.Action("Index","Consumabledetails", new { id = item.IDDBTH })"></a>
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="pager">
+                @Html.PagedListPager(Model, page => Url.Action("Index", "Consumablewarehouse", new { page }))
+                <span class="pageoff"> Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount</span>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        let button = document.querySelector("#btn-save");
+        button.disabled = true;
+    });
+</script>
+<script type="text/javascript">
+    // Export excel
+    $('#btn-Export').click(function () {
+        window.location.href ="/Consumablewarehouse/ExportToExcel";
+    });
+    //save to data
+    $('#btn-save').click(function () {
+        $.ajax({
+            url: '/Consumablewarehouse/Save',
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'POST',
+            data: JSON.stringify(changeTogle),
+            traditional: true,
+            beforeSend: function () {
+            },
+            success: function (result) {
+            }
+        });
+    });
+    // Select All
+    $('#btn-update-bulk').click(function () {
+        var url = $('#myModal_bulk').data('url');
+        $.get(url, function (data) {
+            $("#myModal_bulk").html(data);
+            $("#ModalTitle").html("Cập nhập đồng loạt");
+            $("#myModal_bulk").modal('show');
+        });
+    });
+
+    //search by time
+    $("#btnsearch").on('click', function () {
+        var begind = Date.parse($('#begind').val());
+        var endd = Date.parse($('#endd').val());
+        if (begind > endd) {
+            alert('Vui lòng chọn từ ngày phải nhỏ hơn đến ngày');
+            return false;
+        } else if (begind > Date.now()) {
+            alert('Vui lòng chọn từ ngày phải nhỏ hơn ngày hiện tại');
+            return false;
+        }
+        else if (endd > Date.now()) {
+            alert('Vui lòng chọn đến ngày phải nhỏ hơn ngày hiện tại');
+            return false;
+        }
+        else {
+            return true;
+        }
+    });
+
+    //Show datetime current
+    $(document).ready(function () {
+        var dateNewFormat, onlyDate, today = new Date();
+
+        dateNewFormat = today.getFullYear() + '-';
+        if (today.getMonth() >= 9) {
+
+            dateNewFormat += (today.getMonth() + 1);
+        }
+        else {
+            dateNewFormat += '0' + (today.getMonth() + 1);
+        }
+
+        onlyDate = today.getDate();
+        if (onlyDate.toString().length == 2) {
+
+            dateNewFormat += "-" + onlyDate;
+        }
+        else {
+            dateNewFormat += '-0' + onlyDate;
+        }
+        if ($('#begind').val() == '') {
+            $('#begind').val(dateNewFormat);
+        }
+        if ($('#endd').val() == '') {
+            $('#endd').val(dateNewFormat);
+        }
+    });
+
+    $("#IDPhongBan").chosen({
+        width: "100%"
+    });
+    $("#ID").chosen({
+        width: "100%"
+    });
+    $("#IDViTri").chosen({
+        width: "100%"
+    });
+</script>
+

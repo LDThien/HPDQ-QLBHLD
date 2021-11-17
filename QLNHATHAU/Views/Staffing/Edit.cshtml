@@ -1,0 +1,106 @@
+﻿@model QLNHATHAU.Models.StaffingValidation
+<script src="~/Content/assets/Chonse/chosen.jquery.js"></script>
+<link href="~/Content/assets/Chonse/chosen.css" rel="stylesheet" />
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="modal-dialog" id="form">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="ModalTitle"></h5>
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+            </div>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.IDBDNV)
+            <div class="modal-body">
+
+                <fieldset id="SubmitForm">
+                    <div class="form-row">
+                        <div class="col-md-12">
+                            <label class="small mb-1">Họ Tên Và Mã Nhân Viên</label>
+                            @Html.DropDownList("NhanSuID", null, new { @id = "NhanSuID", @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.NhanSuID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <label class="small mb-1">Phong Ban</label>
+                            @Html.DropDownList("PhongBanID", null, new { @id = "PhongBanID", @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.PhongBanID, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-6">
+                            <label class="small mb-1">Vị Trí Làm Việc</label>
+                            @Html.DropDownList("VTLVID", null, new { @id = "VTLVID", @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.VTLVID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-12">
+                            <label class="small mb-1">Tên BHLĐ theo vị trí</label>
+                            @Html.DropDownList("DBID", null, new { @id = "DBID", @class = "form-control", })
+                            @Html.ValidationMessageFor(model => model.DBID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="small mb-1">Ngày Xuất</label>
+                                @Html.EditorFor(model => model.NgayXuat, new { @value = DateTime.Today, htmlAttributes = new { @class = "form-control", placeholder = "Chọn ngày", @id = "NgayXuat", @type = "date", @Value = ViewBag.NXBHLD } })
+                                @Html.ValidationMessageFor(model => model.NgayXuat, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="small mb-1">Tình Trạng</label>
+                            @Html.DropDownList("TinhTrangID", null, new { @id = "TinhTrangID", @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.TinhTrangID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    &nbsp;
+                    <div class="btn-margin-top text-center">
+                        <input type="submit" value="Xác nhận" class="btn btn-success button_submit" />
+                        <input type="reset" value="Hủy" class="btn btn-danger button_cancel" data-dismiss="modal" />
+                    </div>
+                </fieldset>
+
+            </div>
+
+
+        </div>
+    </div>
+}
+<style>
+    .button_submit {
+        float: right;
+        margin-bottom: 15px;
+    }
+
+    .button_cancel {
+        float: right;
+        margin-right: 15px
+    }
+
+    .margin-checkbox {
+        margin-right: 30px;
+    }
+</style>
+<script type="text/javascript">
+    $("#PhongBanID").chosen({
+        width: "100%"
+    });
+    $("#VTLVID").chosen({
+        width: "100%"
+    });
+    $("#NhanSuID").chosen({
+        width: "100%"
+    });
+
+</script>
+
+
+
+
+
+

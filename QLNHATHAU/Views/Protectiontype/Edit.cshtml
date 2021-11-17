@@ -1,0 +1,68 @@
+﻿@model QLNHATHAU.Models.ProtectiontypeValidation
+<script src="~/Content/assets/Chonse/chosen.jquery.js"></script>
+<link href="~/Content/assets/Chonse/chosen.css" rel="stylesheet" />
+@using (Html.BeginForm("Edit", "Protectiontype", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="modal-dialog" id="form">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="ModalTitle"></h5>
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+            </div>
+            @Html.HiddenFor(model => model.IDBHLD)
+            <div class="modal-body">
+
+                <fieldset id="SubmitForm">
+                    <div class="form-row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="small mb-1">Tên Trang Bị Bảo Hộ Lao Động</label>
+                                @Html.EditorFor(model => model.TenBHLD, new { htmlAttributes = new { @class = "form-control", placeholder = "Tên Loại Bảo Hộ Lao Động", @id = "TenBHLD" } })
+                                @Html.ValidationMessageFor(model => model.TenBHLD, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    &nbsp;
+                    <div class="btn-margin-top text-center">
+                        <input type="submit" value="Xác nhận" class="btn btn-success button_submit" />
+                        <input type="reset" value="Hủy" class="btn btn-danger button_cancel" data-dismiss="modal" />
+                    </div>
+                </fieldset>
+
+            </div>
+
+
+        </div>
+    </div>
+}
+<style>
+    .button_submit {
+        float: right;
+        margin-bottom: 15px;
+    }
+
+    .button_cancel {
+        float: right;
+        margin-right: 15px
+    }
+
+    .margin-checkbox {
+        margin-right: 30px;
+    }
+</style>
+<script type="text/javascript">
+    $("#PhongBanID").chosen({
+        width: "100%"
+    });
+    $("#NhaThauID").chosen({
+        width: "100%"
+    });
+</script>
+
+
+
+
+
+
+

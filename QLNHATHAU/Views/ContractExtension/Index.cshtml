@@ -1,0 +1,144 @@
+﻿@using QLNHATHAU.Models
+@model PagedList.IPagedList<ContractExtensionValidation>
+@using PagedList.Mvc
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Danh sách gia hợp đồng</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.0.0.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="~/Content/assets/css/font-awesome.min.css">
+    <link href="~/Content/assets/css/PagedList.css" rel="stylesheet" />
+    <style>
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        .button_create {
+            float: right;
+            margin-bottom: 15px;
+        }
+
+        .icon_action {
+            cursor: pointer;
+            /*margin-left: 10px;*/
+        }
+
+        .center-td {
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .file_icon {
+            font-size: 25px;
+            color: orange;
+            cursor: pointer;
+        }
+
+        ul#selectedValue {
+            list-style: none;
+            position: absolute;
+            padding: 0;
+            margin: 0;
+            list-style-type: none;
+            background-color: #f2f2f2;
+        }
+
+            ul#selectedValue li.ui-menu-item {
+                padding: 2px 5px;
+            }
+
+                ul#selectedValue li.ui-menu-item:hover {
+                    background-color: #ccc
+                }
+
+                ul#selectedvalue li.ui-menu-item a:link, a:active, a:visited, a:hover {
+                    text-decoration: none;
+                    color: black;
+                }
+    </style>
+</head>
+<body>
+    @if (TempData["msgSuccess"] != null)
+    {
+        @Html.Raw(TempData["msgSuccess"])
+    }
+    @if (TempData["msgError"] != null)
+    {
+        @Html.Raw(TempData["msgError"])
+    }
+    <div class="card mb-4">
+        <div class="card-header">
+            <label class="pull-left">Gia hạn hợp đồng</label>
+            <button type="button" id="btn-add" class="btn btn-primary pull-right"><i class="fa fa-plus">&nbsp;</i>&nbsp;Thêm mới </button>
+            <div class="modal fade" id="myModal" role="dialog" data-url='@Url.Action("Create","ContractExtension")'></div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover" id="table" width="100%" cellpadding="0">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Tên hợp đồng</th>
+                            <th>Lí do</th>
+                            <th class="center-td">Ngày kết thúc</th>
+                            <th class="center-td">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.TenHD </td>
+                                <td>@item.LyDo</td>
+                                <td class="center-td">@item.NgayKetThuc.Value.ToString("dd/MM/yyyy")</td>
+                                <td class="center-td">
+                                    <a id="btn-edit_@item.IDGHHD" title="Sửa" class="fa fa-pencil-square-o icon_action">Sửa</a>
+                                    <div class="modal fade" id="myModale_@item.IDGHHD" role="dialog" data-url='@Url.Action("Edit","ContractExtension", new { id = item.IDGHHD })'></div>
+                                    <script type="text/javascript">
+                                    $("#btn-edit_@item.IDGHHD").click(function () {
+                                        var url = $('#myModale_@item.IDGHHD').data('url');
+                                        console.log(url);
+                                        $.get(url, function (data) {
+                                            $("#myModal").html(data);
+                                            $("#ModalTitle").html("Cập nhật gia hạn hợp đồng");
+                                            $("#myModal").modal('show');
+                                        });
+                                    });
+                                    </script>
+                                    <a class="fa fa-trash icon_action" ,title="Xóa" href="@Url.Action("Delete", "ContractExtension", new { id = item.IDGHHD })"
+                                       onclick="return confirm('Bạn muốn xóa gia hạn hợp đồng có tên: @item.TenHD')" title="Xóa">Xóa</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <div class="pager">
+                    @Html.PagedListPager(Model, page => Url.Action("Index", "ContractExtension", new { page }))
+                    <span class="pageoff">Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+    $('#btn-add').click(function () {
+        var url = $('#myModal').data('url');
+        console.log(url);
+        $.get(url, function (data) {
+            $("#myModal").html(data);
+            $("#ModalTitle").html("Thêm mới hợp đồng");
+            $("#myModal").modal('show');
+        });
+    });
+</script>
+
+@section scripts{
+
+
+}

@@ -1,0 +1,358 @@
+﻿@using QLNHATHAU.Models
+@model PagedList.IPagedList<ResultsLearnSafeValidation>
+@using PagedList.Mvc
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Danh sách nhân viên nhà thầu học an toàn</title>
+   
+    <link href="~/Content/assets/css/PagedList.css" rel="stylesheet" />
+    <style>
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        a:active, a:hover {
+            outline: 0;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #ff407b;
+        }
+
+        .button_create {
+            float: right;
+            margin-bottom: 15px;
+        }
+
+        .icon_action {
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .center-td {
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        ul#selectedValue {
+            list-style: none;
+            position: absolute;
+            padding: 0;
+            margin: 0;
+            list-style-type: none;
+            background-color: #f2f2f2;
+        }
+
+            ul#selectedValue li.ui-menu-item {
+                padding: 2px 5px;
+            }
+
+                ul#selectedValue li.ui-menu-item:hover {
+                    background-color: #ccc
+                }
+
+                ul#selectedvalue li.ui-menu-item a:link, a:active, a:visited, a:hover {
+                    text-decoration: none;
+                    color: black;
+                }
+
+        #table tr[disabled] td::after {
+            position: absolute;
+            content: '';
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        /*sxxxx*/
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 90px;
+            height: 34px;
+        }
+
+            .switch input {
+                display: none;
+            }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ca2222;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+            .slider:before {
+                position: absolute;
+                content: "";
+                height: 26px;
+                width: 26px;
+                left: 4px;
+                bottom: 4px;
+                background-color: white;
+                -webkit-transition: .4s;
+                transition: .4s;
+            }
+
+        input:checked + .slider {
+            background-color: #2ab934;
+        }
+
+        input:focus + .slider {
+            box-shadow: 0 0 1px #2196F3;
+        }
+
+        input:checked + .slider:before {
+            -webkit-transform: translateX(55px);
+            -ms-transform: translateX(55px);
+            transform: translateX(55px);
+        }
+
+        /*------ ADDED CSS ---------*/
+        .on {
+            display: none;
+        }
+
+        .on, .off {
+            color: white;
+            position: absolute;
+            transform: translate(-50%,-50%);
+            top: 50%;
+            left: 50%;
+            font-size: 10px;
+            font-family: Verdana, sans-serif;
+        }
+
+        input:checked + .slider .on {
+            display: block;
+        }
+
+        input:checked + .slider .off {
+            display: none;
+        }
+
+        /*--------- END --------*/
+
+        /* Rounded sliders */
+        .slider.round {
+            border-radius: 34px;
+        }
+
+            .slider.round:before {
+                border-radius: 50%;
+            }
+
+        .selected {
+            background: #0bf;
+        }
+
+        #btn-update-bulk {
+            margin-right: 15px;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            let button = document.querySelector("#btn-save");
+            button.disabled = true;
+        });
+    </script>
+</head>
+<body>
+    @if (TempData["msgSuccess"] != null)
+    {
+        @Html.Raw(TempData["msgSuccess"])
+    }
+    @if (TempData["msgError"] != null)
+    {
+        @Html.Raw(TempData["msgError"])
+    }
+    <div class="card mb-4">
+        <div class="card-header">
+            <label class="pull-left">Danh sách học an toàn</label>
+            <button type="button" id="btn-save" class="btn btn-warning pull-right"><i class="fa fa-floppy-o">&nbsp;</i>&nbsp;Lưu</button>
+            <div class="modal fade" id="myModal" role="dialog" data-url='@Url.Action("Save","ResultsLearnSafe")'></div>
+            <button type="button" id="btn-update-bulk" class="btn btn-info pull-right"><i class="fa fa-floppy-o">&nbsp;</i>&nbsp;Cập nhật nhiều</button>
+            <div class="modal fade" id="myModal_bulk" role="dialog" data-url='@Url.Action("UpdateBulk","ResultsLearnSafe")'></div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover" id="table" width="100%" cellpadding="0">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Mã nhân viên NT</th>
+                            <th>Tên nhân viên</th>
+                            <th>Số hợp đồng</th>
+                            <th>Tên nhà thầu</th>
+                            <th class="center-td">Ngày học</th>
+                            <th class="center-td">Kết quả học</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                        <tr>
+                            <td>@item.MaNVNT</td>
+                            <td>@item.TenNVNT</td>
+                            <td>@item.SoHD</td>
+                            <td>@item.TenNT</td>
+                            <td class="center-td">@item.NgayHoc</td>
+                            <td class="center-td">
+                                <label class="switch">
+                                    @if (@item.KetQua == true)
+                                    {
+                                        <input type="checkbox" checked id="togBtn_@item.IDKQHAT">
+                                        <span class="slider round" id="textToggl_@item.IDKQHAT">
+                                            <span class="on">Đạt</span>
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <input type="checkbox" id="togBtn_@item.IDKQHAT">
+                                        <span class="slider round" id="textToggl_@item.IDKQHAT">
+                                            <span class="off">Chưa</span>
+                                        </span>
+                                    }
+                                <script type="text/javascript">
+                                        var changeTogle = [];
+                                        $("#textToggl_@item.IDKQHAT").click((i, v) => {
+                                            let button = document.querySelector("#btn-save");
+                                            button.disabled = false;
+                                            var a = $("#textToggl_@item.IDKQHAT").find('span').text();
+                                            if (a == 'Chưa') {
+                                                var htmlOn = '<span class="on">Đạt</span>';
+                                                $("#textToggl_@item.IDKQHAT").html(htmlOn);
+                                                changeTogle.push({ IDKQHAT: @item.IDKQHAT, KetQua: true, IDNhanVienNT: @item.NhanVienNTID });
+                                            } else {
+                                                var htmlOff = '<span class="off">Chưa</span>';
+                                                $("#textToggl_@item.IDKQHAT").html(htmlOff);
+                                                changeTogle.push({ IDKQHAT: @item.IDKQHAT, KetQua: false, IDNhanVienNT: @item.NhanVienNTID });
+                                            }
+                                        });
+                                </script>
+                                </label>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+                <div class="pager">
+                    @Html.PagedListPager(Model, page => Url.Action("Index", "ResultsLearnSafe", new { page }))
+                    <span class="pageoff">Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    var MaNVNTList = [];
+    var MaNVNTListLasted = [];
+    $('#btn-save').click(function () {
+        $.ajax({
+            url: '/ResultsLearnSafe/Save',
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'POST',
+            data: JSON.stringify(changeTogle),
+            traditional: true,
+            beforeSend: function () {
+            },
+            success: function (result) {
+            }
+        });
+    });
+
+    $('#btn-update-bulk').click(function () {
+        var url = $('#myModal_bulk').data('url');
+        $.get(url, { data: MaNVNTListLasted.toString() }, function (data) {
+            $("#myModal_bulk").html(data);
+            $("#ModalTitle").html("Cập nhập đồng loạt");
+            $("#myModal_bulk").modal('show');
+        });
+    });
+
+    // disable button
+
+    
+    // event
+    var selectionPivot;
+    // 1 for left button, 2 for middle, and 3 for right.
+    var LEFT_MOUSE_BUTTON = 1;
+    var trs = document.getElementById('table').tBodies[0].getElementsByTagName('tr');
+    var idTds = $('td:first-child');
+   
+    idTds.each(function (idx, val) {
+        // onselectstart because IE doesn't respect the css `user-select: none;`
+        val.onselectstart = function () { return false; };
+        $(val).mousedown(function (event) {
+            if (event.which != LEFT_MOUSE_BUTTON) {
+                return;
+            }
+            var row = trs[idx];
+            if (!event.ctrlKey && !event.shiftKey) {
+                clearAll();
+                toggleRow(row);
+                selectionPivot = row;
+                return;
+            }
+            if (event.ctrlKey && event.shiftKey) {
+                selectRowsBetweenIndexes(selectionPivot.rowIndex, row.rowIndex);
+                return;
+            }
+            if (event.ctrlKey) {
+                toggleRow(row);
+                selectionPivot = row;
+            }
+            if (event.shiftKey) {
+                clearAll();
+                selectRowsBetweenIndexes(selectionPivot.rowIndex, row.rowIndex);
+            }
+        });
+    });
+
+    function toggleRow(row) {
+        row.className = row.className == 'selected' ? '' : 'selected';
+        var id = $(row).closest("tr").find("td:first-child").text().trim();
+        if (!MaNVNTListLasted.includes(id)) {
+            MaNVNTListLasted.push(id);
+        } else {
+            MaNVNTListLasted = MaNVNTListLasted.filter(x => x !== id);
+        }
+    }
+
+    function selectRowsBetweenIndexes(ia, ib) {
+        var bot = Math.min(ia, ib);
+        var top = Math.max(ia, ib);
+        for (var i = bot; i <= top; i++) {
+            MaNVNTList.push($(trs[i - 1]).closest("tr").find("td:first-child").text().trim());
+            trs[i - 1].className = 'selected';
+        }
+        $.each(MaNVNTList, (i, el) => {
+            if ($.inArray(el, MaNVNTListLasted) === -1) MaNVNTListLasted.push(el);
+        });
+    }
+
+    function clearAll() {
+        for (var i = 0; i < trs.length; i++) {
+            trs[i].className = '';
+        }
+    }
+</script>
+@section scripts{
+
+
+}

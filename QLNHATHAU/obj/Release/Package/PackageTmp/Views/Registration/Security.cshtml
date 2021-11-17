@@ -1,0 +1,75 @@
+﻿@{
+    Layout = null;
+}
+@model QLNHATHAU.Models.RegistrationValidation
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 id="ModalTitle"></h5>
+            <a href="#" class="close" data-dismiss="modal">&times;</a>
+        </div>
+        <div class="modal-body">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <fieldset id="SubmitForm">
+                <h3 style="margin-bottom: 20px;"> Danh Sách Khách</h3>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped table-hover" cellspacing="0">
+                        <tr>
+                            <td>
+                                Nhà Thầu :
+                            </td>
+                            <td> @Html.DisplayFor(model => model.TenNhaThau)</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Người Đại Diện :
+                            </td>
+                            <td> @Html.DisplayFor(model => model.NguoiDaiDien)</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Loại Khách :
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => model.TenKhach)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Cổng :
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => model.TenCong)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Phương Tiện :
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => model.PhuongTien)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Biển Số :
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => model.BienSo)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Ngày Bảo Lãnh :
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => model.NgayBL)
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                @{Html.RenderAction("List", "Security", new { id = Model.IDDangKyKH });}
+            </fieldset>
+        </div>
+    </div>
+</div>

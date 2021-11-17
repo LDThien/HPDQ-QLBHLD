@@ -1,0 +1,117 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using QLNHATHAU.Models
+@model PagedList.IPagedList<HopDongValidation>
+@using PagedList.Mvc
+@if (TempData["msgSuccess"] != null)
+{
+    @Html.Raw(TempData["msgSuccess"])
+}
+@if (TempData["msgError"] != null)
+{
+    @Html.Raw(TempData["msgError"])
+}
+<link href="~/Content/assets/css/PagedList.css" rel="stylesheet" />
+<div class="card mb-4">
+    <div class="card-header">
+        <label class="card-title pull-left">Quản lý hợp đồng</label>
+        <button type="button" id="btn-add" class="btn btn-primary pull-right"><i class="fa fa-plus">&nbsp;</i>&nbsp;Thêm mới </button>
+        <div class="modal fade" id="myModal" role="dialog" data-url='@Url.Action("Create","Contract")'></div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped table-hover" id="table" width="100%" cellpadding="0">
+                <thead class="thead-light">
+                    <tr>
+                        <th width="30px">STT</th>
+                        <th width="180px"> Số hợp đồng</th>
+                        <th class="text-center"> Tên hợp đồng</th>
+                        <th class="text-center"> Nhà thầu</th>
+                        <th width="170px" class="text-center"> Ngày bắt đầu</th>
+                        <th width="170px" class="text-center"> Ngày kết thúc</th>
+                        <th width="60px" class="text-center"> File</th>
+                        <th width="180px" class="text-center"> Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int pageno = (int)Model.PageNumber;
+                        int itemperpage = (int)Model.PageSize;
+                        int RowNo = ((pageno - 1) * itemperpage) + 1;
+                    }
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        <td class="text-center"> @RowNo@{RowNo++;}</td>
+                        <td>@item.SoHD </td>
+                        <td>@item.TenHD</td>
+                        <td class="">@item.TenNhaThau</td>
+                        <td class="text-center">@item.NgayBD.Value.ToString("dd-MM-yyyy")</td>
+                        <td class="text-center">@item.NgayKT.Value.ToString("dd-MM-yyyy")</td>
+                        <td class="file-path text-center">
+                            @if (item.FilePath != null)
+                            {
+                                <a href="@Url.Action("DownloadFile", "HopDong", new { id = item.IDHD })" target="_blank">
+                                    <i class="fa fa-file-pdf-o file_icon" id="file-download_@item.IDHD" aria-hidden="true" title="Download file"></i>
+                                </a>
+                            }
+                        </td>
+                        <td class="text-center">
+                            <a id="btn-edit_@item.IDHD" href="#" title="Sửa" class="btn btn-circle btn-icon-only green"><i class="fa fa-edit"></i></a>
+                            <div class="modal fade" id="myModale_@item.IDHD" role="dialog" data-url='@Url.Action("Edit","Contract", new { id = item.IDHD })'></div>
+                            <script type="text/javascript">
+                                    $("#btn-edit_@item.IDHD").click(function () {
+                                        var url = $('#myModale_@item.IDHD').data('url');
+                                        $.get(url, function (data) {
+                                            $("#myModal").html(data);
+                                            $("#ModalTitle").html("Cập nhật hợp đồng");
+                                            $("#myModal").modal('show');
+                                        });
+                                    });
+                            </script>
+                            &nbsp;
+                            <a class="btn btn-circle btn-icon-only green" title="Xóa" href="@Url.Action("Delete", "Contract", new { id = item.IDHD })"
+                               onclick="return confirm('Bạn muốn xóa hợp đồng có số HD: @item.SoHD')"><i class="fa fa-trash"></i> </a>
+                            &nbsp;
+                            <a class="btn btn-circle btn-icon-only green" id="Check_@item.IDHD" href="#"  title="Trình ký"><i class="fa fa-share-square"></i></a>
+
+                            <div class="modal fade" id="myModale_Check_@item.IDHD" role="dialog" data-url='@Url.Action("CheckInformation","Contract", new { id = item.IDHD })'></div>
+                            <script type="text/javascript">
+                                    $("#Check_@item.IDHD").click(function () {
+                                        var url = $('#myModale_Check_@item.IDHD').data('url');
+                                        $.get(url, function (data) {
+                                            $("#myModal").html(data);
+                                            $("#ModalTitle").html("Trình ký");
+                                            $("#myModal").modal('show');
+                                        });
+                                    });
+                            </script>
+
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="pager">
+                @Html.PagedListPager(Model, page => Url.Action("Index", "Contract", new { page }))
+                <span class="pageoff">Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount</span>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $('#btn-add').click(function () {
+        var url = $('#myModal').data('url');
+        $.get(url, function (data) {
+            $("#myModal").html(data);
+            $("#ModalTitle").html("Thêm mới hợp đồng");
+            $("#myModal").modal('show');
+        });
+    });
+</script>
+
+
+

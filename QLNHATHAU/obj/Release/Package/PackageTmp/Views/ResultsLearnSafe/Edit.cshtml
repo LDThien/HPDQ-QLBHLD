@@ -1,0 +1,230 @@
+﻿@model QLNHATHAU.Models.ResultsLearnSafeValidation
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="modal-dialog" id="form">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="ModalTitle"></h5>
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+            </div>
+            <div class="modal-body">
+                @Html.HiddenFor(model => model.IDKQHAT)
+                <div class="form-row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="small mb-1">Tên nhân viên</label>
+                            @Html.EditorFor(model => model.TenNVNT, new { htmlAttributes = new { @class = "form-control", placeholder = "Tên nhân viên", @id = "TenNVNT" } })
+                            @Html.ValidationMessageFor(model => model.TenNVNT, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="small mb-1">Số hợp đồng</label>
+                            @Html.DropDownListFor(model => model.HDID, ViewBag.HDList as SelectList, "--Chọn số hợp đồng--", new { @id = "IDHD", @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-md-6 margin-text">
+                        <div class="form-group">
+                            <label class="small mb-1">Tên nhà thầu</label>
+                            <script>
+                                $(document).ready(function () {
+                                    if ($("#IDNhaThau").val == null) {
+                                        $("#IDNhaThau").text("Tên nhà thầu tương ứng");
+                                    } else {
+                                        $.get("/ContractorStaff/ViewNhaThau", { id: $("#IDHD").val() }, function (data) {
+                                            if (data[0] != null && data[0] != undefined) {
+                                                $("#IDNhaThau").text(data[0].Ten);
+                                            } else {
+                                                $("#IDNhaThau").text("Không có nhà thầu");
+                                            }
+                                        });
+                                    }
+                                    $("#IDHD").change(function () {
+                                        $.get("/ContractorStaff/ViewNhaThau", { id: $("#IDHD").val() }, function (data) {
+                                            if (data[0] != null && data[0] != undefined) {
+                                                $("#IDNhaThau").text(data[0].Ten);
+                                            } else {
+                                                $("#IDNhaThau").text("Không có nhà thầu");
+                                            }
+                                        });
+                                    });
+                                });
+                            </script>
+                            @Html.LabelFor(model => model.IDNhaThau, new { id = "IDNhaThau", @readonly = "readonly" })
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="small mb-1">Ngày học</label>
+                            @Html.TextBox("NgayHoc", null, new { @id = "NgayHoc", @type = "date", @class = "form-control", @Value = ViewBag.NgayHoc })
+                            @Html.ValidationMessageFor(model => model.NgayHoc, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    @Html.HiddenFor(model => model.KetQua, new { @id = "KetQua" })
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="small mb-1">Kết quả</label>
+                            <label class="switch">
+                                <input type="checkbox">
+                                <div class="slider round" id="toggle">
+                                    <span class="on">Đạt</span>
+                                    <span class="off">Chưa</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <input type="submit" value="Xác nhận" class="btn btn-success button_submit" />
+                        <input type="reset" value="Hủy" class="btn btn-danger button_cancel" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<style>
+    .button_submit {
+        float: right;
+    }
+
+    .button_cancel {
+        float: right;
+        margin-right: 15px
+    }
+
+    .btn-margin-top {
+        margin-top: 15px;
+    }
+
+    #IDNhaThau {
+        display: block !important;
+    }
+
+    .switch {
+        position: fixed;
+        display: inline-block;
+        width: 90px;
+        height: 34px;
+        margin-left: 20px;
+    }
+
+        .switch input {
+            display: none;
+        }
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ca2222;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+    input:checked + .slider {
+        background-color: #2ab934;
+    }
+
+    input:focus + .slider {
+        box-shadow: 0 0 1px #2196F3;
+    }
+
+    input:checked + .slider:before {
+        -webkit-transform: translateX(55px);
+        -ms-transform: translateX(55px);
+        transform: translateX(55px);
+    }
+
+    /*------ ADDED CSS ---------*/
+    .on {
+        display: none;
+    }
+
+    .on, .off {
+        color: white;
+        position: absolute;
+        transform: translate(-50%,-50%);
+        top: 50%;
+        left: 50%;
+        font-size: 10px;
+        font-family: Verdana, sans-serif;
+    }
+
+    input:checked + .slider .on {
+        display: block;
+    }
+
+    input:checked + .slider .off {
+        display: none;
+    }
+
+    /*--------- END --------*/
+
+    /* Rounded sliders */
+    .slider.round {
+        border-radius: 34px;
+    }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+
+    .selected {
+        background: #0bf;
+    }
+
+    .button_submit {
+        float: right;
+        margin-bottom: 15px;
+    }
+
+    .button_cancel {
+        float: right;
+        margin-right: 15px
+    }
+
+    .margin-checkbox {
+        margin-right: 30px;
+    }
+
+    #IDNhaThau {
+        display: block !important;
+    }
+
+    .margin-text {
+        text-align: center;
+    }
+</style>
+<script>
+    function displayTextBP() {
+        console.log(1);
+        $.get("/ContractorStaff/ViewNhaThau", { id: $("#IDHD").val() }, function (data) {
+            if (data[0] != null && data[0] != undefined) {
+                $("#IDNhaThau").text(data[0].Ten);
+            } else {
+                $("#IDNhaThau").text("Không có nhà thầu");
+            }
+        });
+    }
+</script>

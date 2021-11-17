@@ -1,0 +1,69 @@
+﻿@model QLNHATHAU.Models.CheckInforProtection
+@using (Html.BeginForm("CheckInformation", "Demarcation", FormMethod.Post, new { enctype = "multipart/form-data" }))
+
+{
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="ModalTitle"></h5>
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+            </div>
+
+            <div class="modal-body">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.DBBHLDID)
+                <fieldset id="SubmitForm">
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped" cellspacing="0">
+                            <tr>
+                                <td>Trưởng phó bộ phận</td>
+                                <td>
+                                    @Html.DropDownListFor(model => model.IDTPBP, ViewBag.TPBPList as SelectList, new { @id = "IDTPBP", @class = "form-control" })
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Nhân viên P.ATMT</td>
+                                <td>
+                                    @Html.DropDownListFor(model => model.IDNVATMT, ViewBag.NVANTMList as SelectList, new { @id = "IDNVATMT", @class = "form-control" })
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Trưởng phó P.ATMT </td>
+                                <td>
+                                    @Html.DropDownListFor(model => model.IDTPATMT, ViewBag.TPATMTList as SelectList, new { @id = "IDTPATMT", @class = "form-control" })
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <input id="bnt-hide" type="submit" value="Xác nhận" class="btn btn-primary pull-right" />
+                </fieldset>
+
+            </div>
+        </div>
+    </div>
+                    }
+<script>
+    $(document).ready(function () {
+        $("#bnt-hide").click(function () {
+            $("p").hide();
+        });
+</script>
+<script type="text/javascript">
+
+        $("#IDTPBP").chosen({
+        width: "100%"
+    });
+        $("#IDNVATMT").chosen({
+        width: "100%"
+        });
+        $("#IDTPATMT").chosen({
+            width: "100%"
+        });
+
+</script>
+
+
+
+
+

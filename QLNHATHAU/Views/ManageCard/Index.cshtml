@@ -1,0 +1,98 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using QLNHATHAU.Models;
+@model PagedList.IPagedList<ManageCardValidation>
+@using PagedList.Mvc;
+
+@if (TempData["msgSuccess"] != null)
+{
+    @Html.Raw(TempData["msgSuccess"])
+}
+@if (TempData["msgError"] != null)
+{
+    @Html.Raw(TempData["msgError"])
+}
+<link href="~/Content/assets/css/PagedList.css" rel="stylesheet" />
+
+
+<div class="card mb-4">
+    <div class="card-header">
+        <label class="pull-left">Quản lý </label>
+        <button type="button" id="btn-add" class="btn btn-primary pull-right"><i class="fa fa-plus">&nbsp;</i>&nbsp;Thêm mới </button>
+        <div class="modal fade" id="myModal" role="dialog" data-url='@Url.Action("Create","ManageCard")'></div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" id="table" width="100%" cellpadding="0">
+                <thead class="thead-light">
+                    <tr>
+                        <th class="text-center">STT</th>
+                        <th>Ma So Card</th>
+                        <th>Ten NVNT</th>
+                        <th>Nha Thau</th>
+                        <th class="text-center">Ngày Bắt đầu</th>
+                        <th class="text-center">Ngày Kết Thúc</th>
+                        <th class="text-center">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int pageno = (int)Model.PageNumber;
+                        int itemperpage = (int)Model.PageSize;
+                        int RowNo = ((pageno - 1) * itemperpage) + 1;
+                    }
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="text-center">@RowNo@{RowNo++;}</td>
+                            <td>@item.MSCard </td>
+                            <td>@item.TenNVNT</td>
+                            <td>@item.NhaThau</td>
+                            <td class="text-center">@item.NgayBatDau.ToString("dd-MM-yyyy")</td>
+                            <td class="text-center">@item.NgayHetHan.ToString("dd-MM-yyyy")</td>
+                            <td class="text-center">
+
+                                <a id="btn-edit_@item.ID" title="Sửa"><i class="fa fa-edit icon_action">Sửa</i></a>
+                                <div class="modal fade" id="myModaled_@item.ID" role="dialog" data-url='@Url.Action("Edit","ManageCard", new { id = item.ID })'></div>
+                                <script type="text/javascript">
+                                        $("#btn-edit_@item.ID").click(function () {
+                                            var url = $('#myModaled_@item.ID').data('url');
+                                            console.log(url);
+                                            $.get(url, function (data) {
+                                                $("#myModal").html(data);
+                                                $("#ModalTitle").html("Cập nhật Thẻ");
+                                                $("#myModal").modal('show');
+                                            });
+                                        });
+                                </script>
+                                &nbsp;
+                                <a title="Xóa" href="@Url.Action("Delete", "ManageCard", new { id = item.ID })"
+                                   onclick="return confirm('Bạn muốn xóa nhân viên: @item.TenNVNT')"><i class="fa fa-trash icon_action"></i>Xóa</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="pager">
+                @Html.PagedListPager(Model, page => Url.Action("Index", "ManageCard", new { page }))
+                <span class="pageoff">Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $('#btn-add').click(function () {
+        var url = $('#myModal').data('url');
+        $.get(url, function (data) {
+            $("#myModal").html(data);
+            $("#ModalTitle").html("Thêm mới");
+            $("#myModal").modal('show');
+        });
+    });
+</script>
+

@@ -1,0 +1,151 @@
+﻿@using QLNHATHAU.Models
+@model PagedList.IPagedList<RegistrationValidation>
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (TempData["msgSuccess"] != null)
+{
+    @Html.Raw(TempData["msgSuccess"])
+}
+@if (TempData["msgError"] != null)
+{
+    @Html.Raw(TempData["msgError"])
+}
+<style>
+    #btn-add {
+        margin-right: 15px;
+    }
+
+    body {
+        width: 100%;
+        height: 100%;
+    }
+
+    .button_create {
+        float: right;
+        margin-bottom: 15px;
+    }
+
+    .icon_action {
+        cursor: pointer;
+        /*margin-left: 10px;*/
+    }
+
+    .center-td {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .file_icon {
+        font-size: 25px;
+        color: orange;
+        cursor: pointer;
+    }
+
+    ul#selectedValue {
+        list-style: none;
+        position: absolute;
+        padding: 0;
+        margin: 0;
+        list-style-type: none;
+        background-color: #f2f2f2;
+    }
+
+        ul#selectedValue li.ui-menu-item {
+            padding: 2px 5px;
+        }
+
+            ul#selectedValue li.ui-menu-item:hover {
+                background-color: #ccc
+            }
+
+            ul#selectedvalue li.ui-menu-item a:link, a:active, a:visited, a:hover {
+                text-decoration: none;
+                color: black;
+            }
+</style>
+<link href="~/Content/assets/css/PagedList.css" rel="stylesheet" />
+<div class="card mb-4">
+    <div class="card-header">
+        <label class="card-title pull-left">Quản lý khách</label>
+        <button type="button" id="btn-add" class="btn btn-primary pull-right"><i class="fa fa-plus">&nbsp;</i>&nbsp;Thêm mới </button>
+        <div class="modal fade" id="myModal" role="dialog" data-url='@Url.Action("Create","Registration")'></div>
+
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" id="table" width="100%" cellpadding="0">
+                <thead class="thead-light">
+                    <tr>
+                        <th width="30px">STT</th>
+                        <th class="text-center"> Nhà Thầu</th>
+                        <th width="200px" class="text-center"> Phòng Ban </th>
+                        <th class="text-center"> Loại Khách </th>
+                        <th class="text-center"> Cổng</th>
+                        <th width="200px" class="text-center"> Người Đại Diện </th>
+                        <th class="text-center"> Phương Tiện</th>
+                        <th class="text-center"> Biển Số </th>
+                        <th class="text-center"> Ngày Bảo Lãnh </th>
+                        <th width="100px" class="text-center"> Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int pageno = (int)Model.PageNumber;
+                        int itemperpage = (int)Model.PageSize;
+                        int RowNo = ((pageno - 1) * itemperpage) + 1;
+                    }
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="text-center"> @RowNo@{RowNo++;}</td>
+                            <td>@item.TenNhaThau </td>
+                            <td class="text-center">@item.TenPhongBan</td>
+                            <td class="text-center">@item.TenKhach</td>
+                            <td class="text-center">@item.TenCong</td>
+                            <td class="text-center">@item.NguoiDaiDien</td>
+                            <td class="text-center">@item.PhuongTien</td>
+                            <td class="text-center">@item.BienSo</td>
+                            <td class="center-td">@item.NgayBL.Value.ToString("dd-MM-yyyy")</td>
+
+                            <td class="center-td">
+                                <a id="btn-Security_@item.IDDangKyKH" title="Chi Tiết" class="fa fa-list-ul"></a>
+                                <div class="modal fade" id="myModal_Security_@item.IDDangKyKH" role="dialog" data-url='@Url.Action("Security","Security", new { id = item.IDDangKyKH })'></div>
+                                <script type="text/javascript">
+                                    $("#btn-Security_@item.IDDangKyKH").click(function () {
+                                        var url = $('#myModal_Security_@item.IDDangKyKH').data('url');
+
+                                                    $.get(url, function (data) {
+                                                        $("#myModal").html(data);
+                                                        $("#ModalTitle").html("Chi Tiết Khách");
+                                                        $("#myModal").modal('show');
+                                                    });
+                                                });
+                                </script>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="pager">
+                @Html.PagedListPager(Model, page => Url.Action("Index", "Security", new { page }))
+                <span class="pageoff"> Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount</span>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $('#btn-add').click(function () {
+        var url = $('#myModal').data('url');
+        $.get(url, function (data) {
+            $("#myModal").html(data);
+            $("#ModalTitle").html("Thêm mới khách");
+            $("#myModal").modal('show');
+        });
+    });
+</script>
+

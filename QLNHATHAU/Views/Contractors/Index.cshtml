@@ -1,0 +1,106 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using QLNHATHAU.Models;
+@model PagedList.IPagedList<NhaThauValidation>
+@using PagedList.Mvc;
+@if (TempData["msgSuccess"] != null)
+{
+    @Html.Raw(TempData["msgSuccess"])
+}
+@if (TempData["msgError"] != null)
+{
+    @Html.Raw(TempData["msgError"])
+}
+<link href="~/Content/assets/css/PagedList.css" rel="stylesheet" />
+<div class="card mb-4">
+    <div class="card-header">
+        <label class="pull-left">Danh sách nhà thầu</label>
+        <button type="button" id="btn-add" class="btn btn-primary pull-right" data-target="#myModal"><i class="fa fa-plus">&nbsp;</i>&nbsp;Thêm mới </button>
+        <div class="modal fade" id="myModal" role="dialog" tabindex="-1" aria-labelledby="scrollmodalLabel" aria-hidden="true" data-url='@Url.Action("Create","Contractors")'></div>
+
+        <a class="btn btn-default pull-right" href="#" id="btn-Import"><i class="far fa-file-excel"></i>&nbsp Import</a>
+        <div class="modal fade" id="myModalimport" role="dialog" data-url='@Url.Action("ImportExcel","Contractors")'></div>
+    </div>
+
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" id="table" width="100%" cellpadding="0">
+                <thead>
+                    <tr>
+                        <th width="30px">STT</th>
+                        <th width="120px">Mã nhà thầu</th>
+                        <th>Tên nhà thầu</th>
+                        <th>Điện thoại</th>
+                        <th>Địa chỉ</th>
+                        <th class="text-center" width="150px">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int pageno = (int)Model.PageNumber;
+                        int itemperpage = (int)Model.PageSize;
+                        int RowNo = ((pageno - 1) * itemperpage) + 1;
+                    }
+                    @{
+
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="text-center"> @RowNo@{RowNo++;}</td>
+                                <td>@item.MaNT</td>
+                                <td>@item.Ten</td>
+                                 <td>@item.DienThoai</td>
+                                <td>@item.DiaChi</td>
+
+                                <td class="text-center">
+                                    <a id="btn-edit_@item.IDNhaThau" href="#" title="Sửa" class="btn-action"><i class="fa fa-edit"></i> </a>
+                                    <div class="modal fade" id="myModale_@item.IDNhaThau" role="dialog" data-url='@Url.Action("Edit", "Contractors", new { id = item.IDNhaThau })'></div>
+                                    <script type="text/javascript">
+                                        $('#btn-edit_@item.IDNhaThau').click(function () {
+                                            var url = $('#myModale_@item.IDNhaThau').data('url');
+                                            $.get(url, function (data) {
+                                                $("#myModal").html(data);
+                                                $("#ModalTitle").html("Cập nhập nhà thầu");
+                                                $("#myModal").modal('show');
+                                            });
+                                        });
+                                    </script>
+                                    <a class="btn-action" href="@Url.Action("Delete", "Contractors", new { id = item.IDNhaThau })" onclick="return confirm('Bạn muốn xóa nhà thầu: @item.Ten');" title="Xóa"><i class="fa fa-trash-o"></i></a>
+                                    
+                                </td>
+
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+            <div class="pager">
+                @Html.PagedListPager(Model, page => Url.Action("Index", "Contractors", new { page }))
+                <span class="pageoff">Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount</span>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $('#btn-add').click(function () {
+        var url = $('#myModal').data('url');
+        $.get(url, function (data) {
+            $("#myModal").html(data);
+            $("#ModalTitle").html("Thêm nhà thầu");
+            $("#myModal").modal('show');
+        });
+    });
+    $('#btn-Import').click(function () {
+        var url = $('#myModalimport').data('url');
+        $.get(url, function (data) {
+            $("#myModal").html(data);
+            $("#ModalTitle").html("Import nhà thầu");
+            $("#myModal").modal('show');
+        });
+    });
+</script>
+
+

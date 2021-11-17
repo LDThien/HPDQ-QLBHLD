@@ -1,0 +1,126 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using QLNHATHAU.Models;
+@model PagedList.IPagedList<PhongBanValidation>
+@using PagedList.Mvc;
+
+@if (TempData["msgSuccess"] != null)
+{
+    @Html.Raw(TempData["msgSuccess"])
+}
+@if (TempData["msgError"] != null)
+{
+    @Html.Raw(TempData["msgError"])
+}
+<link href="~/Content/assets/css/PagedList.css" rel="stylesheet" />
+<div class="divbreadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"> <a href="/"><i class="fa fa-cog"></i> Quản trị</a></li>
+        <li class="breadcrumb-item active">Phòng ban</li>
+    </ol>
+</div>
+<div class="card mb-4">
+    <div class="card-header">
+        <div class="row">
+            <div class="divsearch col-4">
+                <div class="input-group">
+                    <input type="text" id="txtsearch" name="input2-group2" placeholder="Tìm kiếm" class="form-control" value="@ViewBag.search">
+                    <div class="input-group-btn"><button class="btn btn-search" id="btn-search"><i class="fa fa-search"></i> Tìm kiếm</button></div>
+                </div>
+            </div>
+            <div class="col-8">
+                <button type="button" id="btn-excel" class="btn btn-secondary pull-right" data-target="#myModal"><i class="fa fa-file-excel-o">&nbsp;</i>&nbsp;Xuất dữ liệu </button>
+                &nbsp;
+                &nbsp;
+                <button type="button" id="btn-add" class="btn btn-primary pull-right" data-target="#myModal"><i class="fa fa-plus">&nbsp;</i>&nbsp;Thêm mới </button>
+                <div class="modal fade" id="myModal" role="dialog" tabindex="-1" aria-labelledby="scrollmodalLabel" aria-hidden="true" data-url='@Url.Action("Create","Department")'></div>
+            </div>
+           
+        </div>
+        
+       
+       
+    </div>
+
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" id="table" width="100%" cellpadding="0">
+                <thead>
+                    <tr>
+                        <th width="30px">STT</th>
+                        <th width="120px">Mã BP/NM</th>
+                        <th>Tên BP/NM</th>
+                        <th class="text-center" width="180px">Phòng chức năng</th>
+                        <th width="150px" class="text-center">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int pageno = (int)Model.PageNumber;
+                        int itemperpage = (int)Model.PageSize;
+                        int RowNo = ((pageno - 1) * itemperpage) + 1;
+                    }
+                    @{
+
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="text-center"> @RowNo@{RowNo++;}</td>
+                                <td>@item.TenVT</td>
+                                <td>@item.TenDai</td>
+                                <td class="text-center"> @Html.DisplayFor(modelItem => item.PCHN)</td>
+
+                                <td class="text-center">
+                                    <a id="btn-edit_@item.IDPhongBan" href="#" title="Sửa" class="btn-action"><i class="fa fa-edit"></i> </a>
+                                    <div class="modal fade" id="myModale_@item.IDPhongBan" role="dialog" data-url='@Url.Action("Edit", "Department", new { id = item.IDPhongBan })'></div>
+                                    <script type="text/javascript">
+                                        $('#btn-edit_@item.IDPhongBan').click(function () {
+                                            var url = $('#myModale_@item.IDPhongBan').data('url');
+                                            $.get(url, function (data) {
+                                                $("#myModal").html(data);
+                                                $("#ModalTitle").html("Cập nhập phòng ban");
+                                                $("#myModal").modal('show');
+                                            });
+                                        });
+                                    </script>
+                                    <a class="btn-action" href="@Url.Action("Delete", "Department", new { id = item.IDPhongBan })" onclick="return confirm('Bạn muốn xóa phòng ban: @item.TenDai');" title="Xóa"><i class="fa fa-trash"></i></a>
+                                   
+                                  
+                                </td>
+
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+            <div class="pager">
+                @Html.PagedListPager(Model, page => Url.Action("Index", "Department", new { page }))
+                <span class="pageoff">Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount</span>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $('#btn-add').click(function () {
+        var url = $('#myModal').data('url');
+        $.get(url, function (data) {
+            $("#myModal").html(data);
+            $("#ModalTitle").html("Thêm phòng ban");
+            $("#myModal").modal('show');
+        });
+    });
+     $("#btn-search").on('click', function () {
+       
+      
+        var search = $('#txtsearch').val();
+      
+        window.location.href = '@Url.Action("Index", "Department")?search=' + search;
+    });
+</script>
+
+
+

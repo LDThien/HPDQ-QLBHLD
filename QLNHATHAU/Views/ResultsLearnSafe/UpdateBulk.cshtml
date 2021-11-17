@@ -1,0 +1,119 @@
+﻿@using QLNHATHAU.Models
+@model ResultsLearnSafeValidation
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<script src="~/Content/assets/Chonse/chosen.jquery.js"></script>
+<link href="~/Content/assets/Chonse/chosen.css" rel="stylesheet" />
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="ModalTitle"></h5>
+                    <a href="#" class="close" data-dismiss="modal">&times;</a>
+                </div>
+                <div class="modal-body">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <fieldset id="SubmitForm">
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="small mb-1">Số hợp đồng</label>
+                                    @Html.DropDownListFor(model => model.HDID, ViewBag.HDList as SelectList, "--Chọn số hợp đồng--", new { @id = "IDHD", @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="small mb-1">Nhà thầu</label>
+                                    <script>
+                                        $(document).ready(function () {
+                                            $("#IDNhaThau").text("Tên nhà thầu tương ứng");
+                                            $("#IDHD").change(function () {
+                                                $.get("/ContractorStaff/ViewNhaThau", { id: $("#IDHD").val() }, function (data) {
+                                                    if (data[0] != null && data[0] != undefined) {
+                                                        $("#IDNhaThau").text(data[0].Ten);
+                                                    } else {
+                                                        $("#IDNhaThau").text("Không có nhà thầu");
+                                                    }
+                                                });
+                                            });
+                                        });
+                                    </script>
+                                    @Html.LabelFor(model => model.IDNhaThau, new { id = "IDNhaThau", @readonly = "readonly" })
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="small mb-1">Ngày học</label>
+                                    @Html.EditorFor(model => model.NgayHoc, new { @value = DateTime.Today, htmlAttributes = new { @class = "form-control", placeholder = "Ngày học", @id = "NgayHoc", @type = "date" } })
+                                    @Html.ValidationMessageFor(model => model.NgayHoc, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            @Html.HiddenFor(model=> model.KetQua, new { @id = "KetQua" })
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="small mb-1">Kết quả</label>
+                                    <label class="switch">
+                                        <input type="checkbox">
+                                        <div class="slider round" id="toggle">
+                                            <span class="on">Đạt</span>
+                                            <span class="off">Chưa</span>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="btn-margin-top">
+                            <input type="submit" id="btn_submit" value="Xác nhận" class="btn btn-success button_submit" />
+                            <input type="submit" class="btn btn-danger button_cancel" value="Hủy" data-dismiss="modal"/>
+                        </div>
+                    </fieldset>
+            </div>
+            </div>
+        </div>
+}
+<style>
+    .button_submit {
+        float: right;
+    }
+
+    .button_cancel {
+        float: right;
+        margin-right: 15px
+    }
+
+    .btn-margin-top {
+        margin-top: 15px;
+    }
+
+    #IDNhaThau {
+        display: block !important;
+    }
+</style>
+<script>
+    $("#GioiTinh").chosen({
+        width: "100%"
+    });
+
+    $("#IDHD").chosen({
+        width: "100%"
+    });
+
+    $("#toggle").click((i, v) => {
+        $("#KetQua").val(i.currentTarget.innerText == 'Đạt' ? false : true);
+    });
+
+    $('#btn_submit').click(function () {
+        if ($('#IDHD').val().length == 0 || $('#NgayHoc').val().length == 0) {
+            alert('Vui lòng chọn đầy đủ thông tin khi cập nhật số lượng nhiều.');
+            return false;
+        }
+    });
+</script>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
